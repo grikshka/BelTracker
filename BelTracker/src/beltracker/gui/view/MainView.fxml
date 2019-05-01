@@ -1,5 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="beltracker.gui.controller.MainViewController" />
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.MainViewController">
+   <top>
+      <AnchorPane maxHeight="60.0" prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane prefHeight="60.0" prefWidth="170.0" styleClass="barPaneDark" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/BeltrackerWhiteLogo.png" />
+                     </image>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane prefHeight="60.0" prefWidth="410.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <TextField prefHeight="40.0" prefWidth="410.0" promptText="Search" styleClass="textFieldSearch">
+                     <StackPane.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </StackPane.margin>
+                     <font>
+                        <Font name="Montserrat Regular" size="12.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </StackPane>
+            <StackPane prefHeight="60.0" prefWidth="200.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ComboBox fx:id="comboBoxSort" prefHeight="40.0" prefWidth="180.0" promptText="Sort" styleClass="comboBoxSort" />
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <VBox prefHeight="498.0" prefWidth="170.0" styleClass="barPaneDark" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefWidth="140.0" text="Delivery Date" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="50.0" />
+               </VBox.margin>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="140.0">
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </Rectangle>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="&lt; 1 Week">
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="5.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <toggleGroup>
+                  <ToggleGroup fx:id="tglFilterDeliveryDate" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="&lt; 1 Month" toggleGroup="$tglFilterDeliveryDate">
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="&lt; 3 Months" toggleGroup="$tglFilterDeliveryDate">
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </ToggleButton>
+            <Label text="Order Progress" textFill="WHITE">
+               <font>
+                  <Font name="ProximaNova-Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="141.0">
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </Rectangle>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="Small Progress">
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="5.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <toggleGroup>
+                  <ToggleGroup fx:id="tglFilterOrderProgress" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="Medium Progress" toggleGroup="$tglFilterOrderProgress">
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="High Progress" toggleGroup="$tglFilterOrderProgress">
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </ToggleButton>
+            <Label text="Realized Progress" textFill="WHITE">
+               <font>
+                  <Font name="ProximaNova-Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="25.0" />
+               </VBox.margin>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="141.0">
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </Rectangle>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="Small Progress">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="5.0" />
+               </VBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="tglFilterRealizedProgress" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="Medium Progress" toggleGroup="$tglFilterRealizedProgress">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" styleClass="toggleButtonFilter" text="High Progress" toggleGroup="$tglFilterRealizedProgress">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <font>
+                  <Font name="Proxima Nova Rg Regular" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </ToggleButton>
+         </children>
+         <BorderPane.margin>
+            <Insets top="2.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <center>
+      <TilePane fx:id="tilOrders" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
