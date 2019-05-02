@@ -18,6 +18,7 @@ public class MockDALManager implements IDALFacade{
     
     private final double ORDER_ON_TIME_PROBABILITY = 0.25;
     private final double TASK_ALMOST_FINISHED_PROGRESS = 0.9;
+    private final int AMOUNT_OF_ORDERS = 100;
     private Random randGenerator = new Random();
     private List<String> customers = new ArrayList();
     
@@ -44,7 +45,7 @@ public class MockDALManager implements IDALFacade{
     public List<Order> getOrders(String departmentName) 
     {
         List<Order> departmentOrders = new ArrayList();
-        for(int i = 0; i < 100; i++)
+        for(int i = 0; i < AMOUNT_OF_ORDERS; i++)
         {
             String orderNumber = generateOrderNumber();
             String customerName = customers.get(randGenerator.nextInt(customers.size()));
