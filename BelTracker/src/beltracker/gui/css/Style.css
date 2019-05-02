@@ -99,42 +99,6 @@ and open the template in the editor.
     -fx-border-color:#f4f4f4;
 }
 
-.scrollPaneOrders .track
-{
-    -fx-background-color:white;
-}
-.scrollPaneOrders .increment-button
-{
-    -fx-background-color:white;
-    -fx-border-color:white;
-}
-.scrollPaneOrders .decrement-button
-{
-    -fx-background-color:white;
-    -fx-border-color:white;
-}
-.scrollPaneOrders:vertical
-{
-    -fx-background-color:transparent;
-}
-.scrollPaneOrders:horizontal
-{
-    -fx-scale-x: 0;
-    -fx-scale-y: 0;
-}
-.scrollPaneOrders:horizontal
-{
-    -fx-padding:-7;
-}
-.scrollPaneOrders .thumb
-{
-    -fx-background-color:#c5c5c5;
-}
-.scrollPaneOrders .thumb:hover
-{
-    -fx-background-color:#9a9a9a;
-}
-
 .toggleButtonFilter
 {	
     -fx-font-size:14;
