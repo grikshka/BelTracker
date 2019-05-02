@@ -20,9 +20,9 @@
    <top>
       <AnchorPane maxHeight="60.0" prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <StackPane prefHeight="60.0" prefWidth="170.0" styleClass="barPaneDark" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <StackPane minHeight="70.0" prefHeight="60.0" prefWidth="200.0" styleClass="barPaneDark" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="40.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/BeltrackerWhiteLogo.png" />
                      </image>
@@ -32,7 +32,7 @@
                   </ImageView>
                </children>
             </StackPane>
-            <StackPane prefHeight="60.0" prefWidth="410.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+            <StackPane prefHeight="60.0" prefWidth="410.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                <children>
                   <TextField prefHeight="40.0" prefWidth="410.0" promptText="Search" styleClass="textFieldSearch">
                      <StackPane.margin>
@@ -53,7 +53,7 @@
       </AnchorPane>
    </top>
    <left>
-      <VBox prefHeight="498.0" prefWidth="170.0" styleClass="barPaneDark" BorderPane.alignment="CENTER">
+      <VBox prefHeight="498.0" prefWidth="200.0" styleClass="barPaneDark" BorderPane.alignment="CENTER">
          <children>
             <Label prefWidth="140.0" text="Delivery Date" textFill="WHITE">
                <font>
@@ -206,6 +206,9 @@
          <BorderPane.margin>
             <Insets top="2.0" />
          </BorderPane.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
       </VBox>
    </left>
    <center>
