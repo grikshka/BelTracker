@@ -70,7 +70,7 @@ public class MockDALManager implements IDALFacade{
     
     private double generateEstimatedProgress(double realizedProgress)
     {
-        if(randGenerator.nextDouble() > ORDER_ON_TIME_PROBABILITY)
+        if(randGenerator.nextDouble() < ORDER_ON_TIME_PROBABILITY)
         {
             return realizedProgress;
         }
