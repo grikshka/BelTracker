@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -212,6 +213,13 @@
       </VBox>
    </left>
    <center>
-      <TilePane fx:id="tilOrders" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="barPaneLight" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <content>
+            <TilePane fx:id="tilOrders" prefHeight="630.0" prefWidth="790.0" />
+         </content>
+      </ScrollPane>
    </center>
 </BorderPane>
