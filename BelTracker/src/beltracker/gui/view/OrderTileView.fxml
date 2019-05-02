@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="250.0" prefWidth="215.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.OrderTileViewController">
+   <children>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="215.0" styleClass="vboxOrder" stylesheets="@../css/Style.css">
+         <children>
+            <Label fx:id="lblDepartment" prefHeight="22.0" prefWidth="195.0" text="Department">
+               <font>
+                  <Font name="Open Sans Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCustomerName" alignment="CENTER" prefHeight="27.0" prefWidth="195.0" text="Customer name" textFill="#184981">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="55.0" top="55.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="lblOrderNumber" alignment="CENTER" prefHeight="25.0" prefWidth="195.0" text="Order Number">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <StackPane>
+               <children>
+                  <JFXProgressBar fx:id="prgEstimatedProgress" prefHeight="4.0" progress="0.54" styleClass="progressBarOrderEstimated" />
+                  <JFXProgressBar fx:id="prgRealizedProgress" prefHeight="4.0" progress="0.25" styleClass="progressBarOrderRealized" />
+               </children>
+            </StackPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
