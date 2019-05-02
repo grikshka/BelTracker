@@ -6,12 +6,14 @@
 package beltracker.gui.model;
 
 import beltracker.be.Order;
+import beltracker.bll.BLLFacadeFactory;
+import beltracker.bll.IBLLFacade;
 import beltracker.exception.BeltrackerException;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -21,13 +23,20 @@ import javafx.collections.ObservableList;
 public class MainModel implements IMainModel{
     
     private static final String DEPARTMENT_PROPERTIES_FILE = "properties/DepartmentProperties.settings";    
+    private IBLLFacade facade;
     private ObservableList<Order> orders;
+    
+    public MainModel()
+    {
+        facade = BLLFacadeFactory.getInstance().createFacade(BLLFacadeFactory.FacadeType.PRODUCTION);
+    }
     
     @Override
     public void loadOrders() throws BeltrackerException 
     {
         String departmentName = readDepartmentName();
-        //TO DO
+        List<Order> departmentOrders = facade.getOrders(departmentName);
+        orders = FXCollections.observableArrayList(departmentOrders);
     }
     
     @Override
