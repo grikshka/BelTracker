@@ -5,12 +5,17 @@
  */
 package beltracker.gui.controller;
 
+import beltracker.be.Order;
 import beltracker.exception.BeltrackerException;
 import beltracker.gui.model.IMainModel;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.layout.TilePane;
 
 /**
@@ -38,14 +43,20 @@ public class MainViewController implements Initializable {
         this.model = model;
     }
     
-    public void loadOrders() throws BeltrackerException
+    public void loadOrders() throws BeltrackerException, IOException
     {
         model.loadOrders();
-//        List<Order> orders = model.getOrders();
-//        for (Order order : orders) 
-//        {
-//            
-//        }      
+       List<Order> orders = model.getOrders();
+        for (Order order : orders) 
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/beltracker/gui/view/OrderTileView.fxml"));
+            Parent root = fxmlLoader.load();
+            
+            OrderTileViewController controller = fxmlLoader.getController();
+            controller.setOrderTile(order);
+            
+            tilOrders.getChildren().add(root);
+        }  
     }
     
 }
