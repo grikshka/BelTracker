@@ -218,7 +218,10 @@
             <Insets />
          </BorderPane.margin>
          <content>
-            <TilePane fx:id="tilOrders" prefHeight="630.0" prefWidth="790.0" />
+            <TilePane fx:id="tilOrders" alignment="CENTER_LEFT" hgap="25.0" prefHeight="630.0" prefWidth="790.0" vgap="25.0">
+               <padding>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </padding></TilePane>
          </content>
       </ScrollPane>
    </center>
