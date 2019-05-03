@@ -6,6 +6,7 @@
 package beltracker.dal;
 
 import beltracker.be.Order;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,8 +20,8 @@ public class MockDALManager implements IDALFacade{
     private final double ORDER_ON_TIME_PROBABILITY = 0.25;
     private final double TASK_ALMOST_FINISHED_PROGRESS = 0.9;
     private final int AMOUNT_OF_ORDERS = 100;
-    private Random randGenerator = new Random();
-    private List<String> customers = new ArrayList();
+    private final Random randGenerator = new Random();
+    private final List<String> customers = new ArrayList();
     
     public MockDALManager()
     {
@@ -51,7 +52,8 @@ public class MockDALManager implements IDALFacade{
             String customerName = customers.get(randGenerator.nextInt(customers.size()));
             double realizedProgress = randGenerator.nextDouble();
             double estimatedProgress = generateEstimatedProgress(realizedProgress);
-            Order order = new Order(orderNumber, customerName, departmentName, realizedProgress, estimatedProgress);
+            LocalDate deliveryDate = generateDeliveryDate();
+            Order order = new Order(orderNumber, customerName, departmentName, realizedProgress, estimatedProgress, deliveryDate);
             departmentOrders.add(order);
         }
         return departmentOrders;
@@ -88,6 +90,14 @@ public class MockDALManager implements IDALFacade{
             while(estimatedProgress < realizedProgress);
             return estimatedProgress;
         }
+    }
+    
+    private LocalDate generateDeliveryDate()
+    {
+        LocalDate currentDate = LocalDate.now();
+        int daysToAdd = randGenerator.nextInt(7) + 30;
+        LocalDate deliveryDate = currentDate.plusDays(daysToAdd);
+        return deliveryDate;
     }
     
 }
