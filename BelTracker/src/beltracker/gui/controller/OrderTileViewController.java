@@ -8,7 +8,9 @@ package beltracker.gui.controller;
 import beltracker.be.Order;
 import com.jfoenix.controls.JFXProgressBar;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -19,6 +21,8 @@ import javafx.scene.control.Label;
  * @author Acer
  */
 public class OrderTileViewController implements Initializable {
+    
+    private final String DATE_FORMAT = "dd.MM.yyyy";
 
     @FXML
     private Label lblDepartment;
@@ -30,6 +34,8 @@ public class OrderTileViewController implements Initializable {
     private JFXProgressBar prgEstimatedProgress;
     @FXML
     private JFXProgressBar prgRealizedProgress;
+    @FXML
+    private Label lblDeliveryDate;
 
     /**
      * Initializes the controller class.
@@ -46,6 +52,10 @@ public class OrderTileViewController implements Initializable {
         lblOrderNumber.textProperty().bind(order.orderNumberProperty());
         prgEstimatedProgress.progressProperty().bind(order.estimatedProgressProperty());
         prgRealizedProgress.progressProperty().bind(order.realizedProgressProperty());
+        
+       DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
+       lblDeliveryDate.textProperty().bind(Bindings.createStringBinding(() ->
+               dtf.format(order.getDeliveryDate()), order.deliveryDateProperty()));
     }
     
 }
