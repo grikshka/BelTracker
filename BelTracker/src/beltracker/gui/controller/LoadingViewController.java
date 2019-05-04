@@ -5,7 +5,7 @@
  */
 package beltracker.gui.controller;
 
-import beltracker.exception.BeltrackerException;
+import beltracker.exception.BelTrackerException;
 import beltracker.gui.model.IMainModel;
 import beltracker.gui.util.AlertManager;
 import beltracker.gui.util.AnimationCreator;
@@ -63,7 +63,7 @@ public class LoadingViewController implements Initializable {
                 Parent mainView = initializeMainView();
                 Platform.runLater(() -> showMainView(mainView));
             }
-            catch(BeltrackerException ex)
+            catch(BelTrackerException ex)
             {
                 Platform.runLater(() -> alertManager.displayError(ex.getMessage(), true));
             }
@@ -76,7 +76,7 @@ public class LoadingViewController implements Initializable {
         executor.shutdown();
     }
     
-    private Parent initializeMainView() throws IOException, BeltrackerException
+    private Parent initializeMainView() throws IOException, BelTrackerException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/beltracker/gui/view/MainView.fxml"));
         Parent root = fxmlLoader.load();

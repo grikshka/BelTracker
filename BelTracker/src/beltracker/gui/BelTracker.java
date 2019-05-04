@@ -15,12 +15,15 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Acer
  */
-public class Beltracker extends Application {
+public class BelTracker extends Application {
+    
+    private static final Logger LOGGER = Logger.getLogger(BelTracker.class);
     
     @Override
     public void start(Stage stage)
@@ -36,7 +39,7 @@ public class Beltracker extends Application {
             stage.setMinHeight(768);       
             Image icon = new Image(getClass().getResourceAsStream("/beltracker/gui/images/BelmanIcon.png"));       
             stage.getIcons().add(icon);
-            stage.setTitle("Beltracker"); 
+            stage.setTitle("BelTracker"); 
             
             LoadingViewController controller = fxmlLoader.getController();
             controller.injectModel(new MainModel());      

@@ -6,7 +6,7 @@
 package beltracker.gui.controller;
 
 import beltracker.be.Order;
-import beltracker.exception.BeltrackerException;
+import beltracker.exception.BelTrackerException;
 import beltracker.gui.model.IMainModel;
 import java.io.IOException;
 import java.net.URL;
@@ -43,7 +43,7 @@ public class MainViewController implements Initializable {
         this.model = model;
     }
     
-    public void loadOrders() throws BeltrackerException, IOException
+    public void loadOrders() throws BelTrackerException, IOException
     {
         model.loadOrders();
        List<Order> orders = model.getOrders();

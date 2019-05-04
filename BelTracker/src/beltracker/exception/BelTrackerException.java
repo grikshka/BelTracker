@@ -9,14 +9,14 @@ package beltracker.exception;
  *
  * @author Acer
  */
-public class BeltrackerException extends Exception {
+public class BelTrackerException extends Exception {
     
-    public BeltrackerException(String message)
+    public BelTrackerException(String message)
     {
         super(message);
     }
     
-    public BeltrackerException(String message, Throwable cause)
+    public BelTrackerException(String message, Throwable cause)
     {
         super(message, cause);
     }

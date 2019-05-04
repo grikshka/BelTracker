@@ -8,7 +8,7 @@ package beltracker.gui.model;
 import beltracker.be.Order;
 import beltracker.bll.BLLFacadeFactory;
 import beltracker.bll.IBLLFacade;
-import beltracker.exception.BeltrackerException;
+import beltracker.exception.BelTrackerException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +32,7 @@ public class MainModel implements IMainModel{
     }
     
     @Override
-    public void loadOrders() throws BeltrackerException 
+    public void loadOrders() throws BelTrackerException 
     {
         String departmentName = readDepartmentName();
         List<Order> departmentOrders = facade.getOrders(departmentName);
@@ -45,7 +45,7 @@ public class MainModel implements IMainModel{
         return orders;
     }
     
-    private String readDepartmentName() throws BeltrackerException
+    private String readDepartmentName() throws BelTrackerException
     {
         try
         {
@@ -58,12 +58,12 @@ public class MainModel implements IMainModel{
             }
             else
             {
-                throw new BeltrackerException("Cannot read department informations from properties file.");
+                throw new BelTrackerException("Cannot read department informations from properties file.");
             }
         }
         catch(IOException ex)
         {
-            throw new BeltrackerException("Cannot find properties file with department informations.", ex);
+            throw new BelTrackerException("Cannot find properties file with department informations.", ex);
         }
     }
     

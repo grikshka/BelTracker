@@ -6,7 +6,7 @@
 package beltracker.gui.model;
 
 import beltracker.be.Order;
-import beltracker.exception.BeltrackerException;
+import beltracker.exception.BelTrackerException;
 import javafx.collections.ObservableList;
 
 /**
@@ -15,9 +15,9 @@ import javafx.collections.ObservableList;
  */
 public interface IMainModel {
     
-    void loadOrders() throws BeltrackerException;
+    void loadOrders() throws BelTrackerException;
     
-    ObservableList<Order> getOrders() throws BeltrackerException;
+    ObservableList<Order> getOrders() throws BelTrackerException;
     
     
 }
