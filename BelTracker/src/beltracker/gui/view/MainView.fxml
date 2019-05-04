@@ -25,7 +25,7 @@
                <children>
                   <ImageView fitHeight="45.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../resources/images/BeltrackerWhiteLogo.png" />
+                        <Image url="@../images/BeltrackerWhiteLogo.png" />
                      </image>
                      <StackPane.margin>
                         <Insets />

@@ -18,7 +18,7 @@
             <Insets />
          </StackPane.margin>
          <image>
-            <Image url="@../../../../resources/images/BeltrackerLogo.png" />
+            <Image url="@../images/BeltrackerLogo.png" />
          </image>
       </ImageView>
    </children>
