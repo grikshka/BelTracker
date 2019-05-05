@@ -23,9 +23,9 @@
          <children>
             <StackPane minHeight="70.0" prefHeight="60.0" prefWidth="200.0" styleClass="barPaneDark" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="45.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="65.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/BeltrackerWhiteLogo.png" />
+                        <Image url="@../images/BelTrackerWhiteLogo.png" />
                      </image>
                      <StackPane.margin>
                         <Insets />

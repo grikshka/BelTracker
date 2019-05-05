@@ -15,15 +15,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.apache.log4j.Logger;
 
 /**
  *
  * @author Acer
  */
 public class BelTracker extends Application {
-    
-    private static final Logger LOGGER = Logger.getLogger(BelTracker.class);
     
     @Override
     public void start(Stage stage)
