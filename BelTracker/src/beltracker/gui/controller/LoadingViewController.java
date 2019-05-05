@@ -22,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import org.apache.log4j.Logger;
 
 /**
  * FXML Controller class
@@ -30,6 +31,7 @@ import javafx.scene.Scene;
  */
 public class LoadingViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger(LoadingViewController.class);
     private IMainModel model;
     private AlertManager alertManager;
     
@@ -65,11 +67,13 @@ public class LoadingViewController implements Initializable {
             }
             catch(BelTrackerException ex)
             {
+                LOGGER.error(ex.getMessage(), ex);
                 Platform.runLater(() -> alertManager.displayError(ex.getMessage(), true));
             }
             catch(IOException ex)
             {
-                //TO DO
+                LOGGER.error(ex.getMessage(), ex);
+                alertManager.displayUnexpectedError();
             }
             
         });
