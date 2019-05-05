@@ -22,7 +22,7 @@ import javafx.collections.ObservableList;
  */
 public class MainModel implements IMainModel{
     
-    private static final String DEPARTMENT_PROPERTIES_FILE = "properties/DepartmentProperties.properties";    
+    private static final String DEPARTMENT_PROPERTIES_FILE = "src/resources/properties/DepartmentProperties.properties";    
     private IBLLFacade facade;
     private ObservableList<Order> orders;
     

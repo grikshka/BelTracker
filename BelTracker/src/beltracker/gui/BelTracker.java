@@ -34,7 +34,7 @@ public class BelTracker extends Application {
             stage.setScene(scene);
             stage.setMinWidth(1024);
             stage.setMinHeight(768);       
-            Image icon = new Image(getClass().getResourceAsStream("/beltracker/gui/images/BelmanIcon.png"));       
+            Image icon = new Image(getClass().getResourceAsStream("/resources/images/BelmanIcon.png"));       
             stage.getIcons().add(icon);
             stage.setTitle("BelTracker"); 
             

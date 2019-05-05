@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.MainViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../../../resources/css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.MainViewController">
    <top>
       <AnchorPane maxHeight="60.0" prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
@@ -25,7 +25,7 @@
                <children>
                   <ImageView fitHeight="65.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/BelTrackerWhiteLogo.png" />
+                        <Image url="@../../../resources/images/BelTrackerWhiteLogo.png" />
                      </image>
                      <StackPane.margin>
                         <Insets />

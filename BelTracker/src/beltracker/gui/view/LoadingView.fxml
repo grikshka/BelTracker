@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.LoadingViewController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../resources/css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.LoadingViewController">
    <children>
       <JFXSpinner fx:id="spnLoader" maxHeight="200.0" maxWidth="200.0" styleClass="loadingSpinner">
          <StackPane.margin>
@@ -18,7 +18,7 @@
             <Insets />
          </StackPane.margin>
          <image>
-            <Image url="@../images/BelTrackerLogo.png" />
+            <Image url="@../../../resources/images/BelTrackerLogo.png" />
          </image>
       </ImageView>
    </children>
