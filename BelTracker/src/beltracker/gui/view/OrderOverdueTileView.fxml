@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="250.0" prefWidth="215.0" stylesheets="@../../../resources/css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.OrderTileViewController">
+   <children>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="250.0" prefWidth="215.0" styleClass="vboxOrderDelayed">
+         <children>
+            <Pane prefHeight="19.0" prefWidth="191.0">
+               <children>
+                  <Label fx:id="lblDepartment" prefHeight="22.0" prefWidth="195.0" styleClass="labelRegular" text="Department">
+                     <font>
+                        <Font name="Open Sans Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="27.0" fitWidth="67.0" layoutX="175.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../resources/images/Delay.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Label fx:id="lblOrderNumber" prefHeight="22.0" prefWidth="195.0" styleClass="labelRegular" text="Order Number">
+               <font>
+                  <Font name="Open Sans Regular" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCustomerName" alignment="CENTER" prefHeight="27.0" prefWidth="195.0" styleClass="labelTileBold" text="Customer name" textFill="#184981">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="45.0" top="55.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="lblDeliveryDate" alignment="CENTER" prefHeight="25.0" prefWidth="195.0" styleClass="labelTileBold" text="Date">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <StackPane>
+               <children>
+                  <JFXProgressBar fx:id="prgEstimatedProgress" prefHeight="4.0" progress="0.54" styleClass="progressBarOrderEstimated" />
+               </children>
+            </StackPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
