@@ -27,9 +27,9 @@ import javafx.scene.layout.TilePane;
 public class MainViewController implements Initializable {
 
     private IMainModel model;
-    private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/OrderOverdueTileView.fxml"; 
-    private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/OrderOnScheduleTileView.fxml"; 
-    private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/OrderDelayedTileView.fxml";
+    private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/tileview/OrderOverdueTileView.fxml"; 
+    private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/tileview/OrderOnScheduleTileView.fxml"; 
+    private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/tileview/OrderDelayedTileView.fxml";
     
     @FXML
     private TilePane tilOrders;
