@@ -32,8 +32,9 @@ import org.apache.log4j.Logger;
 public class LoadingViewController implements Initializable {
 
     private static final Logger LOGGER = Logger.getLogger(LoadingViewController.class);
+    private static final String MAIN_VIEW_PATH = "/beltracker/gui/view/MainView.fxml";
+    private final AlertManager alertManager;
     private IMainModel model;
-    private AlertManager alertManager;
     
     @FXML
     private JFXSpinner spnLoader;
@@ -82,7 +83,7 @@ public class LoadingViewController implements Initializable {
     
     private Parent initializeMainView() throws IOException, BelTrackerException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/beltracker/gui/view/MainView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(MAIN_VIEW_PATH));
         Parent root = fxmlLoader.load();
 
         MainViewController controller = fxmlLoader.getController();

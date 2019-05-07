@@ -25,7 +25,11 @@ import org.apache.log4j.Logger;
 public class BelTracker extends Application {
     
     private static final Logger LOGGER = Logger.getLogger(BelTracker.class);
-    private AlertManager alertManager;
+    private static final String LOADING_VIEW_PATH = "/beltracker/gui/view/LoadingView.fxml";
+    private static final String STAGE_ICON_PATH = "/resources/images/BelmanIcon.png";
+    private static final String STAGE_TITLE = "BelTracker";
+    private static final String SCENE_BACKGROUND_HEXCOLOR = "#f4f4f4";
+    private final AlertManager alertManager;
     
     public BelTracker()
     {
@@ -37,19 +41,19 @@ public class BelTracker extends Application {
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/beltracker/gui/view/LosadingView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(LOADING_VIEW_PATH));
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 780, 560, Color.web("#f4f4f4"));
             
+            Scene scene = new Scene(root, 780, 560, Color.web(SCENE_BACKGROUND_HEXCOLOR));        
             stage.setScene(scene);
             stage.setMinWidth(1024);
             stage.setMinHeight(768);       
-            Image icon = new Image(getClass().getResourceAsStream("/resources/images/BelmanIcon.png"));       
+            Image icon = new Image(getClass().getResourceAsStream(STAGE_ICON_PATH));       
             stage.getIcons().add(icon);
-            stage.setTitle("BelTracker"); 
+            stage.setTitle(STAGE_TITLE); 
             
             LoadingViewController controller = fxmlLoader.getController();
-            controller.injectModel(new MainModel());      
+            controller.injectModel(new MainModel());
             stage.setOnShown((e) -> controller.loadMainView());
             stage.show();
 
