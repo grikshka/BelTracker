@@ -17,8 +17,8 @@ import java.util.Random;
  */
 public class MockDALManager implements IDALFacade{
     private final int AMOUNT_OF_ORDERS = 100;
-    private final double ORDER_OVERDUE_PROBABILITY = 0.15;
-    private final double ORDER_DELAYED_PROBABILITY = 0.15;
+    private final double ORDER_OVERDUE_PROBABILITY = 0.10;
+    private final double ORDER_DELAYED_PROBABILITY = 0.10;
     private final Random randGenerator = new Random();
     private final List<String> customers = new ArrayList<>();
     
@@ -47,14 +47,57 @@ public class MockDALManager implements IDALFacade{
         List<Order> departmentOrders = new ArrayList<>();
         for(int i = 0; i < AMOUNT_OF_ORDERS; i++)
         {
-            String orderNumber = generateOrderNumber();
-            String customerName = customers.get(randGenerator.nextInt(customers.size()));
-            LocalDate deliveryDate = generateDeliveryDate();
-            LocalDate startDate = generateStartDate(deliveryDate);
-            Order order = new Order(orderNumber, customerName, departmentName, startDate, deliveryDate);
+            Order order = generateOrder(departmentName);
             departmentOrders.add(order);
         }
         return departmentOrders;
+    }
+    
+    private Order generateOrder(String departmentName)
+    {
+        double randomDouble = randGenerator.nextDouble();
+        if(randomDouble < ORDER_DELAYED_PROBABILITY)
+        {
+            return generateDelayedOrder(departmentName);
+        }
+        else if(randomDouble < ORDER_DELAYED_PROBABILITY + ORDER_OVERDUE_PROBABILITY)
+        {
+            return generateOverdueOrder();
+        }
+        else
+        {
+            return generateOnScheduleOrder(departmentName);
+        }
+    }
+    
+    private Order generateDelayedOrder(String departmentName)
+    {
+        String orderNumber = generateOrderNumber();
+        String customerName = customers.get(randGenerator.nextInt(customers.size()));
+        LocalDate currentDate = LocalDate.now();
+        LocalDate startDate = currentDate.minusDays(randGenerator.nextInt(7) + 4);
+        LocalDate deliveryDate = currentDate.minusDays(randGenerator.nextInt(2) + 1);
+        return new Order(orderNumber, customerName, departmentName, startDate, deliveryDate);
+    }
+    
+    private Order generateOverdueOrder()
+    {
+        String orderNumber = generateOrderNumber();
+        String customerName = customers.get(randGenerator.nextInt(customers.size()));
+        LocalDate currentDate = LocalDate.now();
+        LocalDate startDate = currentDate.minusDays(randGenerator.nextInt(2) + 1);
+        LocalDate deliveryDate = currentDate.plusDays(randGenerator.nextInt(7) + 1);
+        return new Order(orderNumber, customerName, "PreviousDepartment", startDate, deliveryDate);
+    }
+    
+    private Order generateOnScheduleOrder(String departmentName)
+    {
+        String orderNumber = generateOrderNumber();
+        String customerName = customers.get(randGenerator.nextInt(customers.size()));
+        LocalDate currentDate = LocalDate.now();
+        LocalDate startDate = currentDate.minusDays(randGenerator.nextInt(4) + 1);
+        LocalDate deliveryDate = currentDate.plusDays(randGenerator.nextInt(4) + 1);
+        return new Order(orderNumber, customerName, departmentName, startDate, deliveryDate);
     }
     
     private String generateOrderNumber()
@@ -68,7 +111,7 @@ public class MockDALManager implements IDALFacade{
         return orderNumber;
     }
     
-    private LocalDate generateDeliveryDate()
+    private LocalDate generateOrderDeliveryDate()
     {
         LocalDate currentDate = LocalDate.now();
         int daysToAdd = randGenerator.nextInt(14) - 3;
@@ -76,7 +119,7 @@ public class MockDALManager implements IDALFacade{
         return deliveryDate;
     }
     
-    private LocalDate generateStartDate(LocalDate deliveryDate)
+    private LocalDate generateOrderStartDate(LocalDate deliveryDate)
     {
         int daysToSubstract = randGenerator.nextInt(7) + 3;
         LocalDate startDate = deliveryDate.minusDays(daysToSubstract);
