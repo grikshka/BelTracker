@@ -87,7 +87,7 @@ public class MockDALManager implements IDALFacade{
         LocalDate currentDate = LocalDate.now();
         LocalDate startDate = currentDate.minusDays(randGenerator.nextInt(2) + 1);
         LocalDate deliveryDate = currentDate.plusDays(randGenerator.nextInt(7) + 1);
-        return new Order(orderNumber, customerName, "PreviousDepartment", startDate, deliveryDate);
+        return new Order(orderNumber, customerName, "Bertel", startDate, deliveryDate);
     }
     
     private Order generateOnScheduleOrder(String departmentName)
