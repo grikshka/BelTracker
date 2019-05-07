@@ -6,37 +6,62 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="250.0" prefWidth="215.0" stylesheets="@../../../../resources/css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.OrderTileViewController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="215.0" styleClass="vboxOrderOnTime">
          <children>
-            <Label fx:id="lblDepartment" prefHeight="22.0" prefWidth="195.0" styleClass="labelRegular" text="Department">
-               <font>
-                  <Font name="Open Sans Regular" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblOrderNumber" prefHeight="22.0" prefWidth="195.0" styleClass="labelRegular" text="Order Number">
-               <font>
-                  <Font name="Open Sans Regular" size="16.0" />
-               </font>
-            </Label>
+            <StackPane>
+               <children>
+                  <Label fx:id="lblDepartment" prefHeight="22.0" prefWidth="195.0" styleClass="labelTileSemiBold" text="Department">
+                     <font>
+                        <Font name="Open Sans Regular" size="16.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets left="35.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label prefHeight="20.0" prefWidth="194.0" styleClass="labelTileRegular" text="Dep." />
+               </children>
+            </StackPane>
+            <StackPane>
+               <children>
+                  <Label fx:id="lblOrderNumber" prefHeight="22.0" prefWidth="195.0" styleClass="labelTileSemiBold" text="Order Number">
+                     <font>
+                        <Font name="Open Sans Regular" size="16.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets left="65.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label prefHeight="20.0" prefWidth="194.0" styleClass="labelTileRegular" text="Order No." />
+               </children>
+            </StackPane>
             <Label fx:id="lblCustomerName" alignment="CENTER" prefHeight="27.0" prefWidth="195.0" styleClass="labelTileBold" text="Customer name" textFill="#184981">
                <font>
                   <Font name="Open Sans Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="45.0" top="55.0" />
+                  <Insets bottom="30.0" top="55.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="lblDeliveryDate" alignment="CENTER" prefHeight="25.0" prefWidth="195.0" styleClass="labelTileBold" text="Date">
+            <Label prefHeight="20.0" prefWidth="106.0" styleClass="labelTileRegular" text="Delivery Date:">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lblDeliveryDate" alignment="CENTER" prefHeight="25.0" prefWidth="207.0" styleClass="labelBold" text="01.01.1970">
                <font>
                   <Font name="Open Sans Bold" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets right="105.0" />
+               </padding>
             </Label>
             <StackPane>
                <children>
@@ -48,5 +73,6 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
+      <Rectangle arcWidth="5.0" fill="#ebebeb" height="1.5" layoutX="10.0" layoutY="55.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="195.0" />
    </children>
 </AnchorPane>
