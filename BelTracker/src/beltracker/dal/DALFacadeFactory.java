@@ -38,11 +38,14 @@ public class DALFacadeFactory {
     {
         switch(type)
         {
-            case PRODUCTION: return new DALManager();
+            case PRODUCTION: 
+                return new DALManager();
             
-            case MOCK:       return new MockDALManager();
+            case MOCK:       
+                return new MockDALManager();
             
-            default:         return new DALManager();
+            default:         
+                return new DALManager();
         }
     }
     
