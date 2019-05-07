@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 
 .vboxOrderOnTime
 {
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 5, 0, 0, 0);
     -fx-background-color: white;
     -fx-background-radius: 10;   
@@ -26,13 +26,13 @@
 
 .vboxOrderDelayed
 {
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 5, 0, 0, 0);
     -fx-background-color: white;
     -fx-background-radius: 10;   
     -fx-border-radius: 10;
     -fx-border-width: 2;
-    -fx-border-color: #b6b6b6;
+    -fx-border-color: #ffde00;
 }
 .vboxOrderDelayed:hover
 {   
@@ -49,24 +49,25 @@
     -fx-scale-y: 1.0;
 }
 
-.vboxOrderOvertime
+.vboxOrderOverdue
 {
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 5, 0, 0, 0);
     -fx-background-color: white;
     -fx-background-radius: 10;   
+    
     -fx-border-radius: 10;
-    -fx-border-color: #ffde00;
+    -fx-border-color: #b6b6b6;
     -fx-border-width: 2;
 }
-.vboxOrderOvertime:hover
+.vboxOrderOverdue:hover
 {   
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 25, 0, 0, 0);
     -fx-scale-x: 1.01;
     -fx-scale-y: 1.01;
 }
-.vboxOrderOvertime:pressed
+.vboxOrderOverdue:pressed
 {   
     -fx-background-color: #f9f9f9;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 0);
@@ -119,7 +120,7 @@
 
 .comboBoxSort
 {
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-background-color: white;
     -fx-background-radius: 0;
 }
@@ -150,7 +151,7 @@
 
 .textFieldSearch
 {
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-background-color:white;
     -fx-padding: 5 5 5 35;
     -fx-font-size: 16;
@@ -173,7 +174,7 @@
 
 .toggleButtonFilter
 {	
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-font-size: 14;
     -fx-background-color: transparent;
     -fx-text-fill: #a29faa;
@@ -191,18 +192,29 @@
 
 .labelRegular
 {
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-font-size: 16;   
 }
 .labelBold
 {
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-font-weight: bold;
     -fx-font-size: 16;
 }
+.labelTileRegular
+{
+    -fx-font-family: 'Montserrat';
+    -fx-font-size: 12;   
+}
+.labelTileSemiBold
+{
+    -fx-font-family: 'Montserrat';
+    -fx-font-weight: bold;
+    -fx-font-size: 14;   
+}
 .labelTileBold
 {
-    -fx-font-family: 'Roboto';
+    -fx-font-family: 'Montserrat';
     -fx-font-weight: bold;
     -fx-font-size: 18;
 }
@@ -220,7 +232,7 @@
 }
 
 .progressBarOrderEstimated .bar
-{
+{   
     -fx-background-color: #184981;
 }
 .progressBarOrderEstimated > .track 
@@ -231,4 +243,4 @@
 .loadingSpinner .arc 
 {
     -fx-stroke: #184981;
-}   
+}
