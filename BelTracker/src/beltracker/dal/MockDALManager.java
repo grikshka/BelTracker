@@ -16,12 +16,11 @@ import java.util.Random;
  * @author Acer
  */
 public class MockDALManager implements IDALFacade{
-    
-    private final double ORDER_ON_TIME_PROBABILITY = 0.25;
-    private final double TASK_ALMOST_FINISHED_PROGRESS = 0.9;
     private final int AMOUNT_OF_ORDERS = 100;
+    private final double ORDER_OVERDUE_PROBABILITY = 0.15;
+    private final double ORDER_DELAYED_PROBABILITY = 0.15;
     private final Random randGenerator = new Random();
-    private final List<String> customers = new ArrayList();
+    private final List<String> customers = new ArrayList<>();
     
     public MockDALManager()
     {
@@ -45,15 +44,14 @@ public class MockDALManager implements IDALFacade{
     @Override
     public List<Order> getOrders(String departmentName) 
     {
-        List<Order> departmentOrders = new ArrayList();
+        List<Order> departmentOrders = new ArrayList<>();
         for(int i = 0; i < AMOUNT_OF_ORDERS; i++)
         {
             String orderNumber = generateOrderNumber();
             String customerName = customers.get(randGenerator.nextInt(customers.size()));
-            double realizedProgress = randGenerator.nextDouble();
-            double estimatedProgress = generateEstimatedProgress(realizedProgress);
             LocalDate deliveryDate = generateDeliveryDate();
-            Order order = new Order(orderNumber, customerName, departmentName, realizedProgress, estimatedProgress, deliveryDate);
+            LocalDate startDate = generateStartDate(deliveryDate);
+            Order order = new Order(orderNumber, customerName, departmentName, startDate, deliveryDate);
             departmentOrders.add(order);
         }
         return departmentOrders;
@@ -70,34 +68,19 @@ public class MockDALManager implements IDALFacade{
         return orderNumber;
     }
     
-    private double generateEstimatedProgress(double realizedProgress)
-    {
-        if(randGenerator.nextDouble() < ORDER_ON_TIME_PROBABILITY)
-        {
-            return realizedProgress;
-        }
-        else if(realizedProgress > TASK_ALMOST_FINISHED_PROGRESS)
-        {
-            return realizedProgress;
-        }
-        else
-        {
-            double estimatedProgress;
-            do
-            {
-                estimatedProgress = randGenerator.nextDouble();
-            }
-            while(estimatedProgress < realizedProgress);
-            return estimatedProgress;
-        }
-    }
-    
     private LocalDate generateDeliveryDate()
     {
         LocalDate currentDate = LocalDate.now();
-        int daysToAdd = randGenerator.nextInt(7) + 30;
+        int daysToAdd = randGenerator.nextInt(14) - 3;
         LocalDate deliveryDate = currentDate.plusDays(daysToAdd);
         return deliveryDate;
+    }
+    
+    private LocalDate generateStartDate(LocalDate deliveryDate)
+    {
+        int daysToSubstract = randGenerator.nextInt(7) + 3;
+        LocalDate startDate = deliveryDate.minusDays(daysToSubstract);
+        return startDate;
     }
     
 }
