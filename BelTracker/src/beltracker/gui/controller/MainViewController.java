@@ -6,6 +6,7 @@
 package beltracker.gui.controller;
 
 import beltracker.be.Order;
+import beltracker.be.Order.OrderStatus;
 import beltracker.exception.BelTrackerException;
 import beltracker.gui.model.IMainModel;
 import java.io.IOException;
@@ -26,6 +27,9 @@ import javafx.scene.layout.TilePane;
 public class MainViewController implements Initializable {
 
     private IMainModel model;
+    private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/OrderOverdueTileView.fxml"; 
+    private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/OrderOnScheduleTileView.fxml"; 
+    private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/OrderDelayedTileView.fxml";
     
     @FXML
     private TilePane tilOrders;
@@ -46,10 +50,10 @@ public class MainViewController implements Initializable {
     public void loadOrders() throws BelTrackerException, IOException
     {
         model.loadOrders();
-       List<Order> orders = model.getOrders();
-        for (Order order : orders) 
+        List<Order> orders = model.getOrders();
+        for (Order order : orders)
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/beltracker/gui/view/OrderTileView.fxml"));
+            FXMLLoader fxmlLoader = getOrderTileFXML(order.getOrderStatus());
             Parent root = fxmlLoader.load();
             
             OrderTileViewController controller = fxmlLoader.getController();
@@ -57,6 +61,30 @@ public class MainViewController implements Initializable {
             
             tilOrders.getChildren().add(root);
         }  
+    }
+    
+    private FXMLLoader getOrderTileFXML(OrderStatus status) throws IOException
+    {
+        FXMLLoader fxmlLoader;
+        switch(status)
+        {
+            case DELAYED:       
+                fxmlLoader = new FXMLLoader(getClass().getResource(ORDER_DELAYED_VIEW_PATH));
+                break;
+
+            case OVERDUE:       
+                fxmlLoader = new FXMLLoader(getClass().getResource(ORDER_OVERDUE_VIEW_PATH));
+                break;  
+
+            case ON_SCHEDULE: 
+                fxmlLoader = new FXMLLoader(getClass().getResource(ORDER_ON_SCHEDULE_VIEW_PATH));            
+                break;
+
+            default:
+                fxmlLoader = new FXMLLoader(getClass().getResource(ORDER_ON_SCHEDULE_VIEW_PATH));            
+                break;
+        }
+        return fxmlLoader;
     }
     
 }
