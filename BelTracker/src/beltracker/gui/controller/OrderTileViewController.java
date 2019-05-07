@@ -22,7 +22,7 @@ import javafx.scene.control.Label;
  */
 public class OrderTileViewController implements Initializable {
     
-    private final String DATE_FORMAT = "dd.MM.yyyy";
+    private static final String DATE_FORMAT = "dd.MM.yyyy";
 
     @FXML
     private Label lblDepartment;
@@ -32,8 +32,6 @@ public class OrderTileViewController implements Initializable {
     private Label lblOrderNumber;
     @FXML
     private JFXProgressBar prgEstimatedProgress;
-    @FXML
-    private JFXProgressBar prgRealizedProgress;
     @FXML
     private Label lblDeliveryDate;
 
@@ -51,7 +49,6 @@ public class OrderTileViewController implements Initializable {
         lblCustomerName.textProperty().bind(order.customerNameProperty());
         lblOrderNumber.textProperty().bind(order.orderNumberProperty());
         prgEstimatedProgress.progressProperty().bind(order.estimatedProgressProperty());
-        prgRealizedProgress.progressProperty().bind(order.realizedProgressProperty());
         
        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
        lblDeliveryDate.textProperty().bind(Bindings.createStringBinding(() ->
