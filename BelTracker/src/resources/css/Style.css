@@ -1,119 +1,210 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Apr 25, 2019, 1:50:33 PM
-    Author     : Kiddo
-*/
-		
-.buttonOrder
-{   
-    -fx-background-color:white;
-    -fx-background-radius:10;   
-    -fx-font-family: "Promixa Nova Rg";
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 0);
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
+.vboxOrderOnTime
+{
+    -fx-font-family: 'Roboto';
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 5, 0, 0, 0);
+    -fx-background-color: white;
+    -fx-background-radius: 10;   
 }
-.buttonOrder:hover
+.vboxOrderOnTime:hover
 {   
-    -fx-border-radius:10;
-    -fx-border-width:2;
-    -fx-border-color:#184981;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 25, 0, 0, 0);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+.vboxOrderOnTime:pressed
+{   
+    -fx-background-color: #f9f9f9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 0);
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
 }
 
-.textFieldSearch
+.vboxOrderDelayed
 {
-    -fx-background-color:white;
-    -fx-font-family: "Promixa Nova Rg";
-    -fx-padding:5 5 5 35;
-    -fx-font-size:16;
-    -fx-prompt-text-fill:#bfbfbf;
-    -fx-background-image:url("../images/SearchIconDefault.png");
-    -fx-background-repeat:no-repeat;
-    -fx-background-position:left center;
-    -fx-background-size:24 24;
+    -fx-font-family: 'Roboto';
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 5, 0, 0, 0);
+    -fx-background-color: white;
+    -fx-background-radius: 10;   
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-color: #b6b6b6;
 }
-.textFieldSearch:hover
-{
-    -fx-prompt-text-fill:black;
-    -fx-background-image:url("../images/SearchIconFocused.png");
+.vboxOrderDelayed:hover
+{   
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 25, 0, 0, 0);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
 }
-.textFieldSearch:focused
-{
-    -fx-background-color:#dddddd;
-    -fx-prompt-text-fill:black;
-    -fx-background-image:url("../images/SearchIconFocused.png");
+.vboxOrderDelayed:pressed
+{   
+    -fx-background-color: #f9f9f9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 0);
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
 }
 
-.comboBoxSort.column-header,
-.comboBoxSort.column-header-background .filler
+.vboxOrderOvertime
 {
-    -fx-background-color:#dddddd; 
+    -fx-font-family: 'Roboto';
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 5, 0, 0, 0);
+    -fx-background-color: white;
+    -fx-background-radius: 10;   
+    -fx-border-radius: 10;
+    -fx-border-color: #ffde00;
+    -fx-border-width: 2;
 }
+.vboxOrderOvertime:hover
+{   
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 25, 0, 0, 0);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+.vboxOrderOvertime:pressed
+{   
+    -fx-background-color: #f9f9f9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 12, 0, 0, 0);
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+}
+
+.scrollPaneOrders
+{
+    -fx-font-size: 15px;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scrollPaneOrders .scroll-bar:vertical
+{
+    -fx-background-color: transparent;
+}
+.scrollPaneOrders .scroll-bar:vertical:hover
+{
+    -fx-background-color: transparent;
+}
+.scrollPaneOrders .scroll-bar .thumb
+{
+    -fx-background-color: #b8b8b8;
+}
+.scrollPaneOrders .scroll-bar .thumb:hover
+{
+    -fx-background-color: #868686;
+}
+.scrollPaneOrders .scroll-bar .thumb:pressed
+{
+    -fx-background-color: #616161;
+}
+.scrollPaneOrders .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button 
+{
+    -fx-background-color: transparent;
+}
+.scrollPaneOrders .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow
+{
+    -fx-background-color: #b8b8b8;
+}
+.scrollPaneOrders .scroll-bar:vertical .increment-arrow:hover,  .scroll-bar:vertical .decrement-arrow:hover
+{
+    -fx-background-color: #868686;
+}
+.scrollPaneOrders .scroll-bar:vertical .increment-arrow:pressed, .scroll-bar:vertical .decrement-arrow:pressed 
+{
+    -fx-background-color: #616161;
+}
+
 .comboBoxSort
 {
-    -fx-background-color:white;
-    -fx-background-radius:0;
-
-}
-.comboBoxSort.scroll-bar
-{
-    -fx-background-color:#f4f4f4; 
-}
-.comboBoxSort.scroll-bar:vertical{
-    -fx-background-color:#f4f4f4; 
-}
-.comboBoxSort.scroll-bar:horizontal
-{
-    -fx-background-color:transparent;
-}
-.comboBoxSort.scroll-bar .thumb
-{
-    -fx-background-color:derive(red, 50%);
+    -fx-font-family: 'Roboto';
+    -fx-background-color: white;
+    -fx-background-radius: 0;
 }
 .comboBoxSort-popup .list-view 
 {
     -fx-background-color: #f4f4f4;
-        -fx-background-radius:0;
-
+    -fx-background-radius: 0;
 }
 .comboBoxSort .list-cell
 {
-    -fx-font-size:16;
-    -fx-background-radius:0;
-    -fx-font-family: "Promixa Nova Rg";
+    -fx-font-size: 16;
+    -fx-background-radius: 0;
 }
 .comboBoxSort .list-view .list-cell
 {
-    -fx-background-color:white;
-    -fx-font-size:16;
+    -fx-background-color: white;
+    -fx-font-size: 16;
     -fx-pref-height: 50;
     -fx-text-fill: black;
-    -fx-background-radius:0;
+    -fx-background-radius: 0;
 }
 .comboBoxSort .list-view .list-cell:hover
 {
     -fx-background-color: #f4f4f4;
-    -fx-font-size:18;
-    -fx-border-color:#f4f4f4;
+    -fx-font-size: 18;
+    -fx-border-color: #f4f4f4;
+}
+
+.textFieldSearch
+{
+    -fx-font-family: 'Roboto';
+    -fx-background-color:white;
+    -fx-padding: 5 5 5 35;
+    -fx-font-size: 16;
+    -fx-prompt-text-fill: #bfbfbf;
+    -fx-background-image: url("../images/SearchIconDefault.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left center;
+}
+.textFieldSearch:hover
+{
+    -fx-prompt-text-fill: black;
+    -fx-background-image: url("../images/SearchIconFocused.png");
+}
+.textFieldSearch:focused
+{
+    -fx-background-color: #f4f4f4;
+    -fx-prompt-text-fill: black;
+    -fx-background-image: url("../images/SearchIconFocused.png");
 }
 
 .toggleButtonFilter
 {	
-    -fx-font-size:14;
-    -fx-background-color:transparent;
-    -fx-text-fill:#a29faa;
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 14;
+    -fx-background-color: transparent;
+    -fx-text-fill: #a29faa;
 }
 .toggleButtonFilter:hover
 {
-    -fx-background-color:#191919;
-    -fx-text-fill:white;
+    -fx-background-color: #191919;
+    -fx-text-fill: white;
 }
 .toggleButtonFilter:selected
 {
-    -fx-background-color:#191919;
-    -fx-text-fill:#184981;
+    -fx-background-color: #191919;
+    -fx-text-fill: #184981;
+}
+
+.labelRegular
+{
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 16;   
+}
+.labelBold
+{
+    -fx-font-family: 'Roboto';
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+}
+.labelTileBold
+{
+    -fx-font-family: 'Roboto';
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
 }
 
 .barPaneLight
@@ -128,51 +219,16 @@ and open the template in the editor.
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 0);
 }
 
-.loadingSpinner .arc 
-{
-    -fx-stroke: #184981;
-}
-
-.vboxOrder
-{
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 0);
-    -fx-background-color:white;
-    -fx-background-radius:10;   
-    -fx-border-radius:10;
-}
-.vboxOrder:hover
-{   
-    -fx-background-color:white;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 45, 0, 0, 0);
-    -fx-scale-x:1.01;
-    -fx-scale-y:1.01;
-    -fx-border-radius:10;
-    -fx-border-width:1;
-}
-.vboxOrder:pressed
-{   
-    -fx-background-color:#f9f9f9;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 12, 0, 0, 0);
-    -fx-scale-x:1.0;
-    -fx-scale-y:1.0;
-    -fx-border-radius:10;
-    -fx-border-width:1;
-}
-
 .progressBarOrderEstimated .bar
 {
-    -fx-background-color:#868686 
+    -fx-background-color: #184981;
 }
 .progressBarOrderEstimated > .track 
 {
-    -fx-background-color:#dddddd;
+    -fx-background-color: #dddddd;
 }
 
-.progressBarOrderRealized .bar
+.loadingSpinner .arc 
 {
-    -fx-background-color:#184981; 
-}
-.progressBarOrderRealized > .track 
-{
-    -fx-background-color: transparent;
-}
+    -fx-stroke: #184981;
+}   
