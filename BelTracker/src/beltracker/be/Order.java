@@ -19,20 +19,24 @@ import javafx.beans.property.StringProperty;
  */
 public class Order {
     
+    public enum OrderStatus {
+        OVERDUE, ON_SCHEDULE, DELAYED
+    }
+    
     private final StringProperty orderNumber = new SimpleStringProperty();
     private final StringProperty customerName = new SimpleStringProperty();
     private final StringProperty departmentName = new SimpleStringProperty();
-    private final DoubleProperty realizedProgress = new SimpleDoubleProperty();
     private final DoubleProperty estimatedProgress = new SimpleDoubleProperty();
+    private final ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> deliveryDate = new SimpleObjectProperty<>();
+    private OrderStatus status = OrderStatus.ON_SCHEDULE;
     
-    public Order(String orderNumber, String customerName, String departmentName, double realizedProgress, double estimatedProgress, LocalDate deliveryDate)
+    public Order(String orderNumber, String customerName, String departmentName, LocalDate startDate, LocalDate deliveryDate)
     {
         this.orderNumber.set(orderNumber);
         this.customerName.set(customerName);
         this.departmentName.set(departmentName);
-        this.realizedProgress.set(realizedProgress);
-        this.estimatedProgress.set(estimatedProgress);
+        this.startDate.set(startDate);
         this.deliveryDate.set(deliveryDate);
     }
 
@@ -71,18 +75,6 @@ public class Order {
     public StringProperty departmentNameProperty() {
         return departmentName;
     }   
-
-    public double getRealizedProgress() {
-        return realizedProgress.get();
-    }
-
-    public void setRealizedProgress(double value) {
-        realizedProgress.set(value);
-    }
-
-    public DoubleProperty realizedProgressProperty() {
-        return realizedProgress;
-    }
     
     public double getEstimatedProgress() {
         return estimatedProgress.get();
@@ -96,6 +88,19 @@ public class Order {
         return estimatedProgress;
     }
     
+    public LocalDate getStartDate() {
+        return startDate.get();
+    }
+
+    public void setStartDate(LocalDate value) {
+        startDate.set(value);
+    }
+
+    public ObjectProperty startDateProperty() {
+        return startDate;
+    }
+      
+    
     public LocalDate getDeliveryDate() {
         return deliveryDate.get();
     }
@@ -106,6 +111,16 @@ public class Order {
 
     public ObjectProperty deliveryDateProperty() {
         return deliveryDate;
+    }
+    
+    public void setOrderStatus(OrderStatus status)
+    {
+        this.status = status;
+    }
+    
+    public OrderStatus getOrderStatus()
+    {
+        return status;
     }
     
 }
