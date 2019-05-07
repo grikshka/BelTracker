@@ -5,12 +5,11 @@
  */
 package beltracker.bll;
 
+import beltracker.bll.util.OrderAnalyser;
 import beltracker.be.Order;
 import beltracker.be.Order.OrderStatus;
 import beltracker.dal.DALFacadeFactory;
 import beltracker.dal.IDALFacade;
-import java.time.LocalDate;
-import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.List;
 
 /**
@@ -20,10 +19,12 @@ import java.util.List;
 public class BLLManager implements IBLLFacade{
     
     private IDALFacade facade;
+    private OrderAnalyser orderAnalyser;
     
     public BLLManager()
     {
         facade = DALFacadeFactory.getInstance().createFacade(DALFacadeFactory.FacadeType.MOCK);
+        orderAnalyser = new OrderAnalyser();
     }
 
     @Override
@@ -31,49 +32,14 @@ public class BLLManager implements IBLLFacade{
         List<Order> orders = facade.getOrders(departmentName);
         for(Order order : orders)
         {
-            OrderStatus status = checkOrderStatus(order, departmentName);
-            double estimatedProgress = calculateEstimatedProgress(order);
+            OrderStatus status = orderAnalyser.checkOrderStatus(order, departmentName);
+            double estimatedProgress = orderAnalyser.calculateEstimatedProgress(order);
             order.setOrderStatus(status);
             order.setEstimatedProgress(estimatedProgress);
         }
         return orders;
     }
     
-    private OrderStatus checkOrderStatus(Order order, String departmentName)
-    {
-        if(LocalDate.now().isAfter(order.getDeliveryDate()))
-        {
-            return OrderStatus.DELAYED;
-        }
-        else if(!order.getDepartmentName().equals(departmentName))
-        {
-            return OrderStatus.OVERDUE;
-        }
-        else
-        {
-            return OrderStatus.ON_SCHEDULE;
-        }
-    }
     
-    private double calculateEstimatedProgress(Order order)
-    {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate startDate = order.getStartDate();
-        LocalDate deliveryDate = order.getDeliveryDate();
-        if(currentDate.isBefore(startDate))
-        {
-            return 0;
-        }
-        else if(currentDate.isBefore(deliveryDate))
-        {
-            double totalNumberOfDays = DAYS.between(startDate, deliveryDate);
-            double currentNumberOfDays = DAYS.between(startDate, currentDate);
-            return currentNumberOfDays/totalNumberOfDays;
-        }
-        else
-        {
-            return 1;
-        }
-    }
     
 }
