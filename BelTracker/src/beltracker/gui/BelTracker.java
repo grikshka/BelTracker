@@ -5,6 +5,7 @@
  */
 package beltracker.gui;
 
+import beltracker.exception.BelTrackerException;
 import beltracker.gui.controller.LoadingViewController;
 import beltracker.gui.model.MainModel;
 import beltracker.gui.util.AlertManager;
@@ -58,10 +59,15 @@ public class BelTracker extends Application {
             stage.show();
 
         }
+        catch(BelTrackerException ex)
+        {
+            LOGGER.error("Unable to start the application", ex);
+            alertManager.displayError("The application was unable to start correctly", ex.getMessage(), true);
+        }
         catch(IOException ex)
         {
-            LOGGER.error(ex.getMessage(), ex);
-            alertManager.displayUnexpectedError();
+            LOGGER.error("Unable to start the application", ex);
+            alertManager.displayError("The application was unable to start correctly", true);
         }
         
     }

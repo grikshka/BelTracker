@@ -74,7 +74,7 @@ public class LoadingViewController implements Initializable {
             catch(IOException ex)
             {
                 LOGGER.error(ex.getMessage(), ex);
-                Platform.runLater(() -> alertManager.displayUnexpectedError());
+                Platform.runLater(() -> alertManager.displayError("The application was unable to start correctly", true));
             }
             
         });

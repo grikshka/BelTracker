@@ -26,7 +26,7 @@ public class MainModel implements IMainModel{
     private IBLLFacade facade;
     private ObservableList<Order> orders;
     
-    public MainModel()
+    public MainModel() throws BelTrackerException
     {
         facade = BLLFacadeFactory.getInstance().createFacade(BLLFacadeFactory.FacadeType.PRODUCTION);
     }

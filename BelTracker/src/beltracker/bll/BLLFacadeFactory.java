@@ -5,6 +5,8 @@
  */
 package beltracker.bll;
 
+import beltracker.exception.BelTrackerException;
+
 /**
  *
  * @author Acer
@@ -32,7 +34,7 @@ public class BLLFacadeFactory {
         return instance;
     }
     
-    public IBLLFacade createFacade(FacadeType type)
+    public IBLLFacade createFacade(FacadeType type) throws BelTrackerException
     {
         switch(type)
         {

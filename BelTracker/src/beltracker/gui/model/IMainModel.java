@@ -17,7 +17,7 @@ public interface IMainModel {
     
     void loadOrders() throws BelTrackerException;
     
-    ObservableList<Order> getOrders() throws BelTrackerException;
+    ObservableList<Order> getOrders();
     
     
 }
