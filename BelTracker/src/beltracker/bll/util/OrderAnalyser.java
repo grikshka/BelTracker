@@ -16,7 +16,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
  */
 public class OrderAnalyser {
     
-    public OrderStatus checkOrderStatus(Order order, String departmentName)
+    public OrderStatus analyseOrderStatus(Order order, String departmentName)
     {
         if(LocalDate.now().isAfter(order.getDeliveryDate()))
         {
