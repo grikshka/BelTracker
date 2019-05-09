@@ -5,6 +5,7 @@
  */
 package beltracker.gui.util;
 
+import beltracker.exception.BelTrackerException;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
@@ -15,11 +16,6 @@ import javafx.stage.Modality;
  */
 public class AlertManager {
     
-    public void displayUnexpectedError()
-    {
-        displayError("The application has encountered an unexpected error.", true);
-    }
-    
     public void displayError(String message)
     {
         displayError(message, false);
@@ -27,10 +23,15 @@ public class AlertManager {
     
     public void displayError(String message, boolean shutdown)
     {
+        displayError(null, message, shutdown);
+    }
+    
+    public void displayError(String header, String message, boolean shutdown)
+    {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("BelTracker - Error");
         alert.initModality(Modality.APPLICATION_MODAL);
-        alert.setHeaderText(null);
+        alert.setHeaderText(header);
         alert.setContentText(message);
         if(shutdown)
         {
