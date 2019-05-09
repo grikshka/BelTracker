@@ -110,20 +110,4 @@ public class MockDALManager implements IDALFacade{
         orderNumber += randGenerator.nextInt(90) + 10;
         return orderNumber;
     }
-    
-    private LocalDate generateOrderDeliveryDate()
-    {
-        LocalDate currentDate = LocalDate.now();
-        int daysToAdd = randGenerator.nextInt(14) - 3;
-        LocalDate deliveryDate = currentDate.plusDays(daysToAdd);
-        return deliveryDate;
-    }
-    
-    private LocalDate generateOrderStartDate(LocalDate deliveryDate)
-    {
-        int daysToSubstract = randGenerator.nextInt(7) + 3;
-        LocalDate startDate = deliveryDate.minusDays(daysToSubstract);
-        return startDate;
-    }
-    
 }
