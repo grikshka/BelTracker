@@ -5,7 +5,7 @@
  */
 package beltracker.dal;
 
-import java.util.HashMap;
+import beltracker.exception.BelTrackerException;
 
 /**
  *
@@ -16,8 +16,7 @@ public class DALFacadeFactory {
     public enum FacadeType {
         PRODUCTION, MOCK
     }
-    
-    
+        
     private static DALFacadeFactory instance;
     
     private DALFacadeFactory()
@@ -34,7 +33,7 @@ public class DALFacadeFactory {
         return instance;
     }
     
-    public IDALFacade createFacade(FacadeType type)
+    public IDALFacade createFacade(FacadeType type) throws BelTrackerException
     {
         switch(type)
         {
