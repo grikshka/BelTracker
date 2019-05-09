@@ -47,7 +47,7 @@ public class BelTracker extends Application {
             
             Scene scene = new Scene(root, 780, 560, Color.web(SCENE_BACKGROUND_HEXCOLOR));        
             stage.setScene(scene);
-            stage.setMinWidth(1024);
+            stage.setMinWidth(1100);
             stage.setMinHeight(768);       
             Image icon = new Image(getClass().getResourceAsStream(STAGE_ICON_PATH));       
             stage.getIcons().add(icon);

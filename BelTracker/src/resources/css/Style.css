@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600');
 
 .vboxOrderOnSchedule
 {
@@ -194,8 +194,7 @@
 }
 .labelBold
 {
-    -fx-font-family: 'Montserrat';
-    -fx-font-weight: bold;
+    -fx-font-family: 'Montserrat SemiBold';
     -fx-font-size: 16;
 }
 .labelTileRegular
@@ -205,14 +204,12 @@
 }
 .labelTileSemiBold
 {
-    -fx-font-family: 'Montserrat';
-    -fx-font-weight: bold;
+    -fx-font-family: 'Montserrat SemiBold';
     -fx-font-size: 14;   
 }
 .labelTileBold
 {
-    -fx-font-family: 'Montserrat';
-    -fx-font-weight: bold;
+    -fx-font-family: 'Montserrat SemiBold';
     -fx-font-size: 18;
 }
 

@@ -52,7 +52,7 @@
                   <Insets bottom="30.0" top="55.0" />
                </VBox.margin>
             </Label>
-            <Label prefHeight="20.0" prefWidth="106.0" styleClass="labelTileRegular" text="Delivery Date:">
+            <Label prefHeight="20.0" prefWidth="106.0" styleClass="labelTileRegular" text="End Date:">
                <padding>
                   <Insets left="5.0" />
                </padding>

@@ -29,7 +29,7 @@
                   <Label prefHeight="20.0" prefWidth="194.0" styleClass="labelTileRegular" text="Dep." />
                   <Pane prefHeight="0.0" prefWidth="191.0">
                      <children>
-                        <ImageView fitHeight="27.0" fitWidth="64.0" layoutX="175.0" layoutY="-11.8" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="27.0" fitWidth="64.0" layoutX="175.0" layoutY="-12.4" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../resources/images/Delay.png" />
                            </image>
@@ -64,7 +64,7 @@
                   <Insets bottom="30.0" top="55.0" />
                </VBox.margin>
             </Label>
-            <Label prefHeight="20.0" prefWidth="106.0" styleClass="labelTileRegular" text="Delivery Date:">
+            <Label prefHeight="20.0" prefWidth="106.0" styleClass="labelTileRegular" text="End Date:">
                <padding>
                   <Insets left="3.0" />
                </padding>

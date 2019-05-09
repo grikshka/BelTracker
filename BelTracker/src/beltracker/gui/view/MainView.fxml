@@ -215,7 +215,7 @@
    <center>
       <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" styleClass="scrollPaneOrders" BorderPane.alignment="CENTER">
          <content>
-            <TilePane fx:id="tilOrders" hgap="20.0" prefHeight="448.0" prefWidth="572.0" vgap="20.0">
+            <TilePane fx:id="tilOrders" hgap="40.0" prefHeight="448.0" prefWidth="572.0" vgap="40.0">
                <padding>
                   <Insets bottom="15.0" left="40.0" right="30.0" top="15.0" />
                </padding></TilePane>
