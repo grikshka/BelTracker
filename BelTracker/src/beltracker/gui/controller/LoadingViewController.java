@@ -6,7 +6,7 @@
 package beltracker.gui.controller;
 
 import beltracker.exception.BelTrackerException;
-import beltracker.gui.model.IMainModel;
+import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.util.AlertManager;
 import beltracker.gui.util.AnimationCreator;
 import com.jfoenix.controls.JFXSpinner;
@@ -20,8 +20,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import org.apache.log4j.Logger;
 
 /**
@@ -34,10 +37,11 @@ public class LoadingViewController implements Initializable {
     private static final Logger LOGGER = Logger.getLogger(LoadingViewController.class);
     private static final String MAIN_VIEW_PATH = "/beltracker/gui/view/MainView.fxml";
     private final AlertManager alertManager;
-    private IMainModel model;
     
     @FXML
     private JFXSpinner spnLoader;
+    @FXML
+    private ImageView imgLogo;
     
     public LoadingViewController()
     {
@@ -49,21 +53,25 @@ public class LoadingViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
-    public void injectModel(IMainModel model)
+    public void showAnimation()
     {
-        this.model = model;
+        Node imageNode = imgLogo;
+        SequentialTransition transition = AnimationCreator.createPopupAnimation(imageNode);
+        transition.play();
+        transition.setOnFinished((e) -> spnLoader.setVisible(true));
+
     }
     
-    public void loadMainView()
+    public void loadMainView(IMainModel model)
     {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
             try
             {
-                Parent mainView = initializeMainView();
+                Parent mainView = initializeMainView(model);
                 Platform.runLater(() -> showMainView(mainView));
             }
             catch(BelTrackerException ex)
@@ -81,7 +89,7 @@ public class LoadingViewController implements Initializable {
         executor.shutdown();
     }
     
-    private Parent initializeMainView() throws IOException, BelTrackerException
+    private Parent initializeMainView(IMainModel model) throws IOException, BelTrackerException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(MAIN_VIEW_PATH));
         Parent root = fxmlLoader.load();

@@ -8,7 +8,8 @@ package beltracker.gui.controller;
 import beltracker.be.Order;
 import beltracker.be.Order.OrderStatus;
 import beltracker.exception.BelTrackerException;
-import beltracker.gui.model.IMainModel;
+import beltracker.gui.model.ModelCreator;
+import beltracker.gui.model.interfaces.IMainModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -33,6 +34,11 @@ public class MainViewController implements Initializable {
     
     @FXML
     private TilePane tilOrders;
+    
+    public MainViewController()
+    {
+        model = ModelCreator.getInstance().createMainModel();
+    }
     
     /**
      * Initializes the controller class.
