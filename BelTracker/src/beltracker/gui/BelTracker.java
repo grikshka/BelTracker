@@ -5,9 +5,7 @@
  */
 package beltracker.gui;
 
-import beltracker.exception.BelTrackerException;
-import beltracker.gui.controller.LoadingViewController;
-import beltracker.gui.model.MainModel;
+import beltracker.gui.controller.DepartmentConfigurationViewController;
 import beltracker.gui.util.AlertManager;
 import java.io.IOException;
 import javafx.application.Application;
@@ -26,10 +24,17 @@ import org.apache.log4j.Logger;
 public class BelTracker extends Application {
     
     private static final Logger LOGGER = Logger.getLogger(BelTracker.class);
-    private static final String LOADING_VIEW_PATH = "/beltracker/gui/view/LoadingView.fxml";
+    
+    private static final int STAGE_MIN_WIDTH = 1100;
+    private static final int STAGE_MIN_HEIGHT = 770;
     private static final String STAGE_ICON_PATH = "/resources/images/BelmanIcon.png";
     private static final String STAGE_TITLE = "BelTracker";
+    
+    private static final int SCENE_WIDTH = 1000;
+    private static final int SCENE_HEIGHT = 700;
     private static final String SCENE_BACKGROUND_HEXCOLOR = "#f4f4f4";
+    private static final String DEPARTMENT_CONFIGURATION_VIEW_PATH = "/beltracker/gui/view/DepartmentConfigurationView.fxml";
+    
     private final AlertManager alertManager;
     
     public BelTracker()
@@ -42,27 +47,20 @@ public class BelTracker extends Application {
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(LOADING_VIEW_PATH));
-            Parent root = fxmlLoader.load();
-            
-            Scene scene = new Scene(root, 780, 560, Color.web(SCENE_BACKGROUND_HEXCOLOR));        
-            stage.setScene(scene);
-            stage.setMinWidth(1100);
-            stage.setMinHeight(768);       
+            stage.setMinWidth(STAGE_MIN_WIDTH);
+            stage.setMinHeight(STAGE_MIN_HEIGHT);       
             Image icon = new Image(getClass().getResourceAsStream(STAGE_ICON_PATH));       
             stage.getIcons().add(icon);
             stage.setTitle(STAGE_TITLE); 
             
-            LoadingViewController controller = fxmlLoader.getController();
-            controller.injectModel(new MainModel());
-            stage.setOnShown((e) -> controller.loadMainView());
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(DEPARTMENT_CONFIGURATION_VIEW_PATH));  
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT, Color.web(SCENE_BACKGROUND_HEXCOLOR));        
+            stage.setScene(scene);
+            
+            DepartmentConfigurationViewController controller = fxmlLoader.getController();            
+            stage.setOnShown((e) -> controller.loadDepartmentInformations());
             stage.show();
-
-        }
-        catch(BelTrackerException ex)
-        {
-            LOGGER.error("Unable to start the application", ex);
-            alertManager.displayError("The application was unable to start correctly", ex.getMessage(), true);
         }
         catch(IOException ex)
         {
