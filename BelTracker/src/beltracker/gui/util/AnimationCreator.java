@@ -8,8 +8,11 @@ package beltracker.gui.util;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.util.Duration;
@@ -21,33 +24,117 @@ import javafx.util.Duration;
 public class AnimationCreator {
     
     public static SequentialTransition createSwitchViewAnimation(Scene currentScene, Parent oldView, Parent newView)
-    {
-        
-        TranslateTransition oldViewSlide = new TranslateTransition(Duration.millis(200), oldView);
-//        oldViewSlide.interpolatorProperty().set(Interpolator.EASE_IN);
-        oldViewSlide.setToX(20);     
-        
-        FadeTransition oldViewFade = new FadeTransition(Duration.millis(200), oldView);
+    {    
+        FadeTransition oldViewFade = new FadeTransition(Duration.millis(300), oldView);
         oldViewFade.setFromValue(1);
         oldViewFade.setToValue(0);
-        
-        ParallelTransition oldViewTransition = new ParallelTransition(oldViewSlide, oldViewFade);
-        oldViewTransition.setOnFinished((e) -> currentScene.setRoot(newView));
+        oldViewFade.setOnFinished((e) -> currentScene.setRoot(newView));
               
-        TranslateTransition newViewSlide = new TranslateTransition(Duration.millis(600), newView);
-//        newViewSlide.interpolatorProperty().set(Interpolator.EASE_OUT);
-        newViewSlide.setFromX(-20);
-        newViewSlide.setToX(0);         
-        
-        FadeTransition newViewFade = new FadeTransition(Duration.millis(600), newView);
+        FadeTransition newViewFade = new FadeTransition(Duration.millis(2000), newView);
+        newViewFade.interpolatorProperty().set(Interpolator.EASE_IN);
         newViewFade.setFromValue(0);
         newViewFade.setToValue(1);
         
-        ParallelTransition newViewTransition = new ParallelTransition(newViewSlide, newViewFade);
-        
-        SequentialTransition mainTransition = new SequentialTransition(oldViewTransition, newViewTransition);
+        SequentialTransition mainTransition = new SequentialTransition(oldViewFade, newViewFade);
 
         return mainTransition;
     }
+    
+    
+    public static SequentialTransition createHorizontalStretchAnimation(Node element1, Node label)
+    {
+        ScaleTransition buttonScale = new ScaleTransition(Duration.millis(100), element1);
+        buttonScale.interpolatorProperty().set(Interpolator.EASE_IN);
+        buttonScale.setByX(1.25f);
+
+        FadeTransition labelFade = new FadeTransition(Duration.millis(100), label);
+        labelFade.setFromValue(1);
+        labelFade.setToValue(0);
+
+        PauseTransition pause = new PauseTransition(Duration.millis(200));
+
+        SequentialTransition mainTransition = new SequentialTransition(buttonScale, labelFade, pause);
+
+        return mainTransition;
+    }
+     
+     public static ParallelTransition createVerticalStretchAnimation(Node button, Node label, Node pane)
+     {
+        TranslateTransition buttonSlide = new TranslateTransition(Duration.millis(200), button);
+        buttonSlide.interpolatorProperty().set(Interpolator.EASE_IN);
+        buttonSlide.setToY(180);
+        
+        TranslateTransition labelSlide = new TranslateTransition(Duration.millis(200), label);
+        labelSlide.setToY(180);
+         
+        FadeTransition labelFade = new FadeTransition(Duration.millis(100), label);
+        labelFade.setFromValue(0);
+        labelFade.setToValue(1);
+        
+        ScaleTransition paneScale = new ScaleTransition(Duration.millis(200), pane);
+        paneScale.interpolatorProperty().set(Interpolator.EASE_IN);
+        paneScale.setFromY(0);
+        paneScale.setToY(350);
+        
+        ParallelTransition mainTransition = new ParallelTransition(buttonSlide, labelSlide, labelFade, paneScale);
+         
+        return mainTransition;
+     }
+     
+     public static ParallelTransition createVerticalShrinkAnimation(Node button, Node label, Node pane)
+     {
+        TranslateTransition buttonSlide = new TranslateTransition(Duration.millis(200), button);
+        buttonSlide.setToY(0);
+        
+        TranslateTransition labelSlide = new TranslateTransition(Duration.millis(200), label);
+        labelSlide.setToY(0);
+         
+        FadeTransition labelFade = new FadeTransition(Duration.millis(100), label);
+        labelFade.setFromValue(1);
+        labelFade.setToValue(0);
+        
+        ScaleTransition scalePane = new ScaleTransition(Duration.millis(200), pane);
+        scalePane.setToY(0);
+        
+        ParallelTransition mainTransition = new ParallelTransition(buttonSlide, labelSlide, labelFade, scalePane);
+         
+        return mainTransition;
+     }
+    
+     public static SequentialTransition createHorizontalShrinkAnimation(Node button, Node label)
+     {
+        ScaleTransition buttonSlide = new ScaleTransition(Duration.millis(100), button);
+        buttonSlide.setToX(0);
+        
+        PauseTransition pauseFirst = new PauseTransition(Duration.millis(200));
+        PauseTransition pauseSecond = new PauseTransition(Duration.millis(350));
+        
+        SequentialTransition mainTransition = new SequentialTransition(pauseFirst, buttonSlide, pauseSecond);
+         
+        return mainTransition;
+     }
+     
+     public static SequentialTransition createPopupAnimation(Node element)
+     {
+        ScaleTransition imageFirstScale = new ScaleTransition(Duration.millis(225), element);
+        imageFirstScale.setFromX(0.4);
+        imageFirstScale.setFromY(0.4);
+        imageFirstScale.setToX(1);
+        imageFirstScale.setToY(1);
+        
+        ScaleTransition imageSecondScale = new ScaleTransition(Duration.millis(175), element);
+        imageSecondScale.interpolatorProperty().set(Interpolator.EASE_OUT);
+        imageSecondScale.setFromX(1.5);
+        imageSecondScale.setFromY(1.5);
+        imageSecondScale.setToX(1);
+        imageSecondScale.setToY(1);
+        
+        PauseTransition pause = new PauseTransition(Duration.millis(200));
+        
+        SequentialTransition mainTransition = new SequentialTransition(imageFirstScale, imageSecondScale, pause);
+        
+        return mainTransition;
+     }
+
     
 }
