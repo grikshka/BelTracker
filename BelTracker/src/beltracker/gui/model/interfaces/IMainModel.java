@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beltracker.gui.model;
+package beltracker.gui.model.interfaces;
 
+import beltracker.be.Department;
 import beltracker.be.Order;
-import beltracker.exception.BelTrackerException;
 import javafx.collections.ObservableList;
 
 /**
@@ -15,7 +15,9 @@ import javafx.collections.ObservableList;
  */
 public interface IMainModel {
     
-    void loadOrders() throws BelTrackerException;
+    void setDepartment(Department department);
+    
+    void loadOrders();
     
     ObservableList<Order> getOrders();
     
