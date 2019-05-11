@@ -13,6 +13,8 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 25, 0, 0, 0);
     -fx-scale-x: 1.01;
     -fx-scale-y: 1.01;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
 }
 .vboxOrderOnSchedule:pressed
 {   
@@ -82,10 +84,6 @@
 {
     -fx-background-color: transparent;
 }
-.scrollPaneOrders .scroll-bar:vertical:hover
-{
-    -fx-background-color: transparent;
-}
 .scrollPaneOrders .scroll-bar .thumb
 {
     -fx-background-color: #b8b8b8;
@@ -111,6 +109,71 @@
     -fx-background-color: #868686;
 }
 .scrollPaneOrders .scroll-bar:vertical .increment-arrow:pressed, .scroll-bar:vertical .decrement-arrow:pressed 
+{
+    -fx-background-color: #616161;
+}
+
+.comboBoxDepartment
+{
+    -fx-border-style: solid none;
+    -fx-border-width: 2;
+    -fx-border-color: #f4f4f4;
+    -fx-font-family: 'Montserrat';
+    -fx-background-color: white;
+    -fx-background-radius: 0;
+}
+.comboBoxDepartment .combo-box-popup .list-view 
+{
+    -fx-background-color: white, white;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box , rgba(0,0,0,0), 0 ,0 ,0 ,0 );
+}
+.comboBoxDepartment .list-cell
+{
+    -fx-font-size: 16;
+    -fx-background-radius: 0;
+}
+.comboBoxDepartment .list-view .list-cell
+{
+    -fx-background-color: white;
+    -fx-font-size: 16;
+    -fx-pref-height: 52;
+    -fx-text-fill: black;
+    -fx-background-radius: 0;
+}
+.comboBoxDepartment .list-view .list-cell:hover
+{
+    -fx-background-color: #f4f4f4;
+}
+.comboBoxDepartment .scroll-bar .thumb
+{
+    -fx-background-color: #b8b8b8;
+}
+.comboBoxDepartment .scroll-bar .thumb:hover
+{
+    -fx-background-color: #868686;
+}
+.comboBoxDepartment .scroll-bar .thumb:pressed
+{
+    -fx-background-color: #616161;
+}
+.comboBoxDepartment .scroll-bar:vertical
+{
+    -fx-background-color: transparent;
+}
+.comboBoxDepartment .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button 
+{
+    -fx-background-color: transparent;
+}
+.comboBoxDepartment .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow
+{
+    -fx-background-color: #b8b8b8;
+}
+.comboBoxDepartment  .scroll-bar:vertical .increment-arrow:hover,  .scroll-bar:vertical .decrement-arrow:hover
+{
+    -fx-background-color: #868686;
+}
+.comboBoxDepartment .scroll-bar:vertical .increment-arrow:pressed, .scroll-bar:vertical .decrement-arrow:pressed 
 {
     -fx-background-color: #616161;
 }
@@ -237,4 +300,18 @@
 .loadingSpinner .arc 
 {
     -fx-stroke: #184981;
+}
+
+.buttonStart
+{
+    -fx-background-color: #184981;
+    -fx-border-radius: 0;
+}
+.buttonStart:hover
+{   
+    -fx-background-color:#1c5493;
+}
+.buttonStart:pressed
+{   
+    -fx-background-color:#184981;
 }

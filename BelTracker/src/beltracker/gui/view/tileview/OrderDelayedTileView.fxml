@@ -18,7 +18,7 @@
          <children>
             <StackPane>
                <children>
-                  <Label fx:id="lblDepartment" prefHeight="22.0" prefWidth="195.0" styleClass="labelTileSemiBold" text="Department">
+                  <Label fx:id="lblDepartmentName" prefHeight="22.0" prefWidth="195.0" styleClass="labelTileSemiBold" text="Department">
                      <font>
                         <Font name="Open Sans Regular" size="16.0" />
                      </font>
