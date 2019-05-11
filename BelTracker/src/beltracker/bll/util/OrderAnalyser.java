@@ -5,6 +5,7 @@
  */
 package beltracker.bll.util;
 
+import beltracker.be.Department;
 import beltracker.be.Order;
 import beltracker.be.Order.OrderStatus;
 import java.time.LocalDate;
@@ -16,13 +17,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
  */
 public class OrderAnalyser {
     
-    public OrderStatus analyseOrderStatus(Order order, String departmentName)
+    public OrderStatus analyseOrderStatus(Order order, Department department)
     {
         if(LocalDate.now().isAfter(order.getDeliveryDate()))
         {
             return OrderStatus.DELAYED;
         }
-        else if(!order.getDepartmentName().equals(departmentName))
+        else if(!(order.getDepartment().getId() == department.getId()))
         {
             return OrderStatus.OVERDUE;
         }
