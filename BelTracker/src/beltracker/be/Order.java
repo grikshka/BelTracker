@@ -23,19 +23,19 @@ public class Order {
         OVERDUE, ON_SCHEDULE, DELAYED
     }
     
+    private Department department;
     private final StringProperty orderNumber = new SimpleStringProperty();
     private final StringProperty customerName = new SimpleStringProperty();
-    private final StringProperty departmentName = new SimpleStringProperty();
     private final DoubleProperty estimatedProgress = new SimpleDoubleProperty();
     private final ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> deliveryDate = new SimpleObjectProperty<>();
     private OrderStatus status = OrderStatus.ON_SCHEDULE;
     
-    public Order(String orderNumber, String customerName, String departmentName, LocalDate startDate, LocalDate deliveryDate)
+    public Order(Department department, String orderNumber, String customerName, LocalDate startDate, LocalDate deliveryDate)
     {
+        this.department = department;
         this.orderNumber.set(orderNumber);
         this.customerName.set(customerName);
-        this.departmentName.set(departmentName);
         this.startDate.set(startDate);
         this.deliveryDate.set(deliveryDate);
     }
@@ -64,17 +64,13 @@ public class Order {
         return customerName;
     }
     
-    public String getDepartmentName() {
-        return departmentName.get();
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentName(String value) {
-        departmentName.set(value);
-    }
-
-    public StringProperty departmentNameProperty() {
-        return departmentName;
-    }   
+    public void setDepartmentName(Department department) {
+        this.department = department;
+    } 
     
     public double getEstimatedProgress() {
         return estimatedProgress.get();
