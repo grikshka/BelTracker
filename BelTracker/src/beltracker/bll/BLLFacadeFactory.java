@@ -5,6 +5,8 @@
  */
 package beltracker.bll;
 
+import beltracker.dal.DALFacadeFactory;
+import beltracker.dal.IDALFacade;
 import beltracker.exception.BelTrackerException;
 
 /**
@@ -19,10 +21,11 @@ public class BLLFacadeFactory {
     
     
     private static BLLFacadeFactory instance;
+    private IDALFacade dalFacade;
     
     private BLLFacadeFactory()
     {
-        
+        dalFacade = DALFacadeFactory.getInstance().createFacade(DALFacadeFactory.FacadeType.MOCK);
     }
     
     public static synchronized BLLFacadeFactory getInstance()
@@ -34,15 +37,15 @@ public class BLLFacadeFactory {
         return instance;
     }
     
-    public IBLLFacade createFacade(FacadeType type) throws BelTrackerException
+    public IBLLFacade createFacade(FacadeType type)
     {
         switch(type)
         {
             case PRODUCTION: 
-                return new BLLManager();
+                return new BLLManager(dalFacade);
             
             default:         
-                return new BLLManager();
+                return new BLLManager(dalFacade);
             
         }
     }

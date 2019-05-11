@@ -5,6 +5,7 @@
  */
 package beltracker.bll;
 
+import beltracker.be.Department;
 import beltracker.bll.util.OrderAnalyser;
 import beltracker.be.Order;
 import beltracker.be.Order.OrderStatus;
@@ -19,26 +20,31 @@ import java.util.List;
  */
 public class BLLManager implements IBLLFacade{
     
-    private IDALFacade facade;
+    private IDALFacade dalFacade;
     private OrderAnalyser orderAnalyser;
     
-    public BLLManager() throws BelTrackerException
+    public BLLManager(IDALFacade facade)
     {
-        facade = DALFacadeFactory.getInstance().createFacade(DALFacadeFactory.FacadeType.MOCK);
+        this.dalFacade = facade;
         orderAnalyser = new OrderAnalyser();
     }
 
     @Override
-    public List<Order> getOrders(String departmentName) {
-        List<Order> orders = facade.getOrders(departmentName);
+    public List<Order> getOrders(Department department) {
+        List<Order> orders = dalFacade.getOrders(department);
         for(Order order : orders)
         {
-            OrderStatus status = orderAnalyser.analyseOrderStatus(order, departmentName);
+            OrderStatus status = orderAnalyser.analyseOrderStatus(order, department);
             double estimatedProgress = orderAnalyser.calculateEstimatedProgress(order);
             order.setOrderStatus(status);
             order.setEstimatedProgress(estimatedProgress);
         }
         return orders;
+    }
+
+    @Override
+    public List<Department> getDepartments() {
+        return dalFacade.getDepartments();
     }
     
     

@@ -5,6 +5,7 @@
  */
 package beltracker.bll;
 
+import beltracker.be.Department;
 import beltracker.be.Order;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
  */
 public interface IBLLFacade {
     
-    List<Order> getOrders(String departmentName);
+    List<Order> getOrders(Department department);
+    
+    List<Department> getDepartments();
     
 }

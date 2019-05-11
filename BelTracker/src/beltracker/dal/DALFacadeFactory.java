@@ -33,7 +33,7 @@ public class DALFacadeFactory {
         return instance;
     }
     
-    public IDALFacade createFacade(FacadeType type) throws BelTrackerException
+    public IDALFacade createFacade(FacadeType type)
     {
         switch(type)
         {
