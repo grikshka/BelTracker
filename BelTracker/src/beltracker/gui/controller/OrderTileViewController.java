@@ -25,7 +25,7 @@ public class OrderTileViewController implements Initializable {
     private static final String DATE_FORMAT = "dd.MM.yyyy";
 
     @FXML
-    private Label lblDepartment;
+    private Label lblDepartmentName;
     @FXML
     private Label lblCustomerName;
     @FXML
@@ -45,7 +45,7 @@ public class OrderTileViewController implements Initializable {
     
     public void setOrderTile(Order order)
     {
-        lblDepartment.textProperty().bind(order.departmentNameProperty());
+        lblDepartmentName.textProperty().bind(order.getDepartment().nameProperty());
         lblCustomerName.textProperty().bind(order.customerNameProperty());
         lblOrderNumber.textProperty().bind(order.orderNumberProperty());
         prgEstimatedProgress.progressProperty().bind(order.estimatedProgressProperty());
