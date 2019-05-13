@@ -18,7 +18,7 @@
          <children>
             <StackPane>
                <children>
-                  <Label fx:id="lblDepartmentName" prefHeight="22.0" prefWidth="195.0" styleClass="labelTileSemiBold" text="Department">
+                  <Label fx:id="lblCurrentDepartment" prefHeight="22.0" prefWidth="195.0" styleClass="labelTileSemiBold" text="Department">
                      <font>
                         <Font name="Open Sans Regular" size="16.0" />
                      </font>
@@ -69,7 +69,7 @@
                   <Insets left="3.0" />
                </padding>
             </Label>
-            <Label fx:id="lblDeliveryDate" alignment="CENTER" prefHeight="25.0" prefWidth="195.0" styleClass="labelBold" text="05.06.2019">
+            <Label fx:id="lblTaskEndDate" alignment="CENTER" prefHeight="25.0" prefWidth="195.0" styleClass="labelBold" text="05.06.2019">
                <font>
                   <Font name="Open Sans Bold" size="18.0" />
                </font>

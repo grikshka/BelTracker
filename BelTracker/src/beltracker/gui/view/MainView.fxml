@@ -35,7 +35,7 @@
             </StackPane>
             <StackPane prefHeight="60.0" prefWidth="410.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField prefHeight="40.0" prefWidth="410.0" promptText="Search" styleClass="textFieldSearch">
+                  <TextField prefHeight="40.0" prefWidth="410.0" promptText="Search" styleClass="textFieldSearch" visible="false">
                      <StackPane.margin>
                         <Insets left="20.0" right="20.0" />
                      </StackPane.margin>
@@ -47,7 +47,7 @@
             </StackPane>
             <StackPane prefHeight="60.0" prefWidth="200.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ComboBox fx:id="comboBoxSort" prefHeight="40.0" prefWidth="180.0" promptText="Sort" styleClass="comboBoxSort" />
+                  <ComboBox fx:id="comboBoxSort" prefHeight="40.0" prefWidth="180.0" promptText="Sort" styleClass="comboBoxSort" visible="false" />
                </children>
             </StackPane>
          </children>
@@ -56,7 +56,7 @@
    <left>
       <VBox prefHeight="498.0" prefWidth="200.0" styleClass="barPaneDark" BorderPane.alignment="CENTER">
          <children>
-            <Label prefWidth="140.0" styleClass="labelBold" text="Delivery Date" textFill="WHITE">
+            <Label prefWidth="140.0" styleClass="labelBold" text="Delivery Date" textFill="WHITE" visible="false">
                <font>
                   <Font name="Corbel" size="16.0" />
                </font>
@@ -64,12 +64,12 @@
                   <Insets left="15.0" top="50.0" />
                </VBox.margin>
             </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="140.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="140.0">
                <VBox.margin>
                   <Insets left="15.0" />
                </VBox.margin>
             </Rectangle>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="215.0" styleClass="toggleButtonFilter" text="&lt; 1 Week">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="215.0" styleClass="toggleButtonFilter" text="&lt; 1 Week" visible="false">
                <font>
                   <Font name="Proxima Nova Rg Regular" size="12.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Insets left="35.0" />
                </padding>
             </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="223.0" styleClass="toggleButtonFilter" text="&lt; 1 Month" toggleGroup="$tglFilterDeliveryDate">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="223.0" styleClass="toggleButtonFilter" text="&lt; 1 Month" toggleGroup="$tglFilterDeliveryDate" visible="false">
                <font>
                   <Font name="Proxima Nova Rg Regular" size="12.0" />
                </font>
@@ -94,7 +94,7 @@
                   <Insets left="35.0" />
                </padding>
             </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="213.0" styleClass="toggleButtonFilter" text="&lt; 3 Months" toggleGroup="$tglFilterDeliveryDate">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="213.0" styleClass="toggleButtonFilter" text="&lt; 3 Months" toggleGroup="$tglFilterDeliveryDate" visible="false">
                <font>
                   <Font name="Proxima Nova Rg Regular" size="12.0" />
                </font>
@@ -105,7 +105,7 @@
                   <Insets left="35.0" />
                </padding>
             </ToggleButton>
-            <Label styleClass="labelBold" text="Order Progress" textFill="WHITE">
+            <Label styleClass="labelBold" text="Order Progress" textFill="WHITE" visible="false">
                <font>
                   <Font name="ProximaNova-Bold" size="13.0" />
                </font>
@@ -113,12 +113,12 @@
                   <Insets left="15.0" top="25.0" />
                </VBox.margin>
             </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="141.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="141.0">
                <VBox.margin>
                   <Insets left="15.0" />
                </VBox.margin>
             </Rectangle>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="267.0" styleClass="toggleButtonFilter" text="Small Progress">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="267.0" styleClass="toggleButtonFilter" text="Small Progress" visible="false">
                <font>
                   <Font name="Proxima Nova Rg Regular" size="12.0" />
                </font>
@@ -132,7 +132,7 @@
                   <ToggleGroup fx:id="tglFilterOrderProgress" />
                </toggleGroup>
             </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="209.0" styleClass="toggleButtonFilter" text="Medium Progress" toggleGroup="$tglFilterOrderProgress">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="209.0" styleClass="toggleButtonFilter" text="Medium Progress" toggleGroup="$tglFilterOrderProgress" visible="false">
                <font>
                   <Font name="Proxima Nova Rg Regular" size="12.0" />
                </font>
@@ -143,7 +143,7 @@
                   <Insets left="35.0" />
                </padding>
             </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="260.0" styleClass="toggleButtonFilter" text="High Progress" toggleGroup="$tglFilterOrderProgress">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="260.0" styleClass="toggleButtonFilter" text="High Progress" toggleGroup="$tglFilterOrderProgress" visible="false">
                <font>
                   <Font name="Proxima Nova Rg Regular" size="12.0" />
                </font>
@@ -154,7 +154,7 @@
                   <Insets left="35.0" />
                </padding>
             </ToggleButton>
-            <Label styleClass="labelBold" text="Realized Progress" textFill="WHITE">
+            <Label styleClass="labelBold" text="Realized Progress" textFill="WHITE" visible="false">
                <font>
                   <Font name="ProximaNova-Bold" size="16.0" />
                </font>
@@ -162,12 +162,12 @@
                   <Insets left="15.0" top="25.0" />
                </VBox.margin>
             </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="141.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="141.0">
                <VBox.margin>
                   <Insets left="15.0" />
                </VBox.margin>
             </Rectangle>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="245.0" styleClass="toggleButtonFilter" text="Small Progress">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="245.0" styleClass="toggleButtonFilter" text="Small Progress" visible="false">
                <padding>
                   <Insets left="35.0" />
                </padding>
@@ -181,7 +181,7 @@
                   <ToggleGroup fx:id="tglFilterRealizedProgress" />
                </toggleGroup>
             </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="216.0" styleClass="toggleButtonFilter" text="Medium Progress" toggleGroup="$tglFilterRealizedProgress">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="216.0" styleClass="toggleButtonFilter" text="Medium Progress" toggleGroup="$tglFilterRealizedProgress" visible="false">
                <padding>
                   <Insets left="35.0" />
                </padding>
@@ -192,7 +192,7 @@
                   <Insets left="-10.0" />
                </VBox.margin>
             </ToggleButton>
-            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="255.0" styleClass="toggleButtonFilter" text="High Progress" toggleGroup="$tglFilterRealizedProgress">
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="35.0" prefWidth="255.0" styleClass="toggleButtonFilter" text="High Progress" toggleGroup="$tglFilterRealizedProgress" visible="false">
                <padding>
                   <Insets left="35.0" />
                </padding>
