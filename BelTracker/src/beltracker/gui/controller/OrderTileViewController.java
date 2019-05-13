@@ -25,15 +25,15 @@ public class OrderTileViewController implements Initializable {
     private static final String DATE_FORMAT = "dd.MM.yyyy";
 
     @FXML
-    private Label lblDepartmentName;
-    @FXML
-    private Label lblCustomerName;
+    private Label lblCurrentDepartment;
     @FXML
     private Label lblOrderNumber;
     @FXML
-    private JFXProgressBar prgEstimatedProgress;
+    private Label lblCustomerName;
     @FXML
-    private Label lblDeliveryDate;
+    private Label lblTaskEndDate;
+    @FXML
+    private JFXProgressBar prgEstimatedProgress;
 
     /**
      * Initializes the controller class.
@@ -45,14 +45,14 @@ public class OrderTileViewController implements Initializable {
     
     public void setOrderTile(Order order)
     {
-        lblDepartmentName.textProperty().bind(order.getDepartment().nameProperty());
+        lblCurrentDepartment.textProperty().bind(order.getCurrentDepartment().nameProperty());
         lblCustomerName.textProperty().bind(order.customerNameProperty());
         lblOrderNumber.textProperty().bind(order.orderNumberProperty());
-        prgEstimatedProgress.progressProperty().bind(order.estimatedProgressProperty());
+        prgEstimatedProgress.progressProperty().bind(order.getDepartmentTask().estimatedProgressProperty());
         
        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
-       lblDeliveryDate.textProperty().bind(Bindings.createStringBinding(() ->
-               dtf.format(order.getDeliveryDate()), order.deliveryDateProperty()));
+       lblTaskEndDate.textProperty().bind(Bindings.createStringBinding(() ->
+               dtf.format(order.getDepartmentTask().getEndDate()), order.getDepartmentTask().endDateProperty()));
     }
     
 }

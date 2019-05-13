@@ -59,7 +59,7 @@ public class MainViewController implements Initializable {
         List<Order> orders = model.getOrders();
         for (Order order : orders)
         {
-            FXMLLoader fxmlLoader = getOrderTileFXML(order.getOrderStatus());
+            FXMLLoader fxmlLoader = getOrderTileFXML(order.getStatus());
             Parent root = fxmlLoader.load();
             
             OrderTileViewController controller = fxmlLoader.getController();

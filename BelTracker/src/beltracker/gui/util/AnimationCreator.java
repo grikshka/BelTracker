@@ -25,7 +25,7 @@ public class AnimationCreator {
     
     public static SequentialTransition createSwitchViewAnimation(Scene currentScene, Parent oldView, Parent newView)
     {    
-        FadeTransition oldViewFade = new FadeTransition(Duration.millis(300), oldView);
+        FadeTransition oldViewFade = new FadeTransition(Duration.millis(200), oldView);
         oldViewFade.setFromValue(1);
         oldViewFade.setToValue(0);
         oldViewFade.setOnFinished((e) -> currentScene.setRoot(newView));
