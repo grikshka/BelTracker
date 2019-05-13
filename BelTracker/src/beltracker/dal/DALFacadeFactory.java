@@ -5,8 +5,6 @@
  */
 package beltracker.dal;
 
-import beltracker.exception.BelTrackerException;
-
 /**
  *
  * @author Acer
