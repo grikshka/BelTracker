@@ -17,6 +17,6 @@ public interface IBLLFacade {
     
     List<Order> getOrders(Department department);
     
-    List<Department> getDepartments();
+    List<Department> getAllDepartments();
     
 }
