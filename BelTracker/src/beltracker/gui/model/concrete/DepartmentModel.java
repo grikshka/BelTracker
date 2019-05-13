@@ -32,7 +32,7 @@ public class DepartmentModel implements IDepartmentModel {
 
     @Override
     public List<Department> getAllDepartments() {
-        return bllFacade.getDepartments();
+        return bllFacade.getAllDepartments();
     }
 
     @Override
