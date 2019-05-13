@@ -6,7 +6,9 @@
 package beltracker.be;
 
 import java.time.LocalDate;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -20,7 +22,7 @@ public class Order {
     public enum OrderStatus {
         OVERDUE, ON_SCHEDULE, DELAYED
     }
-    
+    private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty orderNumber = new SimpleStringProperty();
     private final StringProperty customerName = new SimpleStringProperty();
     private final ObjectProperty<LocalDate> deliveryDate = new SimpleObjectProperty<>();
@@ -28,14 +30,27 @@ public class Order {
     private Task departmentTask;
     private OrderStatus status;
     
-    public Order(String orderNumber, String customerName, LocalDate deliveryDate, Department currentDepartment, Task departmentTask)
+    public Order(int id, String orderNumber, String customerName, LocalDate deliveryDate, Department currentDepartment, Task departmentTask)
     {
+        this.id.set(id);
         this.orderNumber.set(orderNumber);
         this.customerName.set(customerName);
         this.deliveryDate.set(deliveryDate);
         this.currentDepartment = currentDepartment;
         this.departmentTask = departmentTask;
+    }    
+    
+    public int getId() {
+        return id.get();
     }
+
+    public void setId(int value) {
+        id.set(value);
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }    
 
     public String getOrderNumber() {
         return orderNumber.get();

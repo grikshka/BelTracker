@@ -64,7 +64,8 @@ public class MockDALManager implements IDALFacade{
         List<Order> departmentOrders = new ArrayList<>();
         for(int i = 0; i < AMOUNT_OF_ORDERS; i++)
         {
-            Order order = generateOrder(department, currentDate);
+            int orderId = i;
+            Order order = generateOrder(orderId, department, currentDate);
             departmentOrders.add(order);
         }
         return departmentOrders;
@@ -75,24 +76,24 @@ public class MockDALManager implements IDALFacade{
         return departments;
     }
     
-    private Order generateOrder(Department department, LocalDate currentDate)
+    private Order generateOrder(int orderId, Department department, LocalDate currentDate)
     {
         double randomDouble = randGenerator.nextDouble();
         if(randomDouble < ORDER_DELAYED_PROBABILITY)
         {
-            return generateDelayedOrder(department, currentDate);
+            return generateDelayedOrder(orderId, department, currentDate);
         }
         else if(randomDouble < ORDER_DELAYED_PROBABILITY + ORDER_OVERDUE_PROBABILITY)
         {
-            return generateOverdueOrder(department, currentDate);
+            return generateOverdueOrder(orderId, department, currentDate);
         }
         else
         {
-            return generateOnScheduleOrder(department, currentDate);
+            return generateOnScheduleOrder(orderId, department, currentDate);
         }
     }
     
-    private Order generateDelayedOrder(Department department, LocalDate currentDate)
+    private Order generateDelayedOrder(int orderId, Department department, LocalDate currentDate)
     {
         String orderNumber = generateOrderNumber();
         String customerName = customers.get(randGenerator.nextInt(customers.size()));
@@ -100,10 +101,10 @@ public class MockDALManager implements IDALFacade{
         LocalDate taskStartDate = currentDate.minusDays(randGenerator.nextInt(7) + 4);
         LocalDate taskEndDate = currentDate.minusDays(randGenerator.nextInt(2) + 1);
         Task departmentTask = new Task(taskStartDate, taskEndDate);
-        return new Order(orderNumber, customerName, deliveryDate, department, departmentTask);
+        return new Order(orderId, orderNumber, customerName, deliveryDate, department, departmentTask);
     }
     
-    private Order generateOverdueOrder(Department department, LocalDate currentDate)
+    private Order generateOverdueOrder(int orderId, Department department, LocalDate currentDate)
     {
         String orderNumber = generateOrderNumber();
         String customerName = customers.get(randGenerator.nextInt(customers.size()));
@@ -112,10 +113,10 @@ public class MockDALManager implements IDALFacade{
         LocalDate taskEndDate = currentDate.plusDays(randGenerator.nextInt(7) + 1);
         Department overdueDepartment = generateOverdueDepartment(department);
         Task departmentTask = new Task(taskStartDate, taskEndDate);
-        return new Order(orderNumber, customerName, deliveryDate, overdueDepartment, departmentTask);
+        return new Order(orderId, orderNumber, customerName, deliveryDate, overdueDepartment, departmentTask);
     }
     
-    private Order generateOnScheduleOrder(Department department, LocalDate currentDate)
+    private Order generateOnScheduleOrder(int orderId, Department department, LocalDate currentDate)
     {
         String orderNumber = generateOrderNumber();
         String customerName = customers.get(randGenerator.nextInt(customers.size()));
@@ -123,7 +124,7 @@ public class MockDALManager implements IDALFacade{
         LocalDate taskStartDate = currentDate.minusDays(randGenerator.nextInt(4) + 1);
         LocalDate taskEndDate = currentDate.plusDays(randGenerator.nextInt(4) + 1);
         Task departmentTask = new Task(taskStartDate, taskEndDate);
-        return new Order(orderNumber, customerName, deliveryDate, department, departmentTask);
+        return new Order(orderId, orderNumber, customerName, deliveryDate, department, departmentTask);
     }
     
     private String generateOrderNumber()
