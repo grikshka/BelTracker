@@ -19,38 +19,17 @@ public class OrderAnalyser {
     
     public OrderStatus analyseOrderStatus(Order order, Department department)
     {
-        if(LocalDate.now().isAfter(order.getDeliveryDate()))
+        if(LocalDate.now().isAfter(order.getDepartmentTask().getEndDate()))
         {
             return OrderStatus.DELAYED;
         }
-        else if(!(order.getDepartment().getId() == department.getId()))
+        else if(!(order.getCurrentDepartment().getId() == department.getId()))
         {
             return OrderStatus.OVERDUE;
         }
         else
         {
             return OrderStatus.ON_SCHEDULE;
-        }
-    }
-    
-    public double calculateEstimatedProgress(Order order)
-    {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate startDate = order.getStartDate();
-        LocalDate deliveryDate = order.getDeliveryDate();
-        if(currentDate.isBefore(startDate))
-        {
-            return 0;
-        }
-        else if(currentDate.isBefore(deliveryDate))
-        {
-            double totalNumberOfDays = DAYS.between(startDate, deliveryDate);
-            double currentNumberOfDays = DAYS.between(startDate, currentDate);
-            return currentNumberOfDays/totalNumberOfDays;
-        }
-        else
-        {
-            return 1;
         }
     }
     
