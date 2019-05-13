@@ -7,8 +7,13 @@ package beltracker.dal;
 
 import beltracker.be.Department;
 import beltracker.be.Order;
-import beltracker.exception.BelTrackerException;
+import beltracker.dal.dao.DepartmentDAO;
+import beltracker.dal.dao.OrderDAO;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,12 +24,16 @@ public class DALManager implements IDALFacade{
     
     private static final String DB_PROPERTIES_FILE_PATH = "src/resources/properties/DatabaseProperties.properties";
     private DbConnectionProvider connector;
+    private OrderDAO orderDao;
+    private DepartmentDAO departmentDao;
     
     public DALManager()
     {
         try
         {
             connector = new DbConnectionProvider(DB_PROPERTIES_FILE_PATH);
+            orderDao = new OrderDAO();
+            departmentDao = new DepartmentDAO();
         }
         catch(IOException ex)
         {
@@ -33,15 +42,41 @@ public class DALManager implements IDALFacade{
     }
 
     @Override
-    public List<Order> getOrders(Department department) {
-        throw new UnsupportedOperationException("Not supported yet");
+    public List<Order> getOrders(Department department, LocalDate currentDate) 
+    {
+        try(Connection con = connector.getConnection())
+        {
+            return orderDao.getOrders(con, department, currentDate);
+        } 
+        catch(SQLServerException ex) 
+        {
+            //TO DO
+            return null;
+        }
+        catch(SQLException ex)
+        {
+            //TO DO
+            return null;
+        }
     }
 
     @Override
-    public List<Department> getDepartments() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Department> getAllDepartments() 
+    {
+        try(Connection con = connector.getConnection())
+        {
+            return departmentDao.getAllDepartments(con);
+        } 
+        catch(SQLServerException ex) 
+        {
+            //TO DO
+            return null;
+        }
+        catch(SQLException ex)
+        {
+            //TO DO
+            return null;
+        }
     }
-    
-    
     
 }
