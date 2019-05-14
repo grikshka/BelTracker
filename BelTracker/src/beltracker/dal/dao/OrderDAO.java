@@ -34,6 +34,7 @@ public class OrderDAO {
                                 "INNER JOIN Customer c ON oc.CustomerId = c.Id " +
                                 "WHERE do.OrderId IN " +
                                 "(SELECT OrderId FROM DepartmentOrder WHERE DepartmentId = ? AND isFinished = 0 AND ? >= startTime) " +
+                                "AND do.isFinished = 0 " + 
                                 "ORDER BY do.OrderId, do.StartTime ASC";
         try(PreparedStatement statement = connection.prepareStatement(sqlStatement))
         {
@@ -41,28 +42,23 @@ public class OrderDAO {
             statement.setInt(1, department.getId());
             statement.setDate(2, Date.valueOf(currentDate));
             ResultSet rs = statement.executeQuery();
-            rs.next();
-            while(!rs.isAfterLast())
+            
+            int previousOrderId = -1;
+            while(rs.next())
             {
                 int orderId = rs.getInt("OrderId");
-                String orderNumber = rs.getString("OrderNumber");
-                String customerName = rs.getString("CustomerName");
-                LocalDate deliveryDate = rs.getDate("DeliveryDate").toLocalDate();
-                Department currentDepartment = new Department(rs.getInt("DepartmentId"), rs.getString("DepartmentName"));
-                LocalDate taskStartDate = rs.getDate("StartTime").toLocalDate();
-                LocalDate taskEndDate = rs.getDate("EndTime").toLocalDate();
-                Task departmentTask = new Task(taskStartDate, taskEndDate);
-                Order order = new Order(orderId, orderNumber, customerName, deliveryDate, currentDepartment, departmentTask);
-                orders.add(order);
-                
-                int previousOrderId = orderId;
-                while(!rs.isAfterLast() && previousOrderId == orderId)
-                {
-                    rs.next();
-                    if(!rs.isAfterLast())
-                    {
-                        previousOrderId = rs.getInt("OrderId");
-                    }
+                if(orderId != previousOrderId)
+                {                   
+                    String orderNumber = rs.getString("OrderNumber");
+                    String customerName = rs.getString("CustomerName");
+                    LocalDate deliveryDate = rs.getDate("DeliveryDate").toLocalDate();
+                    Department currentDepartment = new Department(rs.getInt("DepartmentId"), rs.getString("DepartmentName"));
+                    LocalDate taskStartDate = rs.getDate("StartTime").toLocalDate();
+                    LocalDate taskEndDate = rs.getDate("EndTime").toLocalDate();
+                    Task departmentTask = new Task(taskStartDate, taskEndDate);
+                    Order order = new Order(orderId, orderNumber, customerName, deliveryDate, currentDepartment, departmentTask);
+                    orders.add(order);
+                    previousOrderId = orderId;
                 }
             }
             return orders;
