@@ -19,13 +19,13 @@ public class OrderAnalyser {
     
     public OrderStatus analyseOrderStatus(Order order, Department department)
     {
-        if(LocalDate.now().isAfter(order.getDepartmentTask().getEndDate()))
-        {
-            return OrderStatus.DELAYED;
-        }
-        else if(!(order.getCurrentDepartment().getId() == department.getId()))
+        if(!(order.getCurrentDepartment().getId() == department.getId()))
         {
             return OrderStatus.OVERDUE;
+        }
+        else if(LocalDate.now().isAfter(order.getDepartmentTask().getEndDate()))
+        {
+            return OrderStatus.DELAYED;
         }
         else
         {
