@@ -31,7 +31,7 @@
                      <children>
                         <ImageView fitHeight="27.0" fitWidth="64.0" layoutX="175.0" layoutY="-12.4" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../resources/images/Overtime.png" />
+                              <Image url="@../../../../resources/images/Delay.png" />
                            </image>
                         </ImageView>
                      </children>
