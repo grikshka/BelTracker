@@ -7,6 +7,10 @@ package beltracker.dal.dao;
 
 import beltracker.be.Department;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,10 +19,21 @@ import java.util.List;
  */
 public class DepartmentDAO {
     
-    public List<Department> getAllDepartments(Connection con)
+    public List<Department> getAllDepartments(Connection con) throws SQLException
     {
-        //TO DO 
-        return null;
+        String sqlStatement = "SELECT * FROM Department ";
+        List<Department> allDepartments = new ArrayList<>();
+        try(PreparedStatement statement = con.prepareStatement(sqlStatement))
+        {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) 
+            {
+                Department department = new Department(rs.getInt("Id"), rs.getString("Name"));
+                allDepartments.add(department);
+            }
+            return allDepartments;
+        }
+
     }
     
 }
