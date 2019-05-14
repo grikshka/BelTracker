@@ -6,6 +6,7 @@
 package beltracker.be;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -99,4 +100,32 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id.get());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Order other = (Order) obj;
+        if (!Objects.equals(this.id.get(), other.id.get())) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 }

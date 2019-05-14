@@ -9,7 +9,6 @@ import beltracker.be.Department;
 import beltracker.be.Order;
 import beltracker.be.Order.OrderStatus;
 import java.time.LocalDate;
-import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  *
@@ -19,7 +18,7 @@ public class OrderAnalyser {
     
     public OrderStatus analyseOrderStatus(Order order, Department department)
     {
-        if(!(order.getCurrentDepartment().getId() == department.getId()))
+        if(!(order.getCurrentDepartment().equals(department)))
         {
             return OrderStatus.OVERDUE;
         }

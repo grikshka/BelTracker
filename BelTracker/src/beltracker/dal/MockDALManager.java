@@ -145,7 +145,7 @@ public class MockDALManager implements IDALFacade{
         {
             overdueDepartment = departments.get(randGenerator.nextInt(departments.size()));
         }
-        while(overdueDepartment.getId() == department.getId());
+        while(overdueDepartment.equals(department));
         return overdueDepartment;
     }
     
