@@ -7,12 +7,16 @@ package beltracker.dal.dao;
 
 import beltracker.be.Department;
 import beltracker.be.Order;
+import beltracker.be.Task;
+import beltracker.dal.DbConnectionProvider;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,22 +37,36 @@ public class OrderDAO {
                                 "ORDER BY do.OrderId, do.StartTime ASC";
         try(PreparedStatement statement = connection.prepareStatement(sqlStatement))
         {
+            List<Order> orders = new ArrayList();
             statement.setInt(1, department.getId());
             statement.setDate(2, Date.valueOf(currentDate));
             ResultSet rs = statement.executeQuery();
-            while(rs.next())
+            rs.next();
+            while(!rs.isAfterLast())
             {
-                while(rs.getBoolean("IsFinished"))
+                int orderId = rs.getInt("OrderId");
+                String orderNumber = rs.getString("OrderNumber");
+                String customerName = rs.getString("CustomerName");
+                LocalDate deliveryDate = rs.getDate("DeliveryDate").toLocalDate();
+                Department currentDepartment = new Department(rs.getInt("DepartmentId"), rs.getString("DepartmentName"));
+                LocalDate taskStartDate = rs.getDate("StartTime").toLocalDate();
+                LocalDate taskEndDate = rs.getDate("EndTime").toLocalDate();
+                Task departmentTask = new Task(taskStartDate, taskEndDate);
+                Order order = new Order(orderId, orderNumber, customerName, deliveryDate, currentDepartment, departmentTask);
+                orders.add(order);
+                
+                int previousOrderId = orderId;
+                while(!rs.isAfterLast() && previousOrderId == orderId)
                 {
                     rs.next();
+                    if(!rs.isAfterLast())
+                    {
+                        previousOrderId = rs.getInt("OrderId");
+                    }
                 }
-                int orderId = rs.getInt("OrderId");
-                //TO DO
-                //TO DO
             }
+            return orders;
         }
-        
-        return null;
     }
     
 }
