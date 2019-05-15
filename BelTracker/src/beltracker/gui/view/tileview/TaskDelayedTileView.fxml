@@ -12,13 +12,13 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="250.0" prefWidth="215.0" stylesheets="@../../../../resources/css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.OrderTileViewController">
+<AnchorPane prefHeight="250.0" prefWidth="215.0" stylesheets="@../../../../resources/css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.TaskTileViewController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="215.0" styleClass="vboxOrderDelayed">
          <children>
             <StackPane>
                <children>
-                  <Label fx:id="lblCurrentDepartment" prefHeight="22.0" prefWidth="195.0" styleClass="labelTileSemiBold" text="Department">
+                  <Label fx:id="lblOrderCurrentDepartment" prefHeight="22.0" prefWidth="195.0" styleClass="labelTileSemiBold" text="Department">
                      <font>
                         <Font name="Open Sans Regular" size="16.0" />
                      </font>
@@ -56,7 +56,7 @@
                   </Rectangle>
                </children>
             </StackPane>
-            <Label fx:id="lblCustomerName" alignment="CENTER" prefHeight="27.0" prefWidth="195.0" styleClass="labelTileBold" text="Customer name" textFill="#184981">
+            <Label fx:id="lblOrderCustomerName" alignment="CENTER" prefHeight="27.0" prefWidth="195.0" styleClass="labelTileBold" text="Customer name" textFill="#184981">
                <font>
                   <Font name="Open Sans Bold" size="18.0" />
                </font>
@@ -69,7 +69,7 @@
                   <Insets left="3.0" />
                </padding>
             </Label>
-            <Label fx:id="lblTaskEndDate" alignment="CENTER" prefHeight="25.0" prefWidth="195.0" styleClass="labelBold" text="05.06.2019">
+            <Label fx:id="lblEndDate" alignment="CENTER" prefHeight="25.0" prefWidth="195.0" styleClass="labelBold" text="05.06.2019">
                <font>
                   <Font name="Open Sans Bold" size="18.0" />
                </font>
