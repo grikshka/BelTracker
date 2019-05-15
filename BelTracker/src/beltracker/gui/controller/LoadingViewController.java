@@ -24,7 +24,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 import org.apache.log4j.Logger;
 
 /**
@@ -96,7 +95,7 @@ public class LoadingViewController implements Initializable {
 
         MainViewController controller = fxmlLoader.getController();
         controller.injectModel(model);
-        controller.loadOrders();
+        controller.loadTasks();
         
         return root;
     }

@@ -5,7 +5,7 @@
  */
 package beltracker.gui.controller;
 
-import beltracker.be.Order;
+import beltracker.be.Task;
 import com.jfoenix.controls.JFXProgressBar;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -20,18 +20,18 @@ import javafx.scene.control.Label;
  *
  * @author Acer
  */
-public class OrderTileViewController implements Initializable {
+public class TaskTileViewController implements Initializable {
     
     private static final String DATE_FORMAT = "dd.MM.yyyy";
 
     @FXML
-    private Label lblCurrentDepartment;
+    private Label lblOrderCurrentDepartment;
     @FXML
     private Label lblOrderNumber;
     @FXML
-    private Label lblCustomerName;
+    private Label lblOrderCustomerName;
     @FXML
-    private Label lblTaskEndDate;
+    private Label lblEndDate;
     @FXML
     private JFXProgressBar prgEstimatedProgress;
 
@@ -43,16 +43,16 @@ public class OrderTileViewController implements Initializable {
         // TODO
     }    
     
-    public void setOrderTile(Order order)
+    public void setTaskTile(Task task)
     {
-        lblCurrentDepartment.textProperty().bind(order.getCurrentDepartment().nameProperty());
-        lblCustomerName.textProperty().bind(order.customerNameProperty());
-        lblOrderNumber.textProperty().bind(order.orderNumberProperty());
-        prgEstimatedProgress.progressProperty().bind(order.getDepartmentTask().estimatedProgressProperty());
+        lblOrderCurrentDepartment.textProperty().bind(task.getOrder().getCurrentDepartment().nameProperty());
+        lblOrderCustomerName.textProperty().bind(task.getOrder().customerNameProperty());
+        lblOrderNumber.textProperty().bind(task.getOrder().numberProperty());
+        prgEstimatedProgress.progressProperty().bind(task.estimatedProgressProperty());
         
-       DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
-       lblTaskEndDate.textProperty().bind(Bindings.createStringBinding(() ->
-               dtf.format(order.getDepartmentTask().getEndDate()), order.getDepartmentTask().endDateProperty()));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        lblEndDate.textProperty().bind(Bindings.createStringBinding(() ->
+               dtf.format(task.getEndDate()), task.endDateProperty()));
     }
     
 }

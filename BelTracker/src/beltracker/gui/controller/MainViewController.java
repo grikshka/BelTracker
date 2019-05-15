@@ -6,7 +6,7 @@
 package beltracker.gui.controller;
 
 import beltracker.be.Order;
-import beltracker.be.Order.OrderStatus;
+import beltracker.be.Task;
 import beltracker.exception.BelTrackerException;
 import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IMainModel;
@@ -28,9 +28,9 @@ import javafx.scene.layout.TilePane;
 public class MainViewController implements Initializable {
 
     private IMainModel model;
-    private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/tileview/OrderOverdueTileView.fxml"; 
-    private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/tileview/OrderOnScheduleTileView.fxml"; 
-    private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/tileview/OrderDelayedTileView.fxml";
+    private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/tileview/TaskOverdueTileView.fxml"; 
+    private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/tileview/TaskOnScheduleTileView.fxml"; 
+    private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/tileview/TaskDelayedTileView.fxml";
     
     @FXML
     private TilePane tilOrders;
@@ -53,23 +53,23 @@ public class MainViewController implements Initializable {
         this.model = model;
     }
     
-    public void loadOrders() throws BelTrackerException, IOException
+    public void loadTasks() throws BelTrackerException, IOException
     {
-        model.loadOrders();
-        List<Order> orders = model.getOrders();
-        for (Order order : orders)
+        model.loadTasks();
+        List<Task> tasks = model.getTasks();
+        for (Task task : tasks)
         {
-            FXMLLoader fxmlLoader = getOrderTileFXML(order.getStatus());
+            FXMLLoader fxmlLoader = getOrderTileFXML(task.getStatus());
             Parent root = fxmlLoader.load();
             
-            OrderTileViewController controller = fxmlLoader.getController();
-            controller.setOrderTile(order);
+            TaskTileViewController controller = fxmlLoader.getController();
+            controller.setTaskTile(task);
             
             tilOrders.getChildren().add(root);
         }  
     }
     
-    private FXMLLoader getOrderTileFXML(OrderStatus status) throws IOException
+    private FXMLLoader getOrderTileFXML(Task.Status status) throws IOException
     {
         FXMLLoader fxmlLoader;
         switch(status)
