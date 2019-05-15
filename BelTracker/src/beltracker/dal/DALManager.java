@@ -7,8 +7,10 @@ package beltracker.dal;
 
 import beltracker.be.Department;
 import beltracker.be.Order;
+import beltracker.be.Task;
 import beltracker.dal.dao.DepartmentDAO;
 import beltracker.dal.dao.OrderDAO;
+import beltracker.dal.dao.TaskDAO;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -24,6 +26,7 @@ public class DALManager implements IDALFacade{
     
     private static final String DB_PROPERTIES_FILE_PATH = "src/resources/properties/DatabaseProperties.properties";
     private DbConnectionProvider connector;
+    private TaskDAO taskDao;
     private OrderDAO orderDao;
     private DepartmentDAO departmentDao;
     
@@ -32,6 +35,7 @@ public class DALManager implements IDALFacade{
         try
         {
             connector = new DbConnectionProvider(DB_PROPERTIES_FILE_PATH);
+            taskDao = new TaskDAO();
             orderDao = new OrderDAO();
             departmentDao = new DepartmentDAO();
         }
@@ -42,15 +46,21 @@ public class DALManager implements IDALFacade{
     }
 
     @Override
-    public List<Order> getOrders(Department department, LocalDate currentDate) 
+    public List<Task> getTasks(Department department, LocalDate currentDate) 
     {
         try(Connection con = connector.getConnection())
         {
-            return orderDao.getOrders(con, department, currentDate);
+            List<Task> tasks = taskDao.getTasks(con, department, currentDate);
+            for(Task departmentTask : tasks)
+            {
+                Order taskOrder = orderDao.getOrder(con, departmentTask);
+                departmentTask.setOrder(taskOrder);
+            }
+            return tasks;
         } 
         catch(SQLServerException ex) 
         {
-            //TO DO
+            ex.printStackTrace();
             return null;
         }
         catch(SQLException ex)
