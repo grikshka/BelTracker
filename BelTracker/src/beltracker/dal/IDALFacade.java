@@ -7,6 +7,7 @@ package beltracker.dal;
 
 import beltracker.be.Department;
 import beltracker.be.Order;
+import beltracker.be.Task;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public interface IDALFacade {
     
-    List<Order> getOrders(Department department, LocalDate currentDate);
+    List<Task> getTasks(Department department, LocalDate currentDate);
     
     List<Department> getAllDepartments();
     
