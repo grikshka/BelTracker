@@ -6,6 +6,7 @@
 package beltracker.be;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -114,5 +115,56 @@ public class Task {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id.get());
+        hash = 53 * hash + Objects.hashCode(this.startDate.get());
+        hash = 53 * hash + Objects.hashCode(this.endDate.get());
+        hash = 53 * hash + Objects.hashCode(this.estimatedProgress.get());
+        hash = 53 * hash + Objects.hashCode(this.department);
+        hash = 53 * hash + Objects.hashCode(this.order);
+        hash = 53 * hash + Objects.hashCode(this.status);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Task other = (Task) obj;
+        if (!Objects.equals(this.id.get(), other.id.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.startDate.get(), other.startDate.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.endDate.get(), other.endDate.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.estimatedProgress.get(), other.estimatedProgress.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.department, other.department)) {
+            return false;
+        }
+        if (!Objects.equals(this.order, other.order)) {
+            return false;
+        }
+        if (this.status != other.status) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }
