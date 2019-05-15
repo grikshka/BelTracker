@@ -19,12 +19,12 @@ import java.util.Random;
  */
 public class MockDALManager implements IDALFacade{
     
-    private final int AMOUNT_OF_ORDERS = 100;
-    private final double ORDER_OVERDUE_PROBABILITY = 0.10;
-    private final double ORDER_DELAYED_PROBABILITY = 0.10;
+    private final int AMOUNT_OF_TASKS = 100;
+    private final double TASK_OVERDUE_PROBABILITY = 0.10;
+    private final double TASK_DELAYED_PROBABILITY = 0.10;
     private final List<Department> departments = new ArrayList<>();
-    private final Random randGenerator = new Random();
     private final List<String> customers = new ArrayList<>();
+    private final Random randGenerator = new Random();
     
     public MockDALManager()
     {
@@ -59,16 +59,16 @@ public class MockDALManager implements IDALFacade{
     }
 
     @Override
-    public List<Order> getOrders(Department department, LocalDate currentDate) 
+    public List<Task> getTasks(Department department, LocalDate currentDate) 
     {
-        List<Order> departmentOrders = new ArrayList<>();
-        for(int i = 0; i < AMOUNT_OF_ORDERS; i++)
+        List<Task> departmentTasks = new ArrayList<>();
+        for(int i = 0; i < AMOUNT_OF_TASKS; i++)
         {
-            int orderId = i;
-            Order order = generateOrder(orderId, department, currentDate);
-            departmentOrders.add(order);
+            int id = i;
+            Task task = generateTask(id, department, currentDate);
+            departmentTasks.add(task);
         }
-        return departmentOrders;
+        return departmentTasks;
     }
     
     @Override
@@ -76,55 +76,60 @@ public class MockDALManager implements IDALFacade{
         return departments;
     }
     
-    private Order generateOrder(int orderId, Department department, LocalDate currentDate)
+    private Task generateTask(int id, Department department, LocalDate currentDate)
     {
         double randomDouble = randGenerator.nextDouble();
-        if(randomDouble < ORDER_DELAYED_PROBABILITY)
+        if(randomDouble < TASK_DELAYED_PROBABILITY)
         {
-            return generateDelayedOrder(orderId, department, currentDate);
+            return generateDelayedTask(id, department, currentDate);
         }
-        else if(randomDouble < ORDER_DELAYED_PROBABILITY + ORDER_OVERDUE_PROBABILITY)
+        else if(randomDouble < TASK_DELAYED_PROBABILITY + TASK_OVERDUE_PROBABILITY)
         {
-            return generateOverdueOrder(orderId, department, currentDate);
+            return generateOverdueTask(id, department, currentDate);
         }
         else
         {
-            return generateOnScheduleOrder(orderId, department, currentDate);
+            return generateOnScheduleTask(id, department, currentDate);
         }
     }
     
-    private Order generateDelayedOrder(int orderId, Department department, LocalDate currentDate)
+    private Task generateDelayedTask(int id, Department department, LocalDate currentDate)
     {
-        String orderNumber = generateOrderNumber();
-        String customerName = customers.get(randGenerator.nextInt(customers.size()));
-        LocalDate deliveryDate = currentDate.plusDays(randGenerator.nextInt(7) + 14);
-        LocalDate taskStartDate = currentDate.minusDays(randGenerator.nextInt(7) + 4);
-        LocalDate taskEndDate = currentDate.minusDays(randGenerator.nextInt(2) + 1);
-        Task departmentTask = new Task(taskStartDate, taskEndDate);
-        return new Order(orderId, orderNumber, customerName, deliveryDate, department, departmentTask);
+        Order taskOrder = generateOrder(id, department, currentDate);      
+        LocalDate startDate = currentDate.minusDays(randGenerator.nextInt(7) + 4);
+        LocalDate endDate = currentDate.minusDays(randGenerator.nextInt(2) + 1);
+        Task departmentTask = new Task(id, department, startDate, endDate);
+        departmentTask.setOrder(taskOrder);
+        return departmentTask;
     }
     
-    private Order generateOverdueOrder(int orderId, Department department, LocalDate currentDate)
+    private Task generateOverdueTask(int id, Department department, LocalDate currentDate)
     {
-        String orderNumber = generateOrderNumber();
-        String customerName = customers.get(randGenerator.nextInt(customers.size()));
-        LocalDate deliveryDate = currentDate.plusDays(randGenerator.nextInt(7) + 14);
-        LocalDate taskStartDate = currentDate.minusDays(randGenerator.nextInt(2) + 1);
-        LocalDate taskEndDate = currentDate.plusDays(randGenerator.nextInt(7) + 1);
+        LocalDate startDate = currentDate.minusDays(randGenerator.nextInt(2) + 1);
+        LocalDate endDate = currentDate.plusDays(randGenerator.nextInt(7) + 1);
         Department overdueDepartment = generateOverdueDepartment(department);
-        Task departmentTask = new Task(taskStartDate, taskEndDate);
-        return new Order(orderId, orderNumber, customerName, deliveryDate, overdueDepartment, departmentTask);
+        Order taskOrder = generateOrder(id, overdueDepartment, currentDate);
+        Task departmentTask = new Task(id, department, startDate, endDate);
+        departmentTask.setOrder(taskOrder);
+        return departmentTask;
     }
     
-    private Order generateOnScheduleOrder(int orderId, Department department, LocalDate currentDate)
+    private Task generateOnScheduleTask(int id, Department department, LocalDate currentDate)
+    {
+        Order taskOrder = generateOrder(id, department, currentDate);
+        LocalDate startDate = currentDate.minusDays(randGenerator.nextInt(4) + 1);
+        LocalDate endDate = currentDate.plusDays(randGenerator.nextInt(4) + 1);
+        Task departmentTask = new Task(id, department, startDate, endDate);
+        departmentTask.setOrder(taskOrder);
+        return departmentTask;
+    }
+    
+    private Order generateOrder(int id, Department department, LocalDate currentDate)
     {
         String orderNumber = generateOrderNumber();
-        String customerName = customers.get(randGenerator.nextInt(customers.size()));
-        LocalDate deliveryDate = currentDate.plusDays(randGenerator.nextInt(7) + 14);
-        LocalDate taskStartDate = currentDate.minusDays(randGenerator.nextInt(4) + 1);
-        LocalDate taskEndDate = currentDate.plusDays(randGenerator.nextInt(4) + 1);
-        Task departmentTask = new Task(taskStartDate, taskEndDate);
-        return new Order(orderId, orderNumber, customerName, deliveryDate, department, departmentTask);
+        String orderCustomerName = customers.get(randGenerator.nextInt(customers.size()));
+        LocalDate orderDeliveryDate = currentDate.plusDays(randGenerator.nextInt(7) + 14);
+        return new Order(id, orderNumber, orderCustomerName, orderDeliveryDate, department);
     }
     
     private String generateOrderNumber()
