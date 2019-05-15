@@ -52,8 +52,9 @@ public class Department {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.id.get());
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.id.get());
+        hash = 59 * hash + Objects.hashCode(this.name.get());
         return hash;
     }
 
@@ -72,8 +73,12 @@ public class Department {
         if (!Objects.equals(this.id.get(), other.id.get())) {
             return false;
         }
+        if (!Objects.equals(this.name.get(), other.name.get())) {
+            return false;
+        }
         return true;
     }
+    
     
     
     @Override

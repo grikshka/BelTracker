@@ -20,25 +20,19 @@ import javafx.beans.property.StringProperty;
  */
 public class Order {
     
-    public enum OrderStatus {
-        OVERDUE, ON_SCHEDULE, DELAYED
-    }
     private final IntegerProperty id = new SimpleIntegerProperty();
-    private final StringProperty orderNumber = new SimpleStringProperty();
+    private final StringProperty number = new SimpleStringProperty();
     private final StringProperty customerName = new SimpleStringProperty();
     private final ObjectProperty<LocalDate> deliveryDate = new SimpleObjectProperty<>();
     private Department currentDepartment;
-    private Task departmentTask;
-    private OrderStatus status;
     
-    public Order(int id, String orderNumber, String customerName, LocalDate deliveryDate, Department currentDepartment, Task departmentTask)
+    public Order(int id, String number, String customerName, LocalDate deliveryDate, Department currentDepartment)
     {
         this.id.set(id);
-        this.orderNumber.set(orderNumber);
+        this.number.set(number);
         this.customerName.set(customerName);
         this.deliveryDate.set(deliveryDate);
         this.currentDepartment = currentDepartment;
-        this.departmentTask = departmentTask;
     }    
     
     public int getId() {
@@ -53,16 +47,16 @@ public class Order {
         return id;
     }    
 
-    public String getOrderNumber() {
-        return orderNumber.get();
+    public String getNumber() {
+        return number.get();
     }
 
-    public void setOrderNumber(String value) {
-        orderNumber.set(value);
+    public void setNumber(String value) {
+        number.set(value);
     }
 
-    public StringProperty orderNumberProperty() {
-        return orderNumber;
+    public StringProperty numberProperty() {
+        return number;
     }
 
     public String getCustomerName() {
@@ -75,36 +69,24 @@ public class Order {
 
     public StringProperty customerNameProperty() {
         return customerName;
-    }
-    
+    } 
+
     public Department getCurrentDepartment() {
         return currentDepartment;
     }
 
-    public void setCurrentDepartment(Department department) {
-        this.currentDepartment = department;
-    } 
-
-    public Task getDepartmentTask() {
-        return departmentTask;
-    }
-
-    public void setDepartmentTask(Task departmentTask) {
-        this.departmentTask = departmentTask;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
+    public void setCurrentDepartment(Department currentDepartment) {
+        this.currentDepartment = currentDepartment;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.id.get());
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.id.get());
+        hash = 53 * hash + Objects.hashCode(this.number.get());
+        hash = 53 * hash + Objects.hashCode(this.customerName.get());
+        hash = 53 * hash + Objects.hashCode(this.deliveryDate.get());
+        hash = 53 * hash + Objects.hashCode(this.currentDepartment);
         return hash;
     }
 
@@ -123,9 +105,21 @@ public class Order {
         if (!Objects.equals(this.id.get(), other.id.get())) {
             return false;
         }
+        if (!Objects.equals(this.number.get(), other.number.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.customerName.get(), other.customerName.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.deliveryDate.get(), other.deliveryDate.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.currentDepartment, other.currentDepartment)) {
+            return false;
+        }
         return true;
     }
-    
+
     
     
 }
