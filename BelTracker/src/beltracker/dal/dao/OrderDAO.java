@@ -25,43 +25,32 @@ import java.util.List;
  */
 public class OrderDAO {
     
-    public List<Order> getOrders(Connection connection, Department department, LocalDate currentDate) throws SQLException
+    public Order getOrder(Connection con, Task task) throws SQLException
     {
-        String sqlStatement =   "SELECT d.Name DepartmentName, do.*, o.DeliveryDate, o.Number OrderNumber, c.Name CustomerName FROM DepartmentOrder do " +
-                                "INNER JOIN Department d ON do.DepartmentId = d.Id " +
-                                "INNER JOIN [Order] o ON do.OrderId = o.Id " +
+        String sqlStatement = "SELECT TOP 1 dt.OrderId, o.Number OrderNumber, o.DeliveryDate, c.Name CustomerName, dt.DepartmentId, d.Name DepartmentName FROM DepartmentTask dt " +
+                                "INNER JOIN Department d ON dt.DepartmentId = d.Id " +
+                                "INNER JOIN [Order] o ON dt.OrderId = o.Id " +
                                 "INNER JOIN OrderCustomer oc ON o.Id = oc.OrderId " +
                                 "INNER JOIN Customer c ON oc.CustomerId = c.Id " +
-                                "WHERE do.OrderId IN " +
-                                "(SELECT OrderId FROM DepartmentOrder WHERE DepartmentId = ? AND isFinished = 0 AND ? >= startTime) " +
-                                "AND do.isFinished = 0 " + 
-                                "ORDER BY do.OrderId, do.StartTime ASC";
-        try(PreparedStatement statement = connection.prepareStatement(sqlStatement))
+                                "WHERE dt.OrderId IN " +
+                                "(SELECT OrderId FROM DepartmentTask WHERE Id = ?) " +
+                                "AND dt.IsFinished = 0 " +
+                                "ORDER BY dt.StartDate";
+        try(PreparedStatement statement = con.prepareStatement(sqlStatement))
         {
-            List<Order> orders = new ArrayList();
-            statement.setInt(1, department.getId());
-            statement.setDate(2, Date.valueOf(currentDate));
+            statement.setInt(1, task.getId());
             ResultSet rs = statement.executeQuery();
-            
-            int previousOrderId = -1;
-            while(rs.next())
+            Order taskOrder = null;
+            if(rs.next())
             {
                 int orderId = rs.getInt("OrderId");
-                if(orderId != previousOrderId)
-                {                   
-                    String orderNumber = rs.getString("OrderNumber");
-                    String customerName = rs.getString("CustomerName");
-                    LocalDate deliveryDate = rs.getDate("DeliveryDate").toLocalDate();
-                    Department currentDepartment = new Department(rs.getInt("DepartmentId"), rs.getString("DepartmentName"));
-                    LocalDate taskStartDate = rs.getDate("StartTime").toLocalDate();
-                    LocalDate taskEndDate = rs.getDate("EndTime").toLocalDate();
-                    Task departmentTask = new Task(taskStartDate, taskEndDate);
-                    Order order = new Order(orderId, orderNumber, customerName, deliveryDate, currentDepartment, departmentTask);
-                    orders.add(order);
-                    previousOrderId = orderId;
-                }
+                String orderNumber = rs.getString("OrderNumber");
+                LocalDate deliveryDate = rs.getDate("DeliveryDate").toLocalDate();
+                String customerName = rs.getString("CustomerName");
+                Department currentDepartment = new Department(rs.getInt("DepartmentId"), rs.getString("DepartmentName"));
+                taskOrder = new Order(orderId, orderNumber, customerName, deliveryDate, currentDepartment);
             }
-            return orders;
+            return taskOrder;
         }
     }
     
