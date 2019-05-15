@@ -6,7 +6,7 @@
 package beltracker.gui.model.concrete;
 
 import beltracker.be.Department;
-import beltracker.be.Order;
+import beltracker.be.Task;
 import beltracker.bll.IBLLFacade;
 import beltracker.gui.model.interfaces.IMainModel;
 import java.util.List;
@@ -21,7 +21,7 @@ public class MainModel implements IMainModel {
      
     private IBLLFacade bllFacade;
     private Department selectedDepartment;
-    private ObservableList<Order> orders;
+    private ObservableList<Task> departmentTasks;
     
     public MainModel(IBLLFacade facade)
     {
@@ -34,16 +34,21 @@ public class MainModel implements IMainModel {
     }
     
     @Override
-    public void loadOrders()
+    public void loadTasks()
     {
-        List<Order> departmentOrders = bllFacade.getOrders(selectedDepartment);
-        orders = FXCollections.observableArrayList(departmentOrders);
+        List<Task> tasks = bllFacade.getTasks(selectedDepartment);
+        departmentTasks = FXCollections.observableArrayList(tasks);
     }
     
     @Override
-    public ObservableList<Order> getOrders()
+    public ObservableList<Task> getTasks()
     {
-        return orders;
+        return departmentTasks;
+    }
+    
+    private void runOrderObserving()
+    {
+        //TO DO
     }
     
 }

@@ -6,7 +6,7 @@
 package beltracker.gui.model.interfaces;
 
 import beltracker.be.Department;
-import beltracker.be.Order;
+import beltracker.be.Task;
 import javafx.collections.ObservableList;
 
 /**
@@ -17,9 +17,9 @@ public interface IMainModel {
     
     void setDepartment(Department department);
     
-    void loadOrders();
+    void loadTasks();
     
-    ObservableList<Order> getOrders();
+    ObservableList<Task> getTasks();
     
     
 }
