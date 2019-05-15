@@ -5,6 +5,7 @@
  */
 package beltracker.bll.util;
 
+import beltracker.be.Department;
 import beltracker.be.Task;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -33,6 +34,22 @@ public class TaskAnalyser {
         else
         {
             return 1;
+        }
+    }
+    
+    public Task.Status analyseStatus(Task task, Department department)
+    {
+        if(!(task.getOrder().getCurrentDepartment().equals(department)))
+        {
+            return Task.Status.OVERDUE;
+        }
+        else if(LocalDate.now().isAfter(task.getEndDate()))
+        {
+            return Task.Status.DELAYED;
+        }
+        else
+        {
+            return Task.Status.ON_SCHEDULE;
         }
     }
     
