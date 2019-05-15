@@ -6,9 +6,7 @@
 package beltracker.bll;
 
 import beltracker.be.Department;
-import beltracker.bll.util.OrderAnalyser;
 import beltracker.be.Order;
-import beltracker.be.Order.OrderStatus;
 import beltracker.be.Task;
 import beltracker.bll.util.TaskAnalyser;
 import beltracker.dal.IDALFacade;
@@ -22,29 +20,26 @@ import java.util.List;
 public class BLLManager implements IBLLFacade{
     
     private IDALFacade dalFacade;
-    private OrderAnalyser orderAnalyser;
     private TaskAnalyser taskAnalyser;
     
     public BLLManager(IDALFacade facade)
     {
         this.dalFacade = facade;
-        orderAnalyser = new OrderAnalyser();
         taskAnalyser = new TaskAnalyser();
     }
 
     @Override
-    public List<Order> getOrders(Department department) {
+    public List<Task> getTasks(Department department) {
         LocalDate currentDate = LocalDate.now();
-        List<Order> orders = dalFacade.getOrders(department, currentDate);
-        for(Order order : orders)
+        List<Task> tasks = dalFacade.getTasks(department, currentDate);
+        for(Task departmentTask : tasks)
         {
-            OrderStatus status = orderAnalyser.analyseOrderStatus(order, department);
-            order.setStatus(status);
-            Task task = order.getDepartmentTask();
-            double estimatedProgress = taskAnalyser.calculateEstimatedProgress(task);
-            task.setEstimatedProgress(estimatedProgress);
+            Task.Status status = taskAnalyser.analyseStatus(departmentTask, department);
+            double estimatedProgress = taskAnalyser.calculateEstimatedProgress(departmentTask);
+            departmentTask.setStatus(status);
+            departmentTask.setEstimatedProgress(estimatedProgress);
         }
-        return orders;
+        return tasks;
     }
 
     @Override

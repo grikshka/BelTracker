@@ -7,7 +7,6 @@ package beltracker.bll;
 
 import beltracker.dal.DALFacadeFactory;
 import beltracker.dal.IDALFacade;
-import beltracker.exception.BelTrackerException;
 
 /**
  *
