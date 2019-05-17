@@ -95,7 +95,7 @@ public class LoadingViewController implements Initializable {
 
         MainViewController controller = fxmlLoader.getController();
         controller.injectModel(model);
-        controller.loadTasks();
+        controller.loadTaskTiles();
         
         return root;
     }
