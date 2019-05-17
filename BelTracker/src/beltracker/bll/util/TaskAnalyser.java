@@ -9,6 +9,8 @@ import beltracker.be.Department;
 import beltracker.be.Task;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -53,4 +55,70 @@ public class TaskAnalyser {
         }
     }
     
+    public List<Task> detectNewTasks(List<Task> oldList, List<Task> newList)
+    {
+        List<Task> newTasks = new ArrayList<>();
+        for(Task newListTask : newList)
+        {
+            if(!oldList.contains(newListTask))
+            {
+                boolean taskModified = false;
+                for(Task oldListTask : oldList)
+                {
+                    if(newListTask.getId() == oldListTask.getId())
+                    {
+                        taskModified = true;
+                    }
+                }
+                if(!taskModified)
+                {
+                    newTasks.add(newListTask);
+                }
+            }
+        }
+        return newTasks;
+    }
+    
+    public List<Task> detectRemovedTasks(List<Task> oldList, List<Task> newList)
+    {
+        List<Task> removedTasks = new ArrayList<>();
+        for(Task oldListTask : oldList)
+        {
+            boolean taskModified = false;
+            for(Task newListTask: newList)
+            {
+                if(oldListTask.getId() == newListTask.getId())
+                {
+                    taskModified = true;
+                    break;
+                }
+            }
+            if(!taskModified)
+            {
+                removedTasks.add(oldListTask);
+            }
+        }
+        return removedTasks;
+    }
+    
+    public List<Task> detectModifiedTasks(List<Task> oldList, List<Task> newList)
+    {
+        List<Task> modifiedTasks = new ArrayList<>();
+        for(Task newListTask : newList)
+        {
+            if(!oldList.contains(newListTask))
+            {
+                for(Task oldListTask : oldList)
+                {
+                    if(newListTask.getId() == oldListTask.getId())
+                    {
+                        modifiedTasks.add(newListTask);
+                        break;
+                    }
+                }
+            }
+        }
+        return modifiedTasks;
+        
+    }
 }
