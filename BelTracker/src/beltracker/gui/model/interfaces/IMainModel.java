@@ -7,13 +7,14 @@ package beltracker.gui.model.interfaces;
 
 import beltracker.be.Department;
 import beltracker.be.Task;
+import beltracker.gui.util.observer.Subject;
 import javafx.collections.ObservableList;
 
 /**
  *
  * @author Acer
  */
-public interface IMainModel {
+public interface IMainModel extends Subject{
     
     void setDepartment(Department department);
     
