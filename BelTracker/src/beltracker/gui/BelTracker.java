@@ -9,6 +9,7 @@ import beltracker.gui.controller.DepartmentConfigurationViewController;
 import beltracker.gui.util.AlertManager;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -60,6 +61,11 @@ public class BelTracker extends Application {
             
             DepartmentConfigurationViewController controller = fxmlLoader.getController();            
             stage.setOnShown((e) -> controller.loadDepartmentInformations());
+            
+            stage.setOnCloseRequest((e) -> {
+                Platform.exit();
+                System.exit(0);
+            });            
             stage.show();
         }
         catch(IOException ex)
