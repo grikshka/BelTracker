@@ -5,10 +5,7 @@
  */
 package beltracker.gui.controller;
 
-import beltracker.be.Order;
 import beltracker.be.Task;
-import beltracker.exception.BelTrackerException;
-import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IMainModel;
 import java.io.IOException;
 import java.net.URL;
@@ -19,57 +16,77 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.TilePane;
+import beltracker.gui.util.observer.TaskObserver;
+import java.util.HashMap;
+import javafx.application.Platform;
+import javafx.scene.Node;
 
 /**
  * FXML Controller class
  *
  * @author Acer
  */
-public class MainViewController implements Initializable {
+public class MainViewController implements Initializable, TaskObserver {
 
-    private IMainModel model;
     private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/tileview/TaskOverdueTileView.fxml"; 
     private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/tileview/TaskOnScheduleTileView.fxml"; 
     private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/tileview/TaskDelayedTileView.fxml";
+    private IMainModel model;
+    private HashMap<Integer, Node> taskTiles = new HashMap<>();
     
     @FXML
     private TilePane tilOrders;
-    
-    public MainViewController()
-    {
-        model = ModelCreator.getInstance().createMainModel();
-    }
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
     public void injectModel(IMainModel model)
     {
         this.model = model;
+        model.register(this);
     }
     
-    public void loadTasks() throws BelTrackerException, IOException
+    public void loadTaskTiles() throws IOException
     {
         model.loadTasks();
         List<Task> tasks = model.getTasks();
-        for (Task task : tasks)
+        for(Task task : tasks)
         {
-            FXMLLoader fxmlLoader = getOrderTileFXML(task.getStatus());
-            Parent root = fxmlLoader.load();
-            
-            TaskTileViewController controller = fxmlLoader.getController();
-            controller.setTaskTile(task);
-            
-            tilOrders.getChildren().add(root);
+            addTaskTile(task);
         }  
     }
     
-    private FXMLLoader getOrderTileFXML(Task.Status status) throws IOException
+    private void addTaskTile(Task task)
+    {
+        try
+        {
+            FXMLLoader fxmlLoader = getTaskTileFXML(task.getStatus());
+            Parent root = fxmlLoader.load();
+
+            TaskTileViewController controller = fxmlLoader.getController();
+            controller.setTaskTile(task);
+
+            tilOrders.getChildren().add(root);
+            taskTiles.put(task.getId(), root);
+        }
+        catch(IOException ex)
+        {
+            //TO DO
+        }
+    }    
+    
+    private void removeTaskTile(Task task)
+    {
+        Node tileToRemove = taskTiles.get(task.getId());
+        tilOrders.getChildren().remove(tileToRemove);
+    }
+    
+    private FXMLLoader getTaskTileFXML(Task.Status status) throws IOException
     {
         FXMLLoader fxmlLoader;
         switch(status)
@@ -92,5 +109,16 @@ public class MainViewController implements Initializable {
         }
         return fxmlLoader;
     }
-    
+
+    @Override
+    public void update(List<Task> newTasks, List<Task> removedTasks) {
+        for(Task newTask : newTasks)
+        {
+            Platform.runLater(() -> addTaskTile(newTask));
+        }
+        for(Task removedTask : removedTasks)
+        {
+            Platform.runLater(() -> removeTaskTile(removedTask));
+        }
+    }
 }
