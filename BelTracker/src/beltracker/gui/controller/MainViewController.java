@@ -6,7 +6,9 @@
 package beltracker.gui.controller;
 
 import beltracker.be.Task;
+import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IMainModel;
+import beltracker.gui.model.interfaces.ITaskModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -28,9 +30,9 @@ import javafx.scene.Node;
  */
 public class MainViewController implements Initializable, TaskObserver {
 
-    private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/tileview/TaskOverdueTileView.fxml"; 
-    private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/tileview/TaskOnScheduleTileView.fxml"; 
-    private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/tileview/TaskDelayedTileView.fxml";
+    private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/tasktileview/TaskOverdueTileView.fxml"; 
+    private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/tasktileview/TaskOnScheduleTileView.fxml"; 
+    private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/tasktileview/TaskDelayedTileView.fxml";
     private IMainModel model;
     private HashMap<Integer, Node> taskTiles = new HashMap<>();
     
@@ -108,6 +110,14 @@ public class MainViewController implements Initializable, TaskObserver {
                 break;
         }
         return fxmlLoader;
+    }
+    
+    private void displayTaskFullView(Task task)
+    {
+        ITaskModel taskModel = ModelCreator.getInstance().createTaskModel();
+        taskModel.setTask(task);
+        
+        
     }
 
     @Override
