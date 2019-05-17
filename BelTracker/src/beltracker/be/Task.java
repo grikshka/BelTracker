@@ -39,6 +39,17 @@ public class Task {
         this.endDate.set(endDate);
     }
     
+    public void update(Task updatedTask)
+    {
+        this.id.set(updatedTask.getId());
+        this.startDate.set(updatedTask.getStartDate());
+        this.endDate.set(updatedTask.getEndDate());
+        this.estimatedProgress.set(updatedTask.getEstimatedProgress());
+        this.department = updatedTask.getDepartment();
+        this.order = updatedTask.getOrder();
+        this.status = updatedTask.getStatus();
+    }
+    
      public int getId() {
         return id.get();
     }
