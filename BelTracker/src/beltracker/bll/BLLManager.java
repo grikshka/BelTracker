@@ -6,7 +6,6 @@
 package beltracker.bll;
 
 import beltracker.be.Department;
-import beltracker.be.Order;
 import beltracker.be.Task;
 import beltracker.bll.util.TaskAnalyser;
 import beltracker.dal.IDALFacade;
@@ -45,6 +44,21 @@ public class BLLManager implements IBLLFacade{
     @Override
     public List<Department> getAllDepartments() {
         return dalFacade.getAllDepartments();
+    }
+
+    @Override
+    public List<Task> detectModifiedTasks(List<Task> oldList, List<Task> newList) {
+        return taskAnalyser.detectModifiedTasks(oldList, newList);
+    }
+
+    @Override
+    public List<Task> detectNewTasks(List<Task> oldList, List<Task> newList) {
+        return taskAnalyser.detectNewTasks(oldList, newList);
+    }
+
+    @Override
+    public List<Task> detectRemovedTasks(List<Task> oldList, List<Task> newList) {
+        return taskAnalyser.detectRemovedTasks(oldList, newList);
     }
     
     
