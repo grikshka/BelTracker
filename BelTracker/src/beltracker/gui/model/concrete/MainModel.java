@@ -44,6 +44,7 @@ public class MainModel implements IMainModel {
     @Override
     public void loadTasks()
     {
+        System.out.println(selectedDepartment.getName());
         List<Task> tasks = bllFacade.getTasks(selectedDepartment);
         departmentTasks = FXCollections.observableArrayList(tasks);
         runTasksObserving();
@@ -71,7 +72,6 @@ public class MainModel implements IMainModel {
         List<Task> updatedTasks = bllFacade.getTasks(selectedDepartment);
         Platform.runLater(() -> updateModifiedTasks(updatedTasks));     
         updateNewAndRemovedTasks(updatedTasks);
-        
     }
     
     private void updateModifiedTasks(List<Task> updatedTasks)

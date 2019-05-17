@@ -45,14 +45,18 @@ public class TaskTileViewController implements Initializable {
     
     public void setTaskTile(Task task)
     {
-        lblOrderCurrentDepartment.textProperty().bind(task.getOrder().getCurrentDepartment().nameProperty());
-        lblOrderCustomerName.textProperty().bind(task.getOrder().customerNameProperty());
-        lblOrderNumber.textProperty().bind(task.getOrder().numberProperty());
         prgEstimatedProgress.progressProperty().bind(task.estimatedProgressProperty());
         
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_FORMAT);
         lblEndDate.textProperty().bind(Bindings.createStringBinding(() ->
                dtf.format(task.getEndDate()), task.endDateProperty()));
+        lblOrderCustomerName.textProperty().bind(Bindings.createStringBinding(() ->
+                task.getOrder().getCustomerName(), task.orderProperty()));
+        lblOrderNumber.textProperty().bind(Bindings.createStringBinding(() ->
+                task.getOrder().getNumber(), task.orderProperty()));
+        lblOrderCurrentDepartment.textProperty().bind(Bindings.createStringBinding(() ->
+                task.getOrder().getCurrentDepartment().getName(), task.orderProperty()));
+        
     }
     
 }

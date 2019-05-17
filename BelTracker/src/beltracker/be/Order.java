@@ -24,7 +24,7 @@ public class Order {
     private final StringProperty number = new SimpleStringProperty();
     private final StringProperty customerName = new SimpleStringProperty();
     private final ObjectProperty<LocalDate> deliveryDate = new SimpleObjectProperty<>();
-    private Department currentDepartment;
+    private final ObjectProperty<Department> currentDepartment = new SimpleObjectProperty<>();
     
     public Order(int id, String number, String customerName, LocalDate deliveryDate, Department currentDepartment)
     {
@@ -32,7 +32,7 @@ public class Order {
         this.number.set(number);
         this.customerName.set(customerName);
         this.deliveryDate.set(deliveryDate);
-        this.currentDepartment = currentDepartment;
+        this.currentDepartment.set(currentDepartment);
     }    
     
     public int getId() {
@@ -72,11 +72,30 @@ public class Order {
     } 
 
     public Department getCurrentDepartment() {
-        return currentDepartment;
+        return currentDepartment.get();
     }
 
     public void setCurrentDepartment(Department currentDepartment) {
-        this.currentDepartment = currentDepartment;
+        this.currentDepartment.set(currentDepartment);
+    }
+    
+    public ObjectProperty currentDepartmentProperty()
+    {
+        return currentDepartment;
+    }
+    
+    public void setDeliveryDate(LocalDate value)
+    {
+        this.deliveryDate.set(value);
+    }
+    
+    public LocalDate getDeliveryDate()
+    {
+        return deliveryDate.get();
+    }
+    
+    public ObjectProperty deliveryDateProperty() {
+        return deliveryDate;
     }
 
     @Override

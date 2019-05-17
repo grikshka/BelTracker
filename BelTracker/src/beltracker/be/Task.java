@@ -27,14 +27,14 @@ public class Task {
     private final ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> endDate = new SimpleObjectProperty<>();
     private final DoubleProperty estimatedProgress = new SimpleDoubleProperty();
-    private Department department;
-    private Order order;
+    private final ObjectProperty<Department> department = new SimpleObjectProperty<>();
+    private final ObjectProperty<Order> order = new SimpleObjectProperty<>();
     private Status status;
     
     public Task(int id, Department department, LocalDate startDate, LocalDate endDate)
     {
         this.id.set(id);
-        this.department = department;
+        this.department.set(department);
         this.startDate.set(startDate);
         this.endDate.set(endDate);
     }
@@ -45,8 +45,8 @@ public class Task {
         this.startDate.set(updatedTask.getStartDate());
         this.endDate.set(updatedTask.getEndDate());
         this.estimatedProgress.set(updatedTask.getEstimatedProgress());
-        this.department = updatedTask.getDepartment();
-        this.order = updatedTask.getOrder();
+        this.department.set(updatedTask.getDepartment());
+        this.order.set(updatedTask.getOrder());
         this.status = updatedTask.getStatus();
     }
     
@@ -64,20 +64,30 @@ public class Task {
     
     public void setDepartment(Department dept)
     {
-        this.department = dept;
+        this.department.set(dept);
     }
     
     public Department getDepartment()
+    {
+        return department.get();
+    }
+    
+    public ObjectProperty departmentProperty()
     {
         return department;
     }
     
     public void setOrder(Order order)
     {
-        this.order = order;
+        this.order.set(order);
     }
     
     public Order getOrder()
+    {
+        return order.get();
+    }
+    
+    public ObjectProperty orderProperty()
     {
         return order;
     }
