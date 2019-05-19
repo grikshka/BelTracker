@@ -10,6 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../../../resources/css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.DepartmentConfigurationViewController">
    <children>
       <StackPane layoutY="196.0" prefHeight="350.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -35,7 +36,7 @@
                   </ComboBox>
                </children>
             </StackPane>
-            <Button fx:id="btnStartConfirm" mnemonicParsing="false" onAction="#clickStart" prefHeight="55.0" prefWidth="200.0" styleClass="buttonStart">
+            <Button fx:id="btnStartConfirm" mnemonicParsing="false" onAction="#clickStart" prefHeight="55.0" prefWidth="200.0" styleClass="buttonStartSetup">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -46,7 +47,8 @@
             <Label fx:id="lblStartConfirm" focusTraversable="false" mouseTransparent="true" styleClass="labelRegular" text="Start" textFill="WHITE">
                <StackPane.margin>
                   <Insets top="55.0" />
-               </StackPane.margin></Label>
+               </StackPane.margin>
+            </Label>
          </children>
       </StackPane>
    </children>
