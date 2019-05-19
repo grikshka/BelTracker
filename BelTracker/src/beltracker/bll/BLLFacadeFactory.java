@@ -24,7 +24,7 @@ public class BLLFacadeFactory {
     
     private BLLFacadeFactory()
     {
-        dalFacade = DALFacadeFactory.getInstance().createFacade(DALFacadeFactory.FacadeType.MOCK);
+        dalFacade = DALFacadeFactory.getInstance().createFacade(DALFacadeFactory.FacadeType.PRODUCTION);
     }
     
     public static synchronized BLLFacadeFactory getInstance()
