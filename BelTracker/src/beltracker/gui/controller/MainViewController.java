@@ -20,8 +20,18 @@ import javafx.scene.Parent;
 import javafx.scene.layout.TilePane;
 import beltracker.gui.util.observer.TaskObserver;
 import java.util.HashMap;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -30,14 +40,29 @@ import javafx.scene.Node;
  */
 public class MainViewController implements Initializable, TaskObserver {
 
-    private static final String ORDER_OVERDUE_VIEW_PATH = "/beltracker/gui/view/tasktileview/TaskOverdueTileView.fxml"; 
-    private static final String ORDER_ON_SCHEDULE_VIEW_PATH = "/beltracker/gui/view/tasktileview/TaskOnScheduleTileView.fxml"; 
-    private static final String ORDER_DELAYED_VIEW_PATH = "/beltracker/gui/view/tasktileview/TaskDelayedTileView.fxml";
+    private static final String TASK_TILE_VIEW_PATH = "/beltracker/gui/view/TaskTileView.fxml"; 
+    private static final String TASK_FULL_VIEW_PATH = "/beltracker/gui/view/TaskFullView.fxml"; 
+    
+    private static final String TASK_ON_SCHEDULE_TILE_VIEW_STYLE_CLASS = "vboxTileTaskOnSchedule"; 
+    private static final String TASK_ON_SCHEDULE_FULL_VIEW_STYLE_CLASS = "/beltracker/gui/view/taskfullview/TaskOnScheduleFullView.fxml"; 
+    
+    private static final String TASK_DELAYED_TILE_VIEW_STYLE_CLASS = "vboxTileTaskDelayed";
+    private static final String TASK_DELAYED_FULL_VIEW_STYLE_CLASS = "/beltracker/gui/view/taskfullview/TaskDelayedFullView.fxml";
+    
+    private static final String TASK_OVERDUE_TILE_VIEW_STYLE_CLASS = "vboxTileTaskOverdue";
+    private static final String TASK_OVERDUE_FULL_VIEW_STYLE_CLASS = "/beltracker/gui/view/taskfullview/TaskDelayedFullView.fxml";
+    
     private IMainModel model;
-    private HashMap<Integer, Node> taskTiles = new HashMap<>();
+    private HashMap<Task, Node> taskTiles = new HashMap<>();
     
     @FXML
     private TilePane tilOrders;
+    @FXML
+    private TextField txtSearchBar;
+    @FXML
+    private ComboBox<?> comboBoxSort;
+    @FXML
+    private StackPane stcDarken;
     
     /**
      * Initializes the controller class.
@@ -67,14 +92,19 @@ public class MainViewController implements Initializable, TaskObserver {
     {
         try
         {
-            FXMLLoader fxmlLoader = getTaskTileFXML(task.getStatus());
-            Parent root = fxmlLoader.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TASK_TILE_VIEW_PATH));
+            Parent root = fxmlLoader.load();           
 
+            String styleClass = getTaskTileViewStyleClass(task.getStatus());
+            root.getStyleClass().add(styleClass);
+            
             TaskTileViewController controller = fxmlLoader.getController();
             controller.setTaskTile(task);
-
+            
             tilOrders.getChildren().add(root);
-            taskTiles.put(task.getId(), root);
+            taskTiles.put(task, root);
+            
+            root.setOnMouseClicked((e) -> displayTaskFullView(task));
         }
         catch(IOException ex)
         {
@@ -82,53 +112,152 @@ public class MainViewController implements Initializable, TaskObserver {
         }
     }    
     
+    private void updateTaskTile(Task updatedTask)
+    {    
+        Node tileToUpdate = null;
+        for(Task task : taskTiles.keySet())
+        {
+            if(task.getId() == updatedTask.getId())
+            {
+                tileToUpdate = taskTiles.get(task);
+                break;
+            }
+        }
+        String updatedStyleClass = getTaskTileViewStyleClass(updatedTask.getStatus());
+        tileToUpdate.getStyleClass().clear();
+        tileToUpdate.getStyleClass().add(updatedStyleClass);
+    }
+    
     private void removeTaskTile(Task task)
     {
-        Node tileToRemove = taskTiles.get(task.getId());
+        Node tileToRemove = taskTiles.get(task);
         tilOrders.getChildren().remove(tileToRemove);
     }
     
-    private FXMLLoader getTaskTileFXML(Task.Status status) throws IOException
+    private String getTaskTileViewStyleClass(Task.Status status)
     {
-        FXMLLoader fxmlLoader;
         switch(status)
         {
             case DELAYED:       
-                fxmlLoader = new FXMLLoader(getClass().getResource(ORDER_DELAYED_VIEW_PATH));
-                break;
+                return TASK_DELAYED_TILE_VIEW_STYLE_CLASS;
 
             case OVERDUE:       
-                fxmlLoader = new FXMLLoader(getClass().getResource(ORDER_OVERDUE_VIEW_PATH));
-                break;  
+                return TASK_OVERDUE_TILE_VIEW_STYLE_CLASS; 
 
             case ON_SCHEDULE: 
-                fxmlLoader = new FXMLLoader(getClass().getResource(ORDER_ON_SCHEDULE_VIEW_PATH));            
-                break;
+                return TASK_ON_SCHEDULE_TILE_VIEW_STYLE_CLASS;
 
             default:
-                fxmlLoader = new FXMLLoader(getClass().getResource(ORDER_ON_SCHEDULE_VIEW_PATH));            
-                break;
+                return TASK_ON_SCHEDULE_TILE_VIEW_STYLE_CLASS;
         }
-        return fxmlLoader;
+    }
+    
+    private String getTaskFullViewStyleClass(Task.Status status) throws IOException
+    {
+        switch(status)
+        {
+            case DELAYED:       
+                return TASK_DELAYED_FULL_VIEW_STYLE_CLASS;
+
+            case OVERDUE:       
+                return TASK_OVERDUE_FULL_VIEW_STYLE_CLASS; 
+
+            case ON_SCHEDULE: 
+                return TASK_ON_SCHEDULE_FULL_VIEW_STYLE_CLASS;
+
+            default:
+                return TASK_ON_SCHEDULE_FULL_VIEW_STYLE_CLASS;
+        }
     }
     
     private void displayTaskFullView(Task task)
     {
-        ITaskModel taskModel = ModelCreator.getInstance().createTaskModel();
-        taskModel.setTask(task);
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TASK_FULL_VIEW_PATH));
+            Parent root = fxmlLoader.load();
+            
+            ITaskModel taskModel = ModelCreator.getInstance().createTaskModel();
+            taskModel.setTask(task);
+            
+            TaskFullViewController controller = fxmlLoader.getController();
+            controller.injectModel(taskModel);
+
+            Stage currentStage = (Stage) tilOrders.getScene().getWindow();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            
+            dimCurrentStage();
+            setFullTaskViewStage(currentStage, stage);
+            stage.showAndWait();
+            enlightCurrentStage();
+            
+        }
+        catch(IOException ex)
+        {
+            //TO DO
+            ex.printStackTrace();
+        }
         
+    }
+     private void setFullTaskViewStage(Stage currentStage, Stage newStage)
+    {
+        setFullTaskViewStageCentering(currentStage, newStage);
+        setFullTaskViewStageMode(newStage);
+    }
+    
+    private void setFullTaskViewStageCentering(Stage currentStage, Stage newStage)
+    {
+        double centerXPosition = currentStage.getX() + currentStage.getWidth()/2d;
+        double centerYPosition = currentStage.getY() + currentStage.getHeight()/2d + 19;
+        newStage.setOnShowing(e -> newStage.hide());
+        newStage.setOnShown(e -> {
+                newStage.setX(centerXPosition - newStage.getWidth()/2d);
+                newStage.setY(centerYPosition - newStage.getHeight()/2d );
+                newStage.show();});
+    }
+    
+    private void setFullTaskViewStageMode(Stage newStage)
+    {
+        newStage.initStyle(StageStyle.UNDECORATED);
+        newStage.initModality(Modality.APPLICATION_MODAL);
+    } 
+    
+    
+    private void dimCurrentStage()
+    {
+        FadeTransition transition = new FadeTransition(Duration.millis(300), stcDarken);
+        transition.setToValue(0.5);
+        transition.play();
         
+    }
+    
+    private void enlightCurrentStage()
+    {      
+        FadeTransition transition = new FadeTransition(Duration.millis(300), stcDarken);
+        transition.setToValue(0);
+        transition.play();
     }
 
     @Override
-    public void update(List<Task> newTasks, List<Task> removedTasks) {
+    public void update(List<Task> newTasks, List<Task> modifiedTasks, List<Task> removedTasks) {
         for(Task newTask : newTasks)
         {
             Platform.runLater(() -> addTaskTile(newTask));
+        }
+        for(Task modifiedTask : modifiedTasks)
+        {
+            Platform.runLater(() -> updateTaskTile(modifiedTask));
         }
         for(Task removedTask : removedTasks)
         {
             Platform.runLater(() -> removeTaskTile(removedTask));
         }
+    }
+
+    @FXML
+    private void searchTasks(KeyEvent event) {
+        String searchKey = txtSearchBar.getText();
+        
     }
 }
