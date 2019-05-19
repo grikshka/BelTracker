@@ -11,12 +11,12 @@ import beltracker.bll.IBLLFacade;
 import beltracker.gui.model.interfaces.IMainModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import beltracker.gui.util.observer.TaskObserver;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 
 /**
@@ -44,7 +44,6 @@ public class MainModel implements IMainModel {
     @Override
     public void loadTasks()
     {
-        System.out.println(selectedDepartment.getName());
         List<Task> tasks = bllFacade.getTasks(selectedDepartment);
         departmentTasks = FXCollections.observableArrayList(tasks);
         runTasksObserving();
@@ -56,10 +55,10 @@ public class MainModel implements IMainModel {
         return departmentTasks;
     }
     
-    private void runTasksObserving()
+    public void runTasksObserving()
     {
         tasksObserver = Executors.newSingleThreadScheduledExecutor();
-        tasksObserver.scheduleAtFixedRate(() -> updateTasks(), 0, 3, TimeUnit.SECONDS);
+        tasksObserver.scheduleAtFixedRate(() -> updateTasks(), 5, 5, TimeUnit.SECONDS);
     }
     
     private void stopTasksObserving()
@@ -70,13 +69,20 @@ public class MainModel implements IMainModel {
     private void updateTasks()
     {
         List<Task> updatedTasks = bllFacade.getTasks(selectedDepartment);
-        Platform.runLater(() -> updateModifiedTasks(updatedTasks));     
-        updateNewAndRemovedTasks(updatedTasks);
+        
+        List<Task> modifiedTasks = bllFacade.detectModifiedTasks(departmentTasks, updatedTasks);
+        List<Task> newTasks = bllFacade.detectNewTasks(departmentTasks, updatedTasks);
+        List<Task> removedTasks = bllFacade.detectRemovedTasks(departmentTasks, updatedTasks);
+        
+        departmentTasks.addAll(newTasks);
+        Platform.runLater(() -> updateModifiedTasks(updatedTasks));  
+        departmentTasks.removeAll(removedTasks);
+        
+        notifyObservers(newTasks, modifiedTasks, removedTasks);
     }
     
-    private void updateModifiedTasks(List<Task> updatedTasks)
-    {
-        List<Task> modifiedTasks = bllFacade.detectModifiedTasks(departmentTasks, updatedTasks);
+    private void updateModifiedTasks(List<Task> modifiedTasks)
+    {      
         for(Task modifiedTask : modifiedTasks)
         {
             for(Task departmentTask : departmentTasks)
@@ -86,19 +92,6 @@ public class MainModel implements IMainModel {
                     departmentTask.update(modifiedTask);
                 }
             }
-        }
-    }
-    
-    private void updateNewAndRemovedTasks(List<Task> updatedTasks)
-    {
-        List<Task> newTasks = bllFacade.detectNewTasks(departmentTasks, updatedTasks);
-        List<Task> removedTasks = bllFacade.detectRemovedTasks(departmentTasks, updatedTasks);
-
-        if(!newTasks.isEmpty() || !removedTasks.isEmpty())
-        {
-            departmentTasks.removeAll(removedTasks);
-            departmentTasks.addAll(newTasks);
-            notifyObservers(newTasks, removedTasks);
         }
     }
 
@@ -113,10 +106,10 @@ public class MainModel implements IMainModel {
     }
 
     @Override
-    public void notifyObservers(List<Task> newTasks, List<Task> removedTasks) {
+    public void notifyObservers(List<Task> newTasks, List<Task> modifiedTasks, List<Task> removedTasks) {
         for(TaskObserver o : observers)
         {
-            o.update(newTasks, removedTasks);
+            o.update(newTasks, modifiedTasks, removedTasks);
         }
     }
     
