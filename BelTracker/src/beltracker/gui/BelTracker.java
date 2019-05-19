@@ -26,12 +26,12 @@ public class BelTracker extends Application {
     
     private static final Logger LOGGER = Logger.getLogger(BelTracker.class);
     
-    private static final int STAGE_MIN_WIDTH = 1100;
+    private static final int STAGE_MIN_WIDTH = 1110;
     private static final int STAGE_MIN_HEIGHT = 770;
     private static final String STAGE_ICON_PATH = "/resources/images/BelmanIcon.png";
     private static final String STAGE_TITLE = "BelTracker";
     
-    private static final int SCENE_WIDTH = 1000;
+    private static final int SCENE_WIDTH = 1100;
     private static final int SCENE_HEIGHT = 700;
     private static final String SCENE_BACKGROUND_HEXCOLOR = "#f4f4f4";
     private static final String DEPARTMENT_CONFIGURATION_VIEW_PATH = "/beltracker/gui/view/DepartmentConfigurationView.fxml";
