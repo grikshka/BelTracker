@@ -139,14 +139,13 @@ public class Task {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id.get());
-        hash = 53 * hash + Objects.hashCode(this.startDate.get());
-        hash = 53 * hash + Objects.hashCode(this.endDate.get());
-        hash = 53 * hash + Objects.hashCode(this.estimatedProgress.get());
-        hash = 53 * hash + Objects.hashCode(this.department);
-        hash = 53 * hash + Objects.hashCode(this.order);
-        hash = 53 * hash + Objects.hashCode(this.status);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.startDate);
+        hash = 59 * hash + Objects.hashCode(this.endDate);
+        hash = 59 * hash + Objects.hashCode(this.estimatedProgress);
+        hash = 59 * hash + Objects.hashCode(this.department);
+        hash = 59 * hash + Objects.hashCode(this.order);
         return hash;
     }
 
@@ -162,25 +161,22 @@ public class Task {
             return false;
         }
         final Task other = (Task) obj;
-        if (!Objects.equals(this.id.get(), other.id.get())) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.startDate.get(), other.startDate.get())) {
+        if (!Objects.equals(this.startDate, other.startDate)) {
             return false;
         }
-        if (!Objects.equals(this.endDate.get(), other.endDate.get())) {
+        if (!Objects.equals(this.endDate, other.endDate)) {
             return false;
         }
-        if (!Objects.equals(this.estimatedProgress.get(), other.estimatedProgress.get())) {
+        if (!Objects.equals(this.estimatedProgress, other.estimatedProgress)) {
             return false;
         }
         if (!Objects.equals(this.department, other.department)) {
             return false;
         }
         if (!Objects.equals(this.order, other.order)) {
-            return false;
-        }
-        if (this.status != other.status) {
             return false;
         }
         return true;
