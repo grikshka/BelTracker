@@ -60,6 +60,11 @@ public class BLLManager implements IBLLFacade{
     public List<Task> detectRemovedTasks(List<Task> oldList, List<Task> newList) {
         return taskAnalyser.detectRemovedTasks(oldList, newList);
     }
+
+    @Override
+    public List<Task> searchTasks(List<Task> tasks, String key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

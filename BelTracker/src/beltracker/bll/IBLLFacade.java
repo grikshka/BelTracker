@@ -19,6 +19,8 @@ public interface IBLLFacade {
     
     List<Department> getAllDepartments();
     
+    List<Task> searchTasks(List<Task> tasks, String key);
+    
     List<Task> detectModifiedTasks(List<Task> oldList, List<Task> newList);
     
     List<Task> detectNewTasks(List<Task> oldList, List<Task> newList);
