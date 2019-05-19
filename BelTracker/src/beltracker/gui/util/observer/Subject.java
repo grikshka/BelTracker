@@ -18,6 +18,6 @@ public interface Subject {
     
     void unregister(TaskObserver o);
     
-    void notifyObservers(List<Task> newTasks, List<Task> removedTasks);
+    void notifyObservers(List<Task> newTasks, List<Task> modifiedTasks, List<Task> removedTasks);
     
 }

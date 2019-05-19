@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface TaskObserver {
     
-    void update(List<Task> newTasks, List<Task> removedTasks);
+    void update(List<Task> newTasks, List<Task> modifiedTasks, List<Task> removedTasks);
         
 }
