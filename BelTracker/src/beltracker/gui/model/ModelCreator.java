@@ -11,6 +11,8 @@ import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.model.interfaces.IDepartmentModel;
 import beltracker.gui.model.concrete.DepartmentModel;
 import beltracker.gui.model.concrete.MainModel;
+import beltracker.gui.model.concrete.TaskModel;
+import beltracker.gui.model.interfaces.ITaskModel;
 
 /**
  *
@@ -43,6 +45,11 @@ public class ModelCreator {
     public IMainModel createMainModel()
     {
         return new MainModel(bllFacade);
+    }
+    
+    public ITaskModel createTaskModel()
+    {
+        return new TaskModel(bllFacade);
     }
     
 }
