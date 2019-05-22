@@ -353,26 +353,24 @@
     -fx-scale-y: 1.0;
 }
 
-.buttonCloseWindow
+.buttonClosePopup
 {
-    -fx-background-color: #d60101;
-    -fx-background-image: url("../images/CancelViewFocused.png");
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-image: url("../images/CancelViewDefault.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-background-size: 10 10; 
     -fx-background-radius: 0;
 }
-.buttonCloseWindow:hover
+.buttonClosePopup:hover
 {
-    -fx-background-color: #e30337;
     -fx-background-image: url("../images/CancelViewFocused.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
-.buttonCloseWindow:pressed
+.buttonClosePopup:pressed
 {
     -fx-background-color: #e30337;
-    -fx-background-image: url("../images/CancelViewDefault.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
