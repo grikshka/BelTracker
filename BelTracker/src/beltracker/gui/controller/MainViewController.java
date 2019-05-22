@@ -53,7 +53,7 @@ public class MainViewController implements Initializable, TaskObserver {
     private static final String TASK_OVERDUE_FULL_VIEW_STYLE_CLASS = "/beltracker/gui/view/taskfullview/TaskDelayedFullView.fxml";
     
     private IMainModel model;
-    private HashMap<Task, Node> taskTiles = new HashMap<>();
+    private HashMap<Integer, Node> taskTiles = new HashMap<>();
     
     @FXML
     private TilePane tilOrders;
@@ -102,7 +102,7 @@ public class MainViewController implements Initializable, TaskObserver {
             controller.setTaskTile(task);
             
             tilOrders.getChildren().add(root);
-            taskTiles.put(task, root);
+            taskTiles.put(task.getId(), root);
             
             root.setOnMouseClicked((e) -> displayTaskFullView(task));
         }
@@ -114,15 +114,7 @@ public class MainViewController implements Initializable, TaskObserver {
     
     private void updateTaskTile(Task updatedTask)
     {    
-        Node tileToUpdate = null;
-        for(Task task : taskTiles.keySet())
-        {
-            if(task.getId() == updatedTask.getId())
-            {
-                tileToUpdate = taskTiles.get(task);
-                break;
-            }
-        }
+        Node tileToUpdate = taskTiles.get(updatedTask.getId());
         String updatedStyleClass = getTaskTileViewStyleClass(updatedTask.getStatus());
         tileToUpdate.getStyleClass().clear();
         tileToUpdate.getStyleClass().add(updatedStyleClass);
@@ -130,8 +122,9 @@ public class MainViewController implements Initializable, TaskObserver {
     
     private void removeTaskTile(Task task)
     {
-        Node tileToRemove = taskTiles.get(task);
+        Node tileToRemove = taskTiles.get(task.getId());
         tilOrders.getChildren().remove(tileToRemove);
+        taskTiles.remove(task.getId());
     }
     
     private String getTaskTileViewStyleClass(Task.Status status)
@@ -209,7 +202,7 @@ public class MainViewController implements Initializable, TaskObserver {
     private void setFullTaskViewStageCentering(Stage currentStage, Stage newStage)
     {
         double centerXPosition = currentStage.getX() + currentStage.getWidth()/2d;
-        double centerYPosition = currentStage.getY() + currentStage.getHeight()/2d + 19;
+        double centerYPosition = currentStage.getY() + currentStage.getHeight()/2d;
         newStage.setOnShowing(e -> newStage.hide());
         newStage.setOnShown(e -> {
                 newStage.setX(centerXPosition - newStage.getWidth()/2d);
