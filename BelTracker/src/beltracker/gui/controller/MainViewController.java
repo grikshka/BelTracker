@@ -28,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -177,12 +178,13 @@ public class MainViewController implements Initializable, TaskObserver {
             controller.injectModel(taskModel);
 
             Stage currentStage = (Stage) tilOrders.getScene().getWindow();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Stage newStage = new Stage();
+            Scene newScene = new Scene(root);
+            newStage.setScene(newScene);
             
             dimCurrentStage();
-            setFullTaskViewStage(currentStage, stage);
-            stage.showAndWait();
+            setFullTaskViewStage(currentStage, newStage, newScene);
+            newStage.showAndWait();
             enlightCurrentStage();
             
         }
@@ -193,10 +195,11 @@ public class MainViewController implements Initializable, TaskObserver {
         }
         
     }
-     private void setFullTaskViewStage(Stage currentStage, Stage newStage)
+    
+    private void setFullTaskViewStage(Stage currentStage, Stage newStage, Scene newScene)
     {
         setFullTaskViewStageCentering(currentStage, newStage);
-        setFullTaskViewStageMode(newStage);
+        setFullTaskViewStageMode(newStage, newScene);
     }
     
     private void setFullTaskViewStageCentering(Stage currentStage, Stage newStage)
@@ -210,10 +213,11 @@ public class MainViewController implements Initializable, TaskObserver {
                 newStage.show();});
     }
     
-    private void setFullTaskViewStageMode(Stage newStage)
+    private void setFullTaskViewStageMode(Stage newStage, Scene newScene)
     {
-        newStage.initStyle(StageStyle.UNDECORATED);
+        newStage.initStyle(StageStyle.TRANSPARENT);
         newStage.initModality(Modality.APPLICATION_MODAL);
+        newScene.setFill(Color.TRANSPARENT);
     } 
     
     
