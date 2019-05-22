@@ -5,20 +5,21 @@
  */
 package beltracker.gui.util;
 
-import java.util.Optional;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
  * @author Acer
  */
 public class AlertManager {
+    
+    private static final String CONFIRMATION_IMAGE = "/resources/images/ConfirmationAlert.png";
     
     public void displayError(String message)
     {
@@ -54,6 +55,7 @@ public class AlertManager {
         Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
         setAlertCentering(currentStage, alertStage);
         alert.setTitle("BelTracker - Confirmation");
+        alert.setGraphic(new ImageView(CONFIRMATION_IMAGE));
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.setHeaderText(null);
         alert.setContentText(message);
