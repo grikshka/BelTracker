@@ -33,10 +33,11 @@ public class TaskFullViewController implements Initializable {
     private static final String DATE_FORMAT = "dd MMMM yyyy";
     
     private ITaskModel model;
+    private AlertManager alertManager;
     private AnimationPlayer animationPlayer;
     
     @FXML
-    private Button btnStart;
+    private Button btnSubmit;
     @FXML
     private Label lblStartDate;
     @FXML
@@ -50,6 +51,11 @@ public class TaskFullViewController implements Initializable {
     @FXML
     private Label lblOrderCustomerName;
 
+    
+    public TaskFullViewController()
+    {
+        alertManager = new AlertManager();
+    }
 
     /**
      * Initializes the controller class.
@@ -84,7 +90,7 @@ public class TaskFullViewController implements Initializable {
     
     public void showStageWithAnimation()
     {
-        Stage stage = (Stage) btnStart.getScene().getWindow();
+        Stage stage = (Stage) btnSubmit.getScene().getWindow();
         animationPlayer = new AnimationPlayer();
         animationPlayer.playSlideAndShow(stage);
     }    
@@ -93,16 +99,20 @@ public class TaskFullViewController implements Initializable {
     @FXML
     private void clickClose(ActionEvent event)
     {
-        Stage stage = (Stage) btnStart.getScene().getWindow();
+        Stage stage = (Stage) btnSubmit.getScene().getWindow();
         animationPlayer = new AnimationPlayer();
         animationPlayer.playSlideAndClose(stage);
     }
 
     @FXML
     private void clickSubmit(ActionEvent event)
-    {
-        AlertManager alertManager = new AlertManager();
-//        alertManager.displayConfirmation("Submit task","Are you sure you want to submit this task as finished?");
+    {        
+        Stage stage = (Stage) btnSubmit.getScene().getWindow();
+        boolean submit = alertManager.displayConfirmation(stage, "Are you sure you want to submit this task as finished?");
+        if(submit)
+        {
+            model.submitTask();
+        }
     }
     
 }
