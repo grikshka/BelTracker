@@ -33,4 +33,9 @@ public class TaskModel implements ITaskModel{
     public Task getTask() {
         return task;
     }
+
+    @Override
+    public void submitTask() {
+        bllFacade.submitTask(task);
+    }
 }

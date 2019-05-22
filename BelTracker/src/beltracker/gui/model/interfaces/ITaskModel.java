@@ -16,6 +16,8 @@ public interface ITaskModel {
     
     void setTask(Task task);
     
+    void submitTask();
+    
     Task getTask();
     
 }
