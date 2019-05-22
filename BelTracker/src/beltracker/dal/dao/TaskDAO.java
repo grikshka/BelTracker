@@ -24,7 +24,10 @@ public class TaskDAO {
     
     public List<Task> getTasks(Connection con, Department department, LocalDate currentDate) throws SQLException
     {
-        String sqlStatement = "SELECT * FROM DepartmentTask WHERE DepartmentId = ? AND IsFinished = 0 AND ? >= StartDate";
+        String sqlStatement = "SELECT * FROM [DepartmentTask]"
+                + " WHERE [DepartmentTask].DepartmentId = ?"
+                + " AND [DepartmentTask].IsFinished = 0 AND "
+                + "[DepartmentTask].StartDate <= ?";
         List<Task> departmentTasks = new ArrayList<>();
         try(PreparedStatement statement = con.prepareStatement(sqlStatement))
         {
@@ -40,6 +43,30 @@ public class TaskDAO {
             }
         }
         return departmentTasks;
+    }
+    
+    public void submitTask(Connection con, Task task) throws SQLException
+    {
+        String sqlStatement = "UPDATE [DepartmentTask] "
+                + " SET  IsFinished = 1 "
+                + " WHERE [DepartmentTask].[Id] = ? "
+                + " IF ( "
+                + "     SELECT  COUNT([OrderId]) AS TasksLeft "
+                + "     FROM [DepartmentTask] "
+                + "     WHERE [DepartmentTask].[IsFinished] = 0 AND [DepartmentTask].[OrderId] = ? "
+                + " ) = 0 "
+                + " BEGIN "
+                + "     UPDATE [Order] "
+                + "     SET  IsFinished = 1 "
+                + "     WHERE [Order].[Id] = ?; "
+                + " END; ";
+        try(PreparedStatement statement = con.prepareStatement(sqlStatement))
+        {
+            statement.setInt(1, task.getId());
+            statement.setInt(2, task.getOrder().getId());
+            statement.setInt(3, task.getOrder().getId());
+            statement.execute();
+        }
     }
     
 }
