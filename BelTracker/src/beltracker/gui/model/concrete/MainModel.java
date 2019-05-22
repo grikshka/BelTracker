@@ -58,7 +58,7 @@ public class MainModel implements IMainModel {
     public void runTasksObserving()
     {
         tasksObserver = Executors.newSingleThreadScheduledExecutor();
-        tasksObserver.scheduleAtFixedRate(() -> updateTasks(), 5, 5, TimeUnit.SECONDS);
+        tasksObserver.scheduleAtFixedRate(() -> updateTasks(), 3, 3, TimeUnit.SECONDS);
     }
     
     private void stopTasksObserving()
@@ -75,7 +75,7 @@ public class MainModel implements IMainModel {
         List<Task> removedTasks = bllFacade.detectRemovedTasks(departmentTasks, updatedTasks);
         
         departmentTasks.addAll(newTasks);
-        Platform.runLater(() -> updateModifiedTasks(updatedTasks));  
+        updateModifiedTasks(updatedTasks);  
         departmentTasks.removeAll(removedTasks);
         
         notifyObservers(newTasks, modifiedTasks, removedTasks);
@@ -89,7 +89,7 @@ public class MainModel implements IMainModel {
             {
                 if(modifiedTask.getId() == departmentTask.getId())
                 {
-                    departmentTask.update(modifiedTask);
+                    Platform.runLater(() -> departmentTask.update(modifiedTask));
                 }
             }
         }
