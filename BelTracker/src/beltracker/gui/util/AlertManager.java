@@ -5,10 +5,14 @@
  */
 package beltracker.gui.util;
 
-import beltracker.exception.BelTrackerException;
+import java.util.Optional;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -42,6 +46,37 @@ public class AlertManager {
         {
             alert.show();
         } 
+    }
+    
+    public boolean displayConfirmation(Stage currentStage, String message)
+    {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        setAlertCentering(currentStage, alertStage);
+        alert.setTitle("BelTracker - Confirmation");
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("/resources/css/Style.css").toExternalForm());  
+        ButtonType clickedButton = alert.showAndWait().get();
+        if(clickedButton == ButtonType.OK)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    private void setAlertCentering(Stage currentStage, Stage alertStage)
+    {
+        double centerXPosition = currentStage.getX() + currentStage.getWidth()/2d;
+        double centerYPosition = currentStage.getY() + currentStage.getHeight()/2d;
+        alertStage.setOnShowing(e -> alertStage.hide());
+        alertStage.setOnShown(e -> {
+                alertStage.setX(centerXPosition - alertStage.getWidth()/2d);
+                alertStage.setY(centerYPosition - alertStage.getHeight()/2d );
+                alertStage.show();});
     }
     
 }
