@@ -24,6 +24,7 @@ public class MockDALManager implements IDALFacade{
     private final double TASK_DELAYED_PROBABILITY = 0.10;
     private final List<Department> departments = new ArrayList<>();
     private final List<String> customers = new ArrayList<>();
+    private final List<Integer> submittedTasksId = new ArrayList<>();
     private final Random randGenerator = new Random();
     
     public MockDALManager()
@@ -64,9 +65,12 @@ public class MockDALManager implements IDALFacade{
         List<Task> departmentTasks = new ArrayList<>();
         for(int i = 0; i < AMOUNT_OF_TASKS; i++)
         {
-            int id = i;
-            Task task = generateTask(id, department, currentDate);
-            departmentTasks.add(task);
+            if(!submittedTasksId.contains(i))
+            {
+                int id = i;
+                Task task = generateTask(id, department, currentDate);
+                departmentTasks.add(task);
+            }
         }
         return departmentTasks;
     }
@@ -152,6 +156,11 @@ public class MockDALManager implements IDALFacade{
         }
         while(overdueDepartment.equals(department));
         return overdueDepartment;
+    }
+
+    @Override
+    public void submitTask(Task task, long currentEpochTime) {
+        submittedTasksId.add(task.getId());
     }
     
 }

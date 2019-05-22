@@ -41,7 +41,7 @@ public class DbConnectionProvider {
     }
     
     public synchronized Connection getConnection() throws SQLServerException
-    {
+    {     
         long currentTimeMillis = System.currentTimeMillis();
         Connection connection;
         if(!unlocked.isEmpty())

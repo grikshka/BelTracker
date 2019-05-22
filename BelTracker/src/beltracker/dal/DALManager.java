@@ -9,6 +9,7 @@ import beltracker.be.Department;
 import beltracker.be.Order;
 import beltracker.be.Task;
 import beltracker.dal.dao.DepartmentDAO;
+import beltracker.dal.dao.EventLogDAO;
 import beltracker.dal.dao.OrderDAO;
 import beltracker.dal.dao.TaskDAO;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -29,6 +30,7 @@ public class DALManager implements IDALFacade{
     private TaskDAO taskDao;
     private OrderDAO orderDao;
     private DepartmentDAO departmentDao;
+    private EventLogDAO logDao;
     
     public DALManager()
     {
@@ -38,9 +40,11 @@ public class DALManager implements IDALFacade{
             taskDao = new TaskDAO();
             orderDao = new OrderDAO();
             departmentDao = new DepartmentDAO();
+            logDao = new EventLogDAO();
         }
         catch(IOException ex)
         {
+            ex.printStackTrace();
             //TO DO
         }
     }
@@ -48,8 +52,10 @@ public class DALManager implements IDALFacade{
     @Override
     public List<Task> getTasks(Department department, LocalDate currentDate) 
     {
-        try(Connection con = connector.getConnection())
+        Connection con = null;
+        try
         {
+            con = connector.getConnection();
             List<Task> tasks = taskDao.getTasks(con, department, currentDate);
             for(Task departmentTask : tasks)
             {
@@ -62,30 +68,78 @@ public class DALManager implements IDALFacade{
         {
             ex.printStackTrace();
             return null;
+            //TO DO
         }
         catch(SQLException ex)
         {
-            //TO DO
+            ex.printStackTrace();
             return null;
+            //TO DO
+        }
+        finally
+        {
+            if(con != null)
+            {
+                connector.releaseConnection(con);
+            }
         }
     }
 
     @Override
     public List<Department> getAllDepartments() 
     {
-        try(Connection con = connector.getConnection())
+        Connection con = null;
+        try
         {
+            con = connector.getConnection();
             return departmentDao.getAllDepartments(con);
         } 
         catch(SQLServerException ex) 
         {
-            //TO DO
+            ex.printStackTrace();
             return null;
+            //TO DO
         }
         catch(SQLException ex)
         {
-            //TO DO
+            ex.printStackTrace();
             return null;
+            //TO DO
+        }
+        finally
+        {
+            if(con != null)
+            {
+                connector.releaseConnection(con);
+            }
+        }
+    }
+
+    @Override
+    public void submitTask(Task task, long currentEpochTime) {
+        Connection con = null;
+        try
+        {
+            con = connector.getConnection();
+            taskDao.submitTask(con, task);
+            logDao.logEvent(con, task, currentEpochTime, EventLogDAO.EventType.SUBMIT_TASK);
+        } 
+        catch(SQLServerException ex) 
+        {
+            ex.printStackTrace();
+            //TO DO
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+            //TO DO
+        }
+        finally
+        {
+            if(con != null)
+            {
+                connector.releaseConnection(con);
+            }
         }
     }
     

@@ -19,6 +19,8 @@ public interface IDALFacade {
     
     List<Task> getTasks(Department department, LocalDate currentDate);
     
+    void submitTask(Task task, long currentEpochTime);
+    
     List<Department> getAllDepartments();
     
 }
