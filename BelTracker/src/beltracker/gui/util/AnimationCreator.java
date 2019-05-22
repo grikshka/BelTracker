@@ -135,6 +135,42 @@ public class AnimationCreator {
         
         return mainTransition;
      }
+     
+     public static SequentialTransition createTaskSubmittedAnimation(Node stackPane,Node stackPanePopup, Node pane)
+    {
+        PauseTransition pauseFirst = new PauseTransition(Duration.millis(200));
+        
+        FadeTransition stackPaneFade = new FadeTransition(Duration.millis(350), stackPane);
+        stackPaneFade.setFromValue(1);
+        stackPaneFade.setToValue(0);
+        
+        ScaleTransition popupScaleUp = new ScaleTransition(Duration.millis(225), stackPanePopup);
+        popupScaleUp.setFromX(0);
+        popupScaleUp.setFromY(0);
+        popupScaleUp.setToX(1.6);
+        popupScaleUp.setToY(1.6);
+        ScaleTransition popupScaleDown = new ScaleTransition(Duration.millis(100), stackPanePopup);
+        popupScaleDown.setFromX(1.6);
+        popupScaleDown.setFromY(1.6);
+        popupScaleDown.setToX(1.3);
+        popupScaleDown.setToY(1.3);
+        
+        ScaleTransition paneScale = new ScaleTransition(Duration.millis(200), pane);
+        paneScale.setFromY(1);
+        paneScale.setToY(0.35);
+        
+        PauseTransition pauseSecond = new PauseTransition(Duration.millis(750));
+        
+        FadeTransition paneFade = new FadeTransition(Duration.millis(150), pane);   
+        paneFade.setToValue(0);
+        FadeTransition popupFade = new FadeTransition(Duration.millis(150), stackPanePopup);
+        popupFade.setToValue(0);
+        ParallelTransition closewindowFade = new ParallelTransition(paneFade, popupFade);
+         
+        SequentialTransition mainTransition = new SequentialTransition(pauseFirst, stackPaneFade, paneScale, popupScaleUp, popupScaleDown , pauseSecond, closewindowFade);
+         
+        return mainTransition;
+    }
 
     
 }
