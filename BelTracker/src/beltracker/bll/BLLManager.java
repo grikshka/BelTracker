@@ -65,6 +65,12 @@ public class BLLManager implements IBLLFacade{
     public List<Task> searchTasks(List<Task> tasks, String key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void submitTask(Task task) {
+        long currentEpochTime = System.currentTimeMillis();
+        dalFacade.submitTask(task, currentEpochTime);
+    }
     
     
     

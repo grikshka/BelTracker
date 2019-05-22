@@ -17,6 +17,8 @@ public interface IBLLFacade {
     
     List<Task> getTasks(Department department);
     
+    void submitTask(Task task);
+    
     List<Department> getAllDepartments();
     
     List<Task> searchTasks(List<Task> tasks, String key);
