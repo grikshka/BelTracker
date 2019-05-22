@@ -8,11 +8,13 @@ package beltracker.gui.controller;
 import beltracker.be.Task;
 import beltracker.gui.model.interfaces.ITaskModel;
 import beltracker.gui.util.AlertManager;
+import beltracker.gui.util.AnimationCreator;
 import beltracker.gui.util.AnimationPlayer;
 import com.jfoenix.controls.JFXProgressBar;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.animation.SequentialTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -21,6 +23,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -50,6 +55,18 @@ public class TaskFullViewController implements Initializable {
     private JFXProgressBar prgEstimatedProgress;
     @FXML
     private Label lblOrderCustomerName;
+    @FXML
+    private Pane pneBackground;
+    @FXML
+    private StackPane stcConfirmation;
+    @FXML
+    private Label lblSubmitted;
+    @FXML
+    private ImageView imgSubmit;
+    @FXML
+    private StackPane stcDetails;
+    @FXML
+    private Button btnClose;
 
     
     public TaskFullViewController()
@@ -110,8 +127,15 @@ public class TaskFullViewController implements Initializable {
         Stage stage = (Stage) btnSubmit.getScene().getWindow();
         boolean submit = alertManager.displayConfirmation(stage, "Are you sure you want to submit this task as finished?");
         if(submit)
-        {
+        {                   
             model.submitTask();
+            stcConfirmation.setVisible(true);
+            SequentialTransition transition = AnimationCreator.createTaskSubmittedAnimation(stcDetails, stcConfirmation, pneBackground);
+            transition.play();
+            btnClose.setVisible(false);
+            transition.setOnFinished(e -> {
+            animationPlayer.playSlideAndClose(stage);
+            });
         }
     }
     
