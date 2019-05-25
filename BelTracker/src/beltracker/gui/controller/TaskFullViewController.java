@@ -132,7 +132,6 @@ public class TaskFullViewController implements Initializable {
             stcConfirmation.setVisible(true);
             SequentialTransition transition = AnimationCreator.createTaskSubmittedAnimation(stcDetails, stcConfirmation, pneBackground);
             transition.play();
-            btnClose.setVisible(false);
             transition.setOnFinished(e -> {
             animationPlayer.playSlideAndClose(stage);
             });

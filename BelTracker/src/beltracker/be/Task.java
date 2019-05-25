@@ -41,7 +41,6 @@ public class Task {
     
     public void update(Task updatedTask)
     {
-        this.id.set(updatedTask.getId());
         this.startDate.set(updatedTask.getStartDate());
         this.endDate.set(updatedTask.getEndDate());
         this.estimatedProgress.set(updatedTask.getEstimatedProgress());

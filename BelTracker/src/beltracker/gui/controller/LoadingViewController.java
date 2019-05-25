@@ -52,7 +52,7 @@ public class LoadingViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+             
     }    
     
     public void showAnimation()
@@ -83,6 +83,10 @@ public class LoadingViewController implements Initializable {
                 LOGGER.error(ex.getMessage(), ex);
                 Platform.runLater(() -> alertManager.displayError("The application was unable to start correctly", true));
             }
+            catch(Exception ex)
+            {
+                ex.printStackTrace();
+            }
             
         });
         executor.shutdown();
@@ -95,7 +99,7 @@ public class LoadingViewController implements Initializable {
 
         MainViewController controller = fxmlLoader.getController();
         controller.injectModel(model);
-        controller.loadTaskTiles();
+        controller.initializeView();
         
         return root;
     }

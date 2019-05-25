@@ -53,7 +53,7 @@ public class TaskTileViewController implements Initializable {
         lblOrderCustomerName.textProperty().bind(Bindings.createStringBinding(() ->
                 task.getOrder().getCustomerName(), task.orderProperty()));
         lblOrderNumber.textProperty().bind(Bindings.createStringBinding(() ->
-                task.getOrder().getNumber(), task.orderProperty()));
+                task.getOrder().getNumber(), task.orderProperty()));        
         lblOrderCurrentDepartment.textProperty().bind(Bindings.createStringBinding(() ->
                 task.getOrder().getCurrentDepartment().getName(), task.orderProperty()));
         

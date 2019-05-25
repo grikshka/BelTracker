@@ -8,16 +8,11 @@ package beltracker.dal.dao;
 import beltracker.be.Department;
 import beltracker.be.Order;
 import beltracker.be.Task;
-import beltracker.dal.DbConnectionProvider;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
