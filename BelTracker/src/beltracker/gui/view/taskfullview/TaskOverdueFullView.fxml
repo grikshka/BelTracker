@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane style="-fx-background-radius: 5; -fx-background-color: transparent;" stylesheets="@../../../../resources/css/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.TaskFullViewController">
+   <children>
+      <Pane fx:id="pneBackground" prefHeight="500.0" prefWidth="710.0" style="-fx-background-color: white; -fx-background-radius: 5;" />
+      <StackPane fx:id="stcDetails" prefHeight="500.0" prefWidth="710.0">
+         <children>
+            <StackPane prefHeight="149.0" prefWidth="710.0">
+               <children>
+                  <Label styleClass="labelMediumBig" text="Order number:" textFill="#184981">
+                     <StackPane.margin>
+                        <Insets bottom="60.0" right="190.0" top="40.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label fx:id="lblOrderNumber" prefHeight="39.0" prefWidth="229.0" styleClass="labelMediumBig" text="155-523-15" textFill="#184981">
+                     <StackPane.margin>
+                        <Insets bottom="60.0" left="300.0" top="40.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6e6e6" height="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="450.0">
+                     <StackPane.margin>
+                        <Insets bottom="45.0" top="60.0" />
+                     </StackPane.margin>
+                  </Rectangle>
+                  <Button mnemonicParsing="false" onAction="#clickClose" prefHeight="34.0" prefWidth="37.0" styleClass="buttonClosePopup" textFill="#d60101">
+                     <StackPane.margin>
+                        <Insets bottom="116.0" left="675.0" />
+                     </StackPane.margin>
+                  </Button>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="350.0" />
+               </StackPane.margin>
+            </StackPane>
+            <StackPane prefHeight="191.0" prefWidth="710.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="230.0" styleClass="labelRegularAverage" text="Customer">
+                     <StackPane.margin>
+                        <Insets bottom="30.0" right="220.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="27.0" prefWidth="230.0" styleClass="labelRegularAverage" text="Department" textAlignment="RIGHT">
+                     <StackPane.margin>
+                        <Insets bottom="30.0" left="230.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label fx:id="lblOrderCustomerName" prefWidth="250.0" styleClass="labelMediumAverage" text="MichaelSoft">
+                     <StackPane.margin>
+                        <Insets right="200.0" top="35.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label fx:id="lblOrderCurrentDepartment" prefHeight="28.0" prefWidth="250.0" styleClass="labelMediumAverage" text="MichaelSoftsOGDep">
+                     <StackPane.margin>
+                        <Insets left="445.0" top="35.0" />
+                     </StackPane.margin>
+                  </Label>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="235.0" top="140.0" />
+               </StackPane.margin>
+            </StackPane>
+            <StackPane prefHeight="256.0" prefWidth="710.0">
+               <children>
+                  <Label prefHeight="21.0" prefWidth="85.0" styleClass="labelRegular" text="Start date:">
+                     <StackPane.margin>
+                        <Insets bottom="52.0" right="515.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label fx:id="lblStartDate" prefHeight="21.0" prefWidth="275.0" styleClass="labelRegular" text="20 April 2019">
+                     <StackPane.margin>
+                        <Insets bottom="5.0" right="325.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label styleClass="labelRegular" text="End date:">
+                     <StackPane.margin>
+                        <Insets bottom="52.0" left="520.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label fx:id="lblEndDate" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="258.0" styleClass="labelRegular" text="5 May 2019" textAlignment="RIGHT">
+                     <StackPane.margin>
+                        <Insets bottom="5.0" left="340.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <JFXProgressBar fx:id="prgEstimatedProgress" prefHeight="17.0" prefWidth="598.0" progress="0.35" styleClass="progressBarOrderEstimated">
+                     <StackPane.margin>
+                        <Insets top="40.0" />
+                     </StackPane.margin>
+                  </JFXProgressBar>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="90.0" top="285.0" />
+               </StackPane.margin>
+            </StackPane>
+            <StackPane prefHeight="436.0" prefWidth="500.0">
+               <children>
+                  <Button fx:id="btnSubmit" disable="true" mnemonicParsing="false" onAction="#clickSubmit" prefHeight="63.0" prefWidth="167.0" styleClass="buttonSumbit" text="Submit" textFill="#ae0101">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <StackPane.margin>
+                  <Insets top="375.0" />
+               </StackPane.margin>
+            </StackPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../resources/images/OverdueError.png" />
+                     </image>
+                     <StackPane.margin>
+                        <Insets top="20.0" />
+                     </StackPane.margin>
+                  </ImageView>
+                  <Label layoutX="125.0" layoutY="37.0" styleClass="labelRegular" text="Your department should start working on this order" textFill="#ffcb08">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets top="-65.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label layoutX="157.0" layoutY="37.0" styleClass="labelRegular" text="but it is delayed by another department" textFill="#ffcb08">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets top="-25.0" />
+                     </StackPane.margin>
+                  </Label>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="320.0" top="80.0" />
+               </StackPane.margin>
+            </StackPane>
+         </children>
+      </StackPane>
+      <StackPane fx:id="stcConfirmation" layoutY="187.0" prefHeight="126.0" prefWidth="710.0" visible="false">
+         <children>
+            <Label fx:id="lblSubmitted" text="Task submitted" textFill="#184981">
+               <font>
+                  <Font name="Montserrat Medium" size="22.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets top="55.0" />
+               </StackPane.margin>
+            </Label>
+            <ImageView fx:id="imgSubmit" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/images/Submit.PNG" />
+               </image>
+               <StackPane.margin>
+                  <Insets bottom="30.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

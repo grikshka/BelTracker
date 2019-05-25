@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="beltracker.gui.controller.MainViewController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../../../resources/css/Style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -21,7 +20,7 @@
                <children>
                   <StackPane layoutX="121.0" prefHeight="70.0" prefWidth="679.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextField prefHeight="40.0" prefWidth="410.0" promptText="Search" styleClass="textFieldSearch">
+                        <TextField fx:id="txtSearchBar" onKeyReleased="#searchTasks" prefHeight="40.0" prefWidth="410.0" promptText="Search Order Number or Customer" styleClass="textFieldSearch">
                            <StackPane.margin>
                               <Insets left="20.0" right="20.0" />
                            </StackPane.margin>
@@ -54,7 +53,7 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" styleClass="scrollPaneTasks" BorderPane.alignment="CENTER">
                <content>
-                  <TilePane fx:id="tilOrders" hgap="40.0" prefHeight="448.0" prefWidth="572.0" vgap="40.0">
+                  <TilePane fx:id="tilTasks" hgap="40.0" prefHeight="448.0" prefWidth="572.0" vgap="40.0">
                      <padding>
                         <Insets bottom="15.0" left="40.0" right="30.0" top="15.0" />
                      </padding>
