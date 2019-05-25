@@ -144,30 +144,24 @@ public class AnimationCreator {
         stackPaneFade.setFromValue(1);
         stackPaneFade.setToValue(0);
         
-        ScaleTransition popupScaleUp = new ScaleTransition(Duration.millis(225), stackPanePopup);
-        popupScaleUp.setFromX(0);
-        popupScaleUp.setFromY(0);
-        popupScaleUp.setToX(1.6);
-        popupScaleUp.setToY(1.6);
-        ScaleTransition popupScaleDown = new ScaleTransition(Duration.millis(100), stackPanePopup);
-        popupScaleDown.setFromX(1.6);
-        popupScaleDown.setFromY(1.6);
-        popupScaleDown.setToX(1.3);
-        popupScaleDown.setToY(1.3);
+        
+        FadeTransition popupFadeIn = new FadeTransition(Duration.millis(225), stackPanePopup);
+        popupFadeIn.setFromValue(0);
+        popupFadeIn.setToValue(1);
         
         ScaleTransition paneScale = new ScaleTransition(Duration.millis(200), pane);
         paneScale.setFromY(1);
         paneScale.setToY(0.35);
         
-        PauseTransition pauseSecond = new PauseTransition(Duration.millis(750));
+        PauseTransition pauseSecond = new PauseTransition(Duration.millis(780));
         
-        FadeTransition paneFade = new FadeTransition(Duration.millis(150), pane);   
-        paneFade.setToValue(0);
-        FadeTransition popupFade = new FadeTransition(Duration.millis(150), stackPanePopup);
-        popupFade.setToValue(0);
-        ParallelTransition closewindowFade = new ParallelTransition(paneFade, popupFade);
+        FadeTransition paneFadeOut = new FadeTransition(Duration.millis(150), pane);   
+        paneFadeOut.setToValue(0);
+        FadeTransition popupFadeOut = new FadeTransition(Duration.millis(150), stackPanePopup);
+        popupFadeOut.setToValue(0);
+        ParallelTransition closeWindowFade = new ParallelTransition(paneFadeOut, popupFadeOut);
          
-        SequentialTransition mainTransition = new SequentialTransition(pauseFirst, stackPaneFade, paneScale, popupScaleUp, popupScaleDown , pauseSecond, closewindowFade);
+        SequentialTransition mainTransition = new SequentialTransition(pauseFirst, stackPaneFade, paneScale, popupFadeIn , pauseSecond, closeWindowFade);
          
         return mainTransition;
     }
