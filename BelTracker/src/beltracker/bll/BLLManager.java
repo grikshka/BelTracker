@@ -10,6 +10,7 @@ import beltracker.be.Task;
 import beltracker.bll.util.TaskAnalyser;
 import beltracker.dal.IDALFacade;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,7 +64,16 @@ public class BLLManager implements IBLLFacade{
 
     @Override
     public List<Task> searchTasks(List<Task> tasks, String key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Task> tasksToSearch = new ArrayList(tasks);
+        List<Task> results = new ArrayList<>();
+        
+        List<Task> orderNumberResults = taskAnalyser.searchTasksByOrderNumber(tasksToSearch, key);
+        results.addAll(orderNumberResults);
+        tasksToSearch.removeAll(orderNumberResults);
+        List<Task> orderCustomerResults = taskAnalyser.searchTasksByOrderCustomer(tasksToSearch, key);
+        results.addAll(orderCustomerResults);
+        
+        return results;
     }
 
     @Override

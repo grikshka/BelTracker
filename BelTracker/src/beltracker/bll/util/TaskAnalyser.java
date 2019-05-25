@@ -55,6 +55,42 @@ public class TaskAnalyser {
         }
     }
     
+    public List<Task> searchTasksByOrderNumber(List<Task> tasks, String key)
+    {        
+        List<Task> results = new ArrayList<>();
+        String generalizedKey = key.trim();
+        for(Task task : tasks)
+        {
+            String orderNumber = task.getOrder().getNumber();
+            if(generalizedKey.length() <= orderNumber.length())
+            {
+                if(orderNumber.substring(0, generalizedKey.length()).equals(generalizedKey))
+                {
+                    results.add(task);
+                }
+            }
+        }
+        return results;
+    }
+    
+    public List<Task> searchTasksByOrderCustomer(List<Task> tasks, String key)
+    {
+        List<Task> results = new ArrayList<>();
+        String generalizedKey = key.trim().toLowerCase();
+        for(Task task : tasks)
+        {
+            String customerName = task.getOrder().getCustomerName().toLowerCase();
+            if(generalizedKey.length() <= customerName.length())
+            {
+                if(customerName.substring(0, generalizedKey.length()).equals(generalizedKey))
+                {
+                    results.add(task);
+                }
+            }
+        }
+        return results;
+    }
+    
     public List<Task> detectNewTasks(List<Task> oldList, List<Task> newList)
     {
         List<Task> newTasks = new ArrayList<>();

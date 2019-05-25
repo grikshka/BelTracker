@@ -112,5 +112,10 @@ public class MainModel implements IMainModel {
             o.update(newTasks, modifiedTasks, removedTasks);
         }
     }
+
+    @Override
+    public List<Task> searchTasks(String key) {
+        return bllFacade.searchTasks(departmentTasks, key);
+    }
     
 }

@@ -8,6 +8,7 @@ package beltracker.gui.model.interfaces;
 import beltracker.be.Department;
 import beltracker.be.Task;
 import beltracker.gui.util.observer.Subject;
+import java.util.List;
 import javafx.collections.ObservableList;
 
 /**
@@ -21,6 +22,8 @@ public interface IMainModel extends Subject{
     void loadTasks();
     
     ObservableList<Task> getTasks();
+    
+    List<Task> searchTasks(String key);
     
     
 }

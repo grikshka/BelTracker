@@ -41,23 +41,20 @@ import javafx.util.Duration;
  */
 public class MainViewController implements Initializable, TaskObserver {
 
-    private static final String TASK_TILE_VIEW_PATH = "/beltracker/gui/view/TaskTileView.fxml"; 
-    private static final String TASK_FULL_VIEW_PATH = "/beltracker/gui/view/TaskFullView.fxml"; 
-    
+    private static final String TASK_TILE_VIEW_PATH = "/beltracker/gui/view/TaskTileView.fxml";     
     private static final String TASK_ON_SCHEDULE_TILE_VIEW_STYLE_CLASS = "vboxTileTaskOnSchedule"; 
-    private static final String TASK_ON_SCHEDULE_FULL_VIEW_STYLE_CLASS = "/beltracker/gui/view/taskfullview/TaskOnScheduleFullView.fxml"; 
-    
     private static final String TASK_DELAYED_TILE_VIEW_STYLE_CLASS = "vboxTileTaskDelayed";
-    private static final String TASK_DELAYED_FULL_VIEW_STYLE_CLASS = "/beltracker/gui/view/taskfullview/TaskDelayedFullView.fxml";
-    
     private static final String TASK_OVERDUE_TILE_VIEW_STYLE_CLASS = "vboxTileTaskOverdue";
-    private static final String TASK_OVERDUE_FULL_VIEW_STYLE_CLASS = "/beltracker/gui/view/taskfullview/TaskDelayedFullView.fxml";
+    
+    private static final String TASK_ON_SCHEDULE_FULL_VIEW_PATH = "/beltracker/gui/view/taskfullview/TaskOnScheduleFullView.fxml";         
+    private static final String TASK_DELAYED_FULL_VIEW_PATH = "/beltracker/gui/view/taskfullview/TaskDelayedFullView.fxml";    
+    private static final String TASK_OVERDUE_FULL_VIEW_PATH = "/beltracker/gui/view/taskfullview/TaskOverdueFullView.fxml";
     
     private IMainModel model;
     private HashMap<Integer, Node> taskTiles = new HashMap<>();
     
     @FXML
-    private TilePane tilOrders;
+    private TilePane tilTasks;
     @FXML
     private TextField txtSearchBar;
     @FXML
@@ -79,14 +76,20 @@ public class MainViewController implements Initializable, TaskObserver {
         model.register(this);
     }
     
-    public void loadTaskTiles() throws IOException
+    public void initializeView() throws IOException
     {
         model.loadTasks();
         List<Task> tasks = model.getTasks();
+        loadTaskTiles(tasks); 
+    }
+    
+    private void loadTaskTiles(List<Task> tasks)
+    {
+        tilTasks.getChildren().clear();
         for(Task task : tasks)
         {
             addTaskTile(task);
-        }  
+        } 
     }
     
     private void addTaskTile(Task task)
@@ -102,7 +105,7 @@ public class MainViewController implements Initializable, TaskObserver {
             TaskTileViewController controller = fxmlLoader.getController();
             controller.setTaskTile(task);
             
-            tilOrders.getChildren().add(root);
+            tilTasks.getChildren().add(root);
             taskTiles.put(task.getId(), root);
             
             root.setOnMouseClicked((e) -> displayTaskFullView(task));
@@ -124,7 +127,7 @@ public class MainViewController implements Initializable, TaskObserver {
     private void removeTaskTile(Task task)
     {
         Node tileToRemove = taskTiles.get(task.getId());
-        tilOrders.getChildren().remove(tileToRemove);
+        tilTasks.getChildren().remove(tileToRemove);
         taskTiles.remove(task.getId());
     }
     
@@ -146,21 +149,21 @@ public class MainViewController implements Initializable, TaskObserver {
         }
     }
     
-    private String getTaskFullViewStyleClass(Task.Status status) throws IOException
+    private FXMLLoader getTaskFullViewFXML(Task.Status status) throws IOException
     {
         switch(status)
         {
             case DELAYED:       
-                return TASK_DELAYED_FULL_VIEW_STYLE_CLASS;
+                return new FXMLLoader(getClass().getResource(TASK_DELAYED_FULL_VIEW_PATH));
 
             case OVERDUE:       
-                return TASK_OVERDUE_FULL_VIEW_STYLE_CLASS; 
+                return new FXMLLoader(getClass().getResource(TASK_OVERDUE_FULL_VIEW_PATH)); 
 
             case ON_SCHEDULE: 
-                return TASK_ON_SCHEDULE_FULL_VIEW_STYLE_CLASS;
+                return new FXMLLoader(getClass().getResource(TASK_ON_SCHEDULE_FULL_VIEW_PATH));
 
             default:
-                return TASK_ON_SCHEDULE_FULL_VIEW_STYLE_CLASS;
+                return new FXMLLoader(getClass().getResource(TASK_ON_SCHEDULE_FULL_VIEW_PATH));
         }
     }
     
@@ -168,7 +171,7 @@ public class MainViewController implements Initializable, TaskObserver {
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TASK_FULL_VIEW_PATH));
+            FXMLLoader fxmlLoader = getTaskFullViewFXML(task.getStatus());
             Parent root = fxmlLoader.load();
             
             ITaskModel taskModel = ModelCreator.getInstance().createTaskModel();
@@ -177,7 +180,7 @@ public class MainViewController implements Initializable, TaskObserver {
             TaskFullViewController controller = fxmlLoader.getController();
             controller.injectModel(taskModel);
 
-            Stage currentStage = (Stage) tilOrders.getScene().getWindow();
+            Stage currentStage = (Stage) tilTasks.getScene().getWindow();
             Stage newStage = new Stage();
             Scene newScene = new Scene(root);
             newStage.setScene(newScene);
@@ -255,6 +258,7 @@ public class MainViewController implements Initializable, TaskObserver {
     @FXML
     private void searchTasks(KeyEvent event) {
         String searchKey = txtSearchBar.getText();
-        
+        List<Task> results = model.searchTasks(searchKey);
+        loadTaskTiles(results);
     }
 }
