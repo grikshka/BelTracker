@@ -18,9 +18,9 @@
          <top>
             <AnchorPane maxHeight="60.0" prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <children>
-                  <StackPane layoutX="121.0" prefHeight="70.0" prefWidth="679.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+                  <StackPane layoutX="121.0" prefHeight="70.0" prefWidth="640.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextField fx:id="txtSearchBar" onKeyReleased="#searchTasks" prefHeight="40.0" prefWidth="410.0" promptText="Search Order Number or Customer" styleClass="textFieldSearch">
+                        <TextField fx:id="txtSearchBar" onKeyReleased="#inputSearch" prefHeight="40.0" prefWidth="410.0" promptText="Search Order Number or Customer" styleClass="textFieldSearch">
                            <StackPane.margin>
                               <Insets left="20.0" right="20.0" />
                            </StackPane.margin>
@@ -42,9 +42,9 @@
                         </ImageView>
                      </children>
                   </StackPane>
-                  <StackPane prefHeight="60.0" prefWidth="200.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane prefHeight="60.0" prefWidth="225.0" styleClass="barPaneLight" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ComboBox fx:id="comboBoxSort" prefHeight="40.0" prefWidth="180.0" promptText="Sort" styleClass="comboBoxSort" />
+                        <ComboBox fx:id="cmbSort" onAction="#clickSort" prefHeight="40.0" prefWidth="205.0" promptText="Sort" styleClass="comboBoxSort" />
                      </children>
                   </StackPane>
                </children>

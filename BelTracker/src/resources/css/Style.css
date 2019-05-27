@@ -195,21 +195,21 @@
 .comboBoxSort .list-cell
 {
     -fx-background-radius: 0;
-    -fx-font-size: 16;
+    -fx-font-size: 14;
 }
 .comboBoxSort .list-view .list-cell
 {
     -fx-background-color: white;
     -fx-background-radius: 0;
     -fx-text-fill: black;
-    -fx-font-size: 16;
+    -fx-font-size: 14;
     -fx-pref-height: 50;
 }
 .comboBoxSort .list-view .list-cell:hover
 {
     -fx-background-color: #f4f4f4;
     -fx-border-color: #f4f4f4;
-    -fx-font-size: 18;
+    -fx-font-size: 15;
 }
 
 .textFieldSearch
