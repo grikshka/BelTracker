@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beltracker.bll.util;
+package beltracker.bll.taskutil;
 
 import beltracker.be.Department;
 import beltracker.be.Task;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author Acer
  */
 public class TaskAnalyser {
-    
+     
     public double calculateEstimatedProgress(Task task)
     {
         LocalDate currentDate = LocalDate.now();
