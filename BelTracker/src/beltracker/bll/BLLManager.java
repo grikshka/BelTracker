@@ -7,7 +7,10 @@ package beltracker.bll;
 
 import beltracker.be.Department;
 import beltracker.be.Task;
-import beltracker.bll.util.TaskAnalyser;
+import beltracker.bll.taskutil.TaskAnalyser;
+import beltracker.bll.taskutil.comparator.TaskEndDateComparator;
+import beltracker.bll.taskutil.comparator.TaskEstimatedProgressComparator;
+import beltracker.bll.taskutil.comparator.TaskStartDateComparator;
 import beltracker.dal.IDALFacade;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -80,6 +83,38 @@ public class BLLManager implements IBLLFacade{
     public void submitTask(Task task) {
         long currentEpochTime = System.currentTimeMillis();
         dalFacade.submitTask(task, currentEpochTime);
+    }
+
+    @Override
+    public List<Task> sortTasks(List<Task> tasks, SortingType type) {
+        switch(type)
+        {
+            case END_DATE_ASC:
+                tasks.sort(new TaskEndDateComparator(TaskEndDateComparator.Type.ASC));
+                break;
+                
+            case END_DATE_DESC:
+                tasks.sort(new TaskEndDateComparator(TaskEndDateComparator.Type.DESC));
+                break;
+                
+            case ESTIMATED_PROGRESS_ASC:
+                tasks.sort(new TaskEstimatedProgressComparator(TaskEstimatedProgressComparator.Type.ASC));
+                break;
+                
+            case ESTIMATED_PROGRESS_DESC:
+                tasks.sort(new TaskEstimatedProgressComparator(TaskEstimatedProgressComparator.Type.DESC));
+                break;
+                
+            case START_DATE_ASC:
+                tasks.sort(new TaskStartDateComparator(TaskStartDateComparator.Type.ASC));
+                break;
+                
+            case START_DATE_DESC:
+                tasks.sort(new TaskStartDateComparator(TaskStartDateComparator.Type.DESC));
+                break;
+                
+        }
+        return tasks;
     }
     
     

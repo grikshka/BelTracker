@@ -114,8 +114,18 @@ public class MainModel implements IMainModel {
     }
 
     @Override
-    public List<Task> searchTasks(String key) {
-        return bllFacade.searchTasks(departmentTasks, key);
+    public List<Task> searchTasks(List<Task> tasks, String key) {
+        return bllFacade.searchTasks(tasks, key);
+    }
+
+    @Override
+    public List<IBLLFacade.SortingType> getTaskSortingTypes() {
+        return bllFacade.getTaskSortingTypes();
+    }
+
+    @Override
+    public List<Task> sortTasks(List<Task> tasks, IBLLFacade.SortingType type) {
+        return bllFacade.sortTasks(tasks, type);
     }
     
 }

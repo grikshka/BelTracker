@@ -7,6 +7,8 @@ package beltracker.bll;
 
 import beltracker.be.Department;
 import beltracker.be.Task;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,6 +17,30 @@ import java.util.List;
  */
 public interface IBLLFacade {
     
+    public enum SortingType {
+        END_DATE_ASC("End date ▲"), END_DATE_DESC("End date ▼"),
+        ESTIMATED_PROGRESS_ASC("Estimated Progress ▲"), ESTIMATED_PROGRESS_DESC("Estimated Progress ▼"),
+        START_DATE_ASC("Start date ▲"), START_DATE_DESC("Start date ▼");
+        
+        private final String name;       
+        
+        private SortingType(String name)
+        {
+            this.name = name;
+        }
+        
+        @Override
+        public String toString()
+        {
+            return name;
+        }
+    }
+    
+    default List<SortingType> getTaskSortingTypes()
+    {
+        return new ArrayList<>(Arrays.asList(SortingType.values()));
+    }
+    
     List<Task> getTasks(Department department);
     
     void submitTask(Task task);
@@ -22,6 +48,8 @@ public interface IBLLFacade {
     List<Department> getAllDepartments();
     
     List<Task> searchTasks(List<Task> tasks, String key);
+    
+    List<Task> sortTasks(List<Task> tasks, SortingType type);
     
     List<Task> detectModifiedTasks(List<Task> oldList, List<Task> newList);
     

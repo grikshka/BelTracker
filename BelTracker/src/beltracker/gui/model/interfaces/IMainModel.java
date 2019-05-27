@@ -7,6 +7,7 @@ package beltracker.gui.model.interfaces;
 
 import beltracker.be.Department;
 import beltracker.be.Task;
+import beltracker.bll.IBLLFacade.SortingType;
 import beltracker.gui.util.observer.Subject;
 import java.util.List;
 import javafx.collections.ObservableList;
@@ -23,7 +24,11 @@ public interface IMainModel extends Subject{
     
     ObservableList<Task> getTasks();
     
-    List<Task> searchTasks(String key);
+    List<SortingType> getTaskSortingTypes();
+    
+    List<Task> searchTasks(List<Task> tasks, String key);
+    
+    List<Task> sortTasks(List<Task> tasks, SortingType type);
     
     
 }

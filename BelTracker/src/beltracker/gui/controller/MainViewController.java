@@ -6,6 +6,7 @@
 package beltracker.gui.controller;
 
 import beltracker.be.Task;
+import beltracker.bll.IBLLFacade.SortingType;
 import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.model.interfaces.ITaskModel;
@@ -22,6 +23,8 @@ import beltracker.gui.util.observer.TaskObserver;
 import java.util.HashMap;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -58,9 +61,9 @@ public class MainViewController implements Initializable, TaskObserver {
     @FXML
     private TextField txtSearchBar;
     @FXML
-    private ComboBox<?> comboBoxSort;
-    @FXML
     private StackPane stcDarken;
+    @FXML
+    private ComboBox<SortingType> cmbSort;
     
     /**
      * Initializes the controller class.
@@ -78,9 +81,15 @@ public class MainViewController implements Initializable, TaskObserver {
     
     public void initializeView() throws IOException
     {
+        initializeComboBox();
         model.loadTasks();
         List<Task> tasks = model.getTasks();
         loadTaskTiles(tasks); 
+    }
+    
+    private void initializeComboBox()
+    {
+        cmbSort.getItems().setAll(FXCollections.observableArrayList(model.getTaskSortingTypes()));
     }
     
     private void loadTaskTiles(List<Task> tasks)
@@ -254,11 +263,29 @@ public class MainViewController implements Initializable, TaskObserver {
             Platform.runLater(() -> removeTaskTile(removedTask));
         }
     }
+    
+    @FXML
+    private void clickSort(ActionEvent event) {
+        filterOrders();
+    }
 
     @FXML
-    private void searchTasks(KeyEvent event) {
+    private void inputSearch(KeyEvent event) {
+        filterOrders();
+    }
+    
+    private void filterOrders()
+    {
+        List<Task> allTasks = model.getTasks();
+        
         String searchKey = txtSearchBar.getText();
-        List<Task> results = model.searchTasks(searchKey);
+        List<Task> results = model.searchTasks(allTasks, searchKey);
+        if(cmbSort.getValue() != null)
+        {
+            results = model.sortTasks(results, cmbSort.getValue());
+            
+        }
         loadTaskTiles(results);
     }
+    
 }
