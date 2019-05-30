@@ -23,13 +23,13 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Acer
  */
-public class FileWatcher implements FileSubject{
+public class FolderWatcher implements FileSubject{
 
     private WatchKey watchKey;
     private Path folderToWatch;
     private List<FileObserver> observers = new ArrayList<>();
     
-    public FileWatcher(String folderToWatchPath)
+    public FolderWatcher(String folderToWatchPath)
     {
         try
         {
