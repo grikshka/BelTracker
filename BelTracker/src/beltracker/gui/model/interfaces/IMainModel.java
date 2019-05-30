@@ -8,15 +8,15 @@ package beltracker.gui.model.interfaces;
 import beltracker.be.Department;
 import beltracker.be.Task;
 import beltracker.bll.IBLLFacade.SortingType;
-import beltracker.gui.util.observer.Subject;
 import java.util.List;
 import javafx.collections.ObservableList;
+import beltracker.gui.util.taskobserver.TaskSubject;
 
 /**
  *
  * @author Acer
  */
-public interface IMainModel extends Subject{
+public interface IMainModel extends TaskSubject{
     
     void setDepartment(Department department);
     

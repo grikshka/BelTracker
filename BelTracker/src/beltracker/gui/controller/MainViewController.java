@@ -19,7 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.TilePane;
-import beltracker.gui.util.observer.TaskObserver;
+import beltracker.gui.util.taskobserver.TaskObserver;
 import java.util.HashMap;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;

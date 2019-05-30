@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import beltracker.gui.util.observer.TaskObserver;
+import beltracker.gui.util.taskobserver.TaskObserver;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
