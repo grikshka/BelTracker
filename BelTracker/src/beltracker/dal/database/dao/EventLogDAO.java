@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beltracker.dal.dao;
+package beltracker.dal.database.dao;
 
 import beltracker.be.Task;
 import java.sql.Connection;

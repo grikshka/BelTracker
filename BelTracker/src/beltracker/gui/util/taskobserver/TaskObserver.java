@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beltracker.gui.util.observer;
+package beltracker.gui.util.taskobserver;
 
 import beltracker.be.Task;
 import java.util.List;
