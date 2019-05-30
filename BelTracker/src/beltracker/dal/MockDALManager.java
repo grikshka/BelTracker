@@ -19,7 +19,7 @@ import java.util.Random;
  */
 public class MockDALManager implements IDALFacade{
     
-    private final int AMOUNT_OF_TASKS = 100;
+    private int amountOfTasks = 100;
     private final double TASK_OVERDUE_PROBABILITY = 0.10;
     private final double TASK_DELAYED_PROBABILITY = 0.10;
     private final List<Department> departments = new ArrayList<>();
@@ -63,7 +63,7 @@ public class MockDALManager implements IDALFacade{
     public List<Task> getTasks(Department department, LocalDate currentDate) 
     {
         List<Task> departmentTasks = new ArrayList<>();
-        for(int i = 0; i < AMOUNT_OF_TASKS; i++)
+        for(int i = 0; i < amountOfTasks; i++)
         {
             if(!submittedTasksId.contains(i))
             {
@@ -161,6 +161,11 @@ public class MockDALManager implements IDALFacade{
     @Override
     public void submitTask(Task task, long currentEpochTime) {
         submittedTasksId.add(task.getId());
+    }
+
+    @Override
+    public void update(String pathToNewFile, FileType fileType) {
+        amountOfTasks += 10;
     }
     
 }

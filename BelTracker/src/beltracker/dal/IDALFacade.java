@@ -10,12 +10,13 @@ import beltracker.be.Order;
 import beltracker.be.Task;
 import java.time.LocalDate;
 import java.util.List;
+import beltracker.dal.dataobserver.DataObserver;
 
 /**
  *
  * @author Acer
  */
-public interface IDALFacade {
+public interface IDALFacade extends DataObserver{
     
     List<Task> getTasks(Department department, LocalDate currentDate);
     

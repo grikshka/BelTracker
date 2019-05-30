@@ -5,19 +5,24 @@
  */
 package beltracker.dal;
 
+import beltracker.dal.database.DbConnectionProvider;
 import beltracker.be.Department;
 import beltracker.be.Order;
 import beltracker.be.Task;
-import beltracker.dal.dao.DepartmentDAO;
-import beltracker.dal.dao.EventLogDAO;
-import beltracker.dal.dao.OrderDAO;
-import beltracker.dal.dao.TaskDAO;
+import beltracker.dal.database.dao.DepartmentDAO;
+import beltracker.dal.database.dao.EventLogDAO;
+import beltracker.dal.database.dao.OrderDAO;
+import beltracker.dal.database.dao.TaskDAO;
+import beltracker.dal.dataobserver.DataTransfer;
+import beltracker.dal.dataobserver.FolderWatcher;
+import beltracker.dal.dataconverter.JSONConverter;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import beltracker.dal.dataobserver.DataObserver;
 
 /**
  *
@@ -26,7 +31,12 @@ import java.util.List;
 public class DALManager implements IDALFacade{
     
     private static final String DB_PROPERTIES_FILE_PATH = "src/resources/properties/DatabaseProperties.properties";
+    private static final String NEW_DATA_FILES_FOLDER = "data/NewData";
+    
     private DbConnectionProvider connector;
+    private FolderWatcher fileWatcher;
+    private JSONConverter jsonConverter;
+    
     private TaskDAO taskDao;
     private OrderDAO orderDao;
     private DepartmentDAO departmentDao;
@@ -37,6 +47,10 @@ public class DALManager implements IDALFacade{
         try
         {
             connector = new DbConnectionProvider(DB_PROPERTIES_FILE_PATH);
+            fileWatcher = new FolderWatcher(NEW_DATA_FILES_FOLDER);
+            fileWatcher.register(this);
+            jsonConverter = new JSONConverter();
+            
             taskDao = new TaskDAO();
             orderDao = new OrderDAO();
             departmentDao = new DepartmentDAO();
@@ -140,6 +154,25 @@ public class DALManager implements IDALFacade{
             {
                 connector.releaseConnection(con);
             }
+        }
+    }
+
+    @Override
+    public void update(String pathToNewFile, FileType fileType) {
+        switch(fileType)
+        {
+            case JSON:
+                DataTransfer newData = jsonConverter.convertFileData(pathToNewFile);
+                //TO DO 
+                break;
+            
+            case CSV:
+                //TO DO
+                break;
+                
+            case INVALID_FILE_TYPE:
+                //TO DO
+                break;
         }
     }
     
