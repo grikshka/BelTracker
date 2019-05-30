@@ -9,12 +9,12 @@ package beltracker.dal.dataobserver;
  *
  * @author Acer
  */
-public interface FileSubject {
+public interface DataSubject {
     
-    void register(FileObserver o);
+    void register(DataObserver o);
     
-    void unregister(FileObserver o);
+    void unregister(DataObserver o);
     
-    void notifyObservers(String pathToNewFile, FileObserver.FileType fileType);
+    void notifyObservers(String pathToNewFile, DataObserver.FileType fileType);
     
 }

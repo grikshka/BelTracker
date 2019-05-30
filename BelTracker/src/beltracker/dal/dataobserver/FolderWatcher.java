@@ -23,11 +23,11 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Acer
  */
-public class FolderWatcher implements FileSubject{
+public class FolderWatcher implements DataSubject{
 
     private WatchKey watchKey;
     private Path folderToWatch;
-    private List<FileObserver> observers = new ArrayList<>();
+    private List<DataObserver> observers = new ArrayList<>();
     
     public FolderWatcher(String folderToWatchPath)
     {
@@ -54,18 +54,18 @@ public class FolderWatcher implements FileSubject{
     }
     
     @Override
-    public void register(FileObserver o) {
+    public void register(DataObserver o) {
         observers.add(o);
     }
 
     @Override
-    public void unregister(FileObserver o) {
+    public void unregister(DataObserver o) {
         observers.remove(o);
     }
 
     @Override
-    public void notifyObservers(String pathToNewFile, FileObserver.FileType fileType) {
-        for(FileObserver o : observers)
+    public void notifyObservers(String pathToNewFile, DataObserver.FileType fileType) {
+        for(DataObserver o : observers)
         {
             o.update(pathToNewFile, fileType);
         }
@@ -79,17 +79,17 @@ public class FolderWatcher implements FileSubject{
             Path newFile = (Path) event.context();
             newFilePath = folderToWatch.resolve(newFile).toString();
             String newFileExtension = getFileExtension(newFile.toString());
-            if(newFileExtension.equals(FileObserver.FileType.JSON.getExtension()))
+            if(newFileExtension.equals(DataObserver.FileType.JSON.getExtension()))
             {
-                notifyObservers(newFilePath, FileObserver.FileType.JSON);
+                notifyObservers(newFilePath, DataObserver.FileType.JSON);
             }
-            else if(newFileExtension.equals(FileObserver.FileType.CSV.getExtension()))
+            else if(newFileExtension.equals(DataObserver.FileType.CSV.getExtension()))
             {
-                notifyObservers(newFilePath, FileObserver.FileType.CSV);                
+                notifyObservers(newFilePath, DataObserver.FileType.CSV);                
             }
             else
             {
-                notifyObservers(newFilePath, FileObserver.FileType.INVALID_FILE_TYPE);
+                notifyObservers(newFilePath, DataObserver.FileType.INVALID_FILE_TYPE);
             }
         }
     }

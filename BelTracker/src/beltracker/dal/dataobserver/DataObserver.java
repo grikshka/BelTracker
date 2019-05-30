@@ -9,7 +9,7 @@ package beltracker.dal.dataobserver;
  *
  * @author Acer
  */
-public interface FileObserver {
+public interface DataObserver {
     
     public enum FileType {
         JSON("txt"), 
