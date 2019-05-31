@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Properties;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,7 +23,10 @@ import java.util.Properties;
  */
 public class DepartmentModel implements IDepartmentModel {
     
+    private static final Logger LOGGER = Logger.getLogger(DepartmentModel.class);
     private static final String DEPARTMENT_PROPERTIES_FILE = "src/resources/properties/DepartmentProperties.properties";
+    private static final String DEPARTMENT_ID_PROPERTY = "DepartmentID";
+    private static final String DEPARTMENT_NAME_PROPERTY = "DepartmentName";
     private IBLLFacade bllFacade;
     
     public DepartmentModel(IBLLFacade facade)
@@ -40,13 +44,13 @@ public class DepartmentModel implements IDepartmentModel {
         try(OutputStream output = new FileOutputStream(DEPARTMENT_PROPERTIES_FILE))
         {
             Properties departmentProperties = new Properties();
-            departmentProperties.setProperty("DepartmentID", Integer.toString(department.getId()));
-            departmentProperties.setProperty("DepartmentName", department.getName());
+            departmentProperties.setProperty(DEPARTMENT_ID_PROPERTY, Integer.toString(department.getId()));
+            departmentProperties.setProperty(DEPARTMENT_NAME_PROPERTY, department.getName());
             departmentProperties.store(output, null);
         }
         catch(IOException ex)
         {
-            //TO DO
+            LOGGER.warn("Cannot save department informations", ex);
         }
     }
 
@@ -56,8 +60,8 @@ public class DepartmentModel implements IDepartmentModel {
         {
             Properties departmentProperties = new Properties();
             departmentProperties.load(input);
-            String departmentIdAsString = departmentProperties.getProperty("DepartmentID", null);
-            String departmentName = departmentProperties.getProperty("DepartmentName", null);
+            String departmentIdAsString = departmentProperties.getProperty(DEPARTMENT_ID_PROPERTY, null);
+            String departmentName = departmentProperties.getProperty(DEPARTMENT_NAME_PROPERTY, null);
             if(departmentIdAsString != null && departmentName != null)
             {
                 int departmentId = Integer.parseInt(departmentIdAsString);
@@ -70,12 +74,12 @@ public class DepartmentModel implements IDepartmentModel {
         }
         catch(NumberFormatException ex)
         {
-            //TO DO
+            LOGGER.warn("Cannot read department informations", ex);
             return null;
         }
         catch(IOException ex)
         {
-            //TO DO
+            LOGGER.warn("Cannot read department informations", ex);
             return null;
         }
     }
