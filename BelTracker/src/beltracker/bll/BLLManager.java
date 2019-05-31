@@ -8,6 +8,8 @@ package beltracker.bll;
 import beltracker.be.Department;
 import beltracker.be.Task;
 import beltracker.bll.taskutil.TaskAnalyser;
+import beltracker.bll.taskutil.TaskDetector;
+import beltracker.bll.taskutil.TaskSearcher;
 import beltracker.bll.taskutil.comparator.TaskEndDateComparator;
 import beltracker.bll.taskutil.comparator.TaskEstimatedProgressComparator;
 import beltracker.bll.taskutil.comparator.TaskStartDateComparator;
@@ -24,11 +26,15 @@ public class BLLManager implements IBLLFacade{
     
     private IDALFacade dalFacade;
     private TaskAnalyser taskAnalyser;
+    private TaskDetector taskDetector;
+    private TaskSearcher taskSearcher;
     
     public BLLManager(IDALFacade facade)
     {
         this.dalFacade = facade;
         taskAnalyser = new TaskAnalyser();
+        taskDetector = new TaskDetector();
+        taskSearcher = new TaskSearcher();
     }
 
     @Override
@@ -52,17 +58,17 @@ public class BLLManager implements IBLLFacade{
 
     @Override
     public List<Task> detectModifiedTasks(List<Task> oldList, List<Task> newList) {
-        return taskAnalyser.detectModifiedTasks(oldList, newList);
+        return taskDetector.detectModifiedTasks(oldList, newList);
     }
 
     @Override
     public List<Task> detectNewTasks(List<Task> oldList, List<Task> newList) {
-        return taskAnalyser.detectNewTasks(oldList, newList);
+        return taskDetector.detectNewTasks(oldList, newList);
     }
 
     @Override
     public List<Task> detectRemovedTasks(List<Task> oldList, List<Task> newList) {
-        return taskAnalyser.detectRemovedTasks(oldList, newList);
+        return taskDetector.detectRemovedTasks(oldList, newList);
     }
 
     @Override
@@ -70,10 +76,10 @@ public class BLLManager implements IBLLFacade{
         List<Task> tasksToSearch = new ArrayList(tasks);
         List<Task> results = new ArrayList<>();
         
-        List<Task> orderNumberResults = taskAnalyser.searchTasksByOrderNumber(tasksToSearch, key);
+        List<Task> orderNumberResults = taskSearcher.searchTasksByOrderNumber(tasksToSearch, key);
         results.addAll(orderNumberResults);
         tasksToSearch.removeAll(orderNumberResults);
-        List<Task> orderCustomerResults = taskAnalyser.searchTasksByOrderCustomer(tasksToSearch, key);
+        List<Task> orderCustomerResults = taskSearcher.searchTasksByOrderCustomer(tasksToSearch, key);
         results.addAll(orderCustomerResults);
         
         return results;
