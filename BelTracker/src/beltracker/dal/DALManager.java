@@ -9,6 +9,7 @@ import beltracker.dal.database.DbConnectionProvider;
 import beltracker.be.Department;
 import beltracker.be.Order;
 import beltracker.be.Task;
+import beltracker.dal.database.dao.DataTransferDAO;
 import beltracker.dal.database.dao.DepartmentDAO;
 import beltracker.dal.database.dao.EventLogDAO;
 import beltracker.dal.database.dao.OrderDAO;
@@ -32,11 +33,14 @@ public class DALManager implements IDALFacade{
     
     private static final String DB_PROPERTIES_FILE_PATH = "src/resources/properties/DatabaseProperties.properties";
     private static final String NEW_DATA_FILES_FOLDER = "data/NewData";
+    private static final String INSERTED_DATA_FILES_FOLDER = "data/InsertedData";
+    private static final String INVALID_DATA_FILES_FOLDER = "data/InvalidData";
     
     private DbConnectionProvider connector;
     private FolderWatcher fileWatcher;
     private JSONConverter jsonConverter;
     
+    private DataTransferDAO dataTransferDao;
     private TaskDAO taskDao;
     private OrderDAO orderDao;
     private DepartmentDAO departmentDao;
@@ -51,6 +55,7 @@ public class DALManager implements IDALFacade{
             fileWatcher.register(this);
             jsonConverter = new JSONConverter();
             
+            dataTransferDao = new DataTransferDAO();
             taskDao = new TaskDAO();
             orderDao = new OrderDAO();
             departmentDao = new DepartmentDAO();
@@ -159,20 +164,39 @@ public class DALManager implements IDALFacade{
 
     @Override
     public void update(String pathToNewFile, FileType fileType) {
-        switch(fileType)
+        Connection con = null;
+        try
         {
-            case JSON:
-                DataTransfer newData = jsonConverter.convertFileData(pathToNewFile);
-                //TO DO 
-                break;
-            
-            case CSV:
-                //TO DO
-                break;
-                
-            case INVALID_FILE_TYPE:
-                //TO DO
-                break;
+            con = connector.getConnection();
+            DataTransfer newData = null;
+            switch(fileType)
+            {
+                case JSON:
+                    newData = jsonConverter.convertFileData(pathToNewFile);
+                    //TO DO 
+                    break;
+
+                case CSV:
+                    //TO DO
+                    break;
+
+                case INVALID_FILE_TYPE:
+                    //TO DO
+                    break;
+            }
+            dataTransferDao.transferData(con, newData);
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+            //TO DO
+        }
+        finally
+        {
+            if(con != null)
+            {
+                connector.releaseConnection(con);
+            }
         }
     }
     
