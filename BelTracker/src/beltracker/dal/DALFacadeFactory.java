@@ -12,7 +12,7 @@ package beltracker.dal;
 public class DALFacadeFactory {
     
     public enum FacadeType {
-        PRODUCTION, MOCK
+        DATABASE, MOCK
     }
         
     private static DALFacadeFactory instance;
@@ -35,14 +35,14 @@ public class DALFacadeFactory {
     {
         switch(type)
         {
-            case PRODUCTION: 
-                return new DALManager();
+            case DATABASE: 
+                return new DatabaseDALManager();
             
             case MOCK:       
                 return new MockDALManager();
             
             default:         
-                return new DALManager();
+                return new DatabaseDALManager();
         }
     }
     

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beltracker.dal.dataobserver;
+package beltracker.dal.datafile;
 
+import beltracker.dal.util.dataobserver.DataSubject;
+import beltracker.dal.util.dataobserver.DataObserver;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;

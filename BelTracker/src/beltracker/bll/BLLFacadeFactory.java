@@ -24,7 +24,7 @@ public class BLLFacadeFactory {
     
     private BLLFacadeFactory()
     {
-        dalFacade = DALFacadeFactory.getInstance().createFacade(DALFacadeFactory.FacadeType.PRODUCTION);
+        dalFacade = DALFacadeFactory.getInstance().createFacade(DALFacadeFactory.FacadeType.DATABASE);
     }
     
     public static synchronized BLLFacadeFactory getInstance()

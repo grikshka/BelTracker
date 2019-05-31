@@ -5,6 +5,7 @@
  */
 package beltracker.dal;
 
+import beltracker.dal.datatransfer.DataTransfer;
 import beltracker.dal.database.DbConnectionProvider;
 import beltracker.be.Department;
 import beltracker.be.Order;
@@ -14,22 +15,20 @@ import beltracker.dal.database.dao.DepartmentDAO;
 import beltracker.dal.database.dao.EventLogDAO;
 import beltracker.dal.database.dao.OrderDAO;
 import beltracker.dal.database.dao.TaskDAO;
-import beltracker.dal.dataobserver.DataTransfer;
-import beltracker.dal.dataobserver.FolderWatcher;
-import beltracker.dal.dataconverter.JSONConverter;
+import beltracker.dal.datafile.FolderWatcher;
+import beltracker.dal.datafile.dataconverter.JSONConverter;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-import beltracker.dal.dataobserver.DataObserver;
 
 /**
  *
  * @author Acer
  */
-public class DALManager implements IDALFacade{
+public class DatabaseDALManager implements IDALFacade{
     
     private static final String DB_PROPERTIES_FILE_PATH = "src/resources/properties/DatabaseProperties.properties";
     private static final String NEW_DATA_FILES_FOLDER = "data/NewData";
@@ -46,7 +45,7 @@ public class DALManager implements IDALFacade{
     private DepartmentDAO departmentDao;
     private EventLogDAO logDao;
     
-    public DALManager()
+    public DatabaseDALManager()
     {
         try
         {

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beltracker.dal.dataconverter;
+package beltracker.dal.datafile.dataconverter;
 
-import beltracker.dal.dataobserver.DataTransfer;
+import beltracker.dal.datatransfer.DataTransfer;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;

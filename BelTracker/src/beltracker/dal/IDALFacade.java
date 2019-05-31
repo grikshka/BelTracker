@@ -10,7 +10,7 @@ import beltracker.be.Order;
 import beltracker.be.Task;
 import java.time.LocalDate;
 import java.util.List;
-import beltracker.dal.dataobserver.DataObserver;
+import beltracker.dal.util.dataobserver.DataObserver;
 
 /**
  *
