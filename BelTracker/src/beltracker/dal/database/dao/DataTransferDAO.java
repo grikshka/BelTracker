@@ -5,7 +5,7 @@
  */
 package beltracker.dal.database.dao;
 
-import beltracker.dal.dataobserver.DataTransfer;
+import beltracker.dal.datatransfer.DataTransfer;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
