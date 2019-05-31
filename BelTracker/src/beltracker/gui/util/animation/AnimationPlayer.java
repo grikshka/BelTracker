@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beltracker.gui.util;
+package beltracker.gui.util.animation;
 
 import java.util.Timer;
 import java.util.TimerTask;

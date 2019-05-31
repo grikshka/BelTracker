@@ -10,7 +10,7 @@ import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IDepartmentModel;
 import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.util.AlertManager;
-import beltracker.gui.util.AnimationCreator;
+import beltracker.gui.util.animation.AnimationCreator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

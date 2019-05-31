@@ -8,7 +8,7 @@ package beltracker.gui.controller;
 import beltracker.exception.BelTrackerException;
 import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.util.AlertManager;
-import beltracker.gui.util.AnimationCreator;
+import beltracker.gui.util.animation.AnimationCreator;
 import com.jfoenix.controls.JFXSpinner;
 import java.io.IOException;
 import java.net.URL;
