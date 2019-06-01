@@ -17,6 +17,8 @@ import beltracker.dal.database.dao.OrderDAO;
 import beltracker.dal.database.dao.TaskDAO;
 import beltracker.dal.datafile.FolderWatcher;
 import beltracker.dal.datafile.dataconverter.JSONConverter;
+import beltracker.dal.datafile.dataconverter.XLSXConverter;
+import beltracker.dal.datafile.dataconverter.csvconverter.CSVConverter;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -38,6 +40,8 @@ public class DatabaseDALManager implements IDALFacade{
     private DbConnectionProvider connector;
     private FolderWatcher fileWatcher;
     private JSONConverter jsonConverter;
+    private CSVConverter csvConverter;
+    private XLSXConverter xlsxConverter;
     
     private DataTransferDAO dataTransferDao;
     private TaskDAO taskDao;
@@ -53,6 +57,8 @@ public class DatabaseDALManager implements IDALFacade{
             fileWatcher = new FolderWatcher(NEW_DATA_FILES_FOLDER);
             fileWatcher.register(this);
             jsonConverter = new JSONConverter();
+            csvConverter = new CSVConverter();
+            xlsxConverter = new XLSXConverter();
             
             dataTransferDao = new DataTransferDAO();
             taskDao = new TaskDAO();
@@ -172,13 +178,16 @@ public class DatabaseDALManager implements IDALFacade{
             {
                 case JSON:
                     newData = jsonConverter.convertFileData(pathToNewFile);
-                    //TO DO 
                     break;
 
                 case CSV:
-                    //TO DO
+                    newData = csvConverter.convertFileData(pathToNewFile);
                     break;
 
+                case XLSX:
+                    newData = xlsxConverter.convertFileData(pathToNewFile);
+                    break;
+                
                 case INVALID_FILE_TYPE:
                     //TO DO
                     break;
