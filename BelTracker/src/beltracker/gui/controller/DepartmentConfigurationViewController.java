@@ -152,10 +152,7 @@ public class DepartmentConfigurationViewController implements Initializable {
             scene.setRoot(root);
             
             LoadingViewController controller = fxmlLoader.getController();
-            IMainModel mainModel = ModelCreator.getInstance().createMainModel();
-            mainModel.setDepartment(selectedDepartment);
-            controller.showAnimation();
-            controller.loadMainView(mainModel);
+            controller.loadMainView(selectedDepartment);
         
         }
         catch(IOException ex)

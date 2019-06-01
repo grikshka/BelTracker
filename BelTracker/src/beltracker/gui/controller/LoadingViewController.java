@@ -5,7 +5,9 @@
  */
 package beltracker.gui.controller;
 
+import beltracker.be.Department;
 import beltracker.exception.BelTrackerException;
+import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.util.AlertManager;
 import beltracker.gui.util.animation.AnimationCreator;
@@ -52,10 +54,10 @@ public class LoadingViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-             
+        showAnimation();
     }    
     
-    public void showAnimation()
+    private void showAnimation()
     {
         Node imageNode = imgLogo;
         SequentialTransition transition = AnimationCreator.createPopupAnimation(imageNode);
@@ -64,13 +66,13 @@ public class LoadingViewController implements Initializable {
 
     }
     
-    public void loadMainView(IMainModel model)
+    public void loadMainView(Department selectedDepartment)
     {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
             try
             {
-                Parent mainView = initializeMainView(model);
+                Parent mainView = initializeMainView(selectedDepartment);
                 Platform.runLater(() -> showMainView(mainView));
             }
             catch(BelTrackerException ex)
@@ -92,13 +94,17 @@ public class LoadingViewController implements Initializable {
         executor.shutdown();
     }
     
-    private Parent initializeMainView(IMainModel model) throws IOException, BelTrackerException
+    private Parent initializeMainView(Department selectedDepartment) throws IOException, BelTrackerException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(MAIN_VIEW_PATH));
         Parent root = fxmlLoader.load();
 
+                    
+        IMainModel mainModel = ModelCreator.getInstance().createMainModel();
+        mainModel.setDepartment(selectedDepartment);
+        
         MainViewController controller = fxmlLoader.getController();
-        controller.injectModel(model);
+        controller.injectModel(mainModel);
         controller.initializeView();
         
         return root;

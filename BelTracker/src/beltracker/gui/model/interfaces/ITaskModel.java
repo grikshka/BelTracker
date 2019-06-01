@@ -6,7 +6,6 @@
 package beltracker.gui.model.interfaces;
 
 import beltracker.be.Task;
-import beltracker.bll.IBLLFacade;
 
 /**
  *
