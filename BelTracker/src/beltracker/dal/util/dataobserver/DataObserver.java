@@ -14,6 +14,7 @@ public interface DataObserver {
     public enum FileType {
         JSON("txt"), 
         CSV("csv"), 
+        XLSX("xlsx"),
         INVALID_FILE_TYPE("");
         
         private String extension;
