@@ -9,8 +9,6 @@ import beltracker.be.Department;
 import beltracker.be.Task;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

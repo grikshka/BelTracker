@@ -6,7 +6,6 @@
 package beltracker.dal;
 
 import beltracker.be.Department;
-import beltracker.be.Order;
 import beltracker.be.Task;
 import java.time.LocalDate;
 import java.util.List;

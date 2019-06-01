@@ -8,7 +8,6 @@ package beltracker.gui.controller;
 import beltracker.be.Department;
 import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IDepartmentModel;
-import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.util.AlertManager;
 import beltracker.gui.util.animation.AnimationCreator;
 import java.io.IOException;
