@@ -26,7 +26,7 @@ public class DALFacadeFactory {
     {
         if(instance == null)
         {
-            return new DALFacadeFactory();
+            instance = new DALFacadeFactory();
         }
         return instance;
     }

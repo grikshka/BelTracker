@@ -31,7 +31,7 @@ public class BLLFacadeFactory {
     {
         if(instance == null)
         {
-            return new BLLFacadeFactory();
+            instance = new BLLFacadeFactory();
         }
         return instance;
     }
