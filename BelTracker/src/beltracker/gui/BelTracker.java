@@ -56,6 +56,7 @@ public class BelTracker extends Application {
             
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(DEPARTMENT_CONFIGURATION_VIEW_PATH));  
             Parent root = fxmlLoader.load();
+            
             Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT, Color.web(SCENE_BACKGROUND_HEXCOLOR));        
             stage.setScene(scene);
             
@@ -70,8 +71,7 @@ public class BelTracker extends Application {
         }
         catch(IOException ex)
         {
-            LOGGER.error("Unable to start the application", ex);
-            alertManager.displayError("The application was unable to start correctly", true);
+            LOGGER.error(ex);
         }
         
     }

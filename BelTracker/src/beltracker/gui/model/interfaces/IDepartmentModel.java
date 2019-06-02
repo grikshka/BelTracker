@@ -6,6 +6,7 @@
 package beltracker.gui.model.interfaces;
 
 import beltracker.be.Department;
+import beltracker.gui.exception.ModelException;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface IDepartmentModel {
     
     Department loadDepartment();
     
-    List<Department> getAllDepartments();
+    List<Department> getAllDepartments() throws ModelException;
     
     void saveDepartment(Department department);
     

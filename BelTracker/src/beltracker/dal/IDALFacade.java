@@ -7,6 +7,7 @@ package beltracker.dal;
 
 import beltracker.be.Department;
 import beltracker.be.Task;
+import beltracker.dal.exception.DALException;
 import java.time.LocalDate;
 import java.util.List;
 import beltracker.dal.util.dataobserver.DataObserver;
@@ -17,10 +18,10 @@ import beltracker.dal.util.dataobserver.DataObserver;
  */
 public interface IDALFacade extends DataObserver{
     
-    List<Task> getTasks(Department department, LocalDate currentDate);
+    List<Task> getTasks(Department department, LocalDate currentDate) throws DALException;
     
-    void submitTask(Task task, long currentEpochTime);
+    void submitTask(Task task, long currentEpochTime) throws DALException;
     
-    List<Department> getAllDepartments();
+    List<Department> getAllDepartments() throws DALException;
     
 }

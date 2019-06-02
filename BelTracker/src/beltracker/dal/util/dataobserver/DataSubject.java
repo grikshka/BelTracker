@@ -15,6 +15,6 @@ public interface DataSubject {
     
     void unregister(DataObserver o);
     
-    void notifyObservers(String pathToNewFile, DataObserver.FileType fileType);
+    void notifyObservers(String pathToNewFile, String newFileName, DataObserver.FileType fileType);
     
 }

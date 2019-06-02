@@ -164,7 +164,7 @@ public class MockDALManager implements IDALFacade{
     }
 
     @Override
-    public void update(String pathToNewFile, FileType fileType) {
+    public void update(String pathToNewFile, String newFileName, FileType fileType) {
         amountOfTasks += 10;
     }
     

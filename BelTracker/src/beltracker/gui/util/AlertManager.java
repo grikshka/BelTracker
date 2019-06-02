@@ -23,12 +23,17 @@ public class AlertManager {
     
     public void displayError(String message)
     {
-        displayError(message, false);
+        displayError(null, message, false);
     }
     
     public void displayError(String message, boolean shutdown)
     {
         displayError(null, message, shutdown);
+    }
+    
+    public void displayError(String header, String message)
+    {
+        displayError(header, message, false);
     }
     
     public void displayError(String header, String message, boolean shutdown)

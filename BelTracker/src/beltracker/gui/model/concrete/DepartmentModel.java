@@ -7,6 +7,8 @@ package beltracker.gui.model.concrete;
 
 import beltracker.be.Department;
 import beltracker.bll.IBLLFacade;
+import beltracker.bll.exception.BLLException;
+import beltracker.gui.exception.ModelException;
 import beltracker.gui.model.interfaces.IDepartmentModel;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,8 +37,15 @@ public class DepartmentModel implements IDepartmentModel {
     }
 
     @Override
-    public List<Department> getAllDepartments() {
-        return bllFacade.getAllDepartments();
+    public List<Department> getAllDepartments() throws ModelException{
+        try
+        {
+            return bllFacade.getAllDepartments();
+        }
+        catch(BLLException ex)
+        {
+            throw new ModelException("Cannot retrieve data from the server. Please check your internet connection.", ex);
+        }
     }
 
     @Override

@@ -6,6 +6,7 @@
 package beltracker.gui.controller;
 
 import beltracker.be.Task;
+import beltracker.gui.exception.ModelException;
 import beltracker.gui.model.interfaces.ITaskModel;
 import beltracker.gui.util.AlertManager;
 import beltracker.gui.util.animation.AnimationCreator;
@@ -26,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 /**
  * FXML Controller class
@@ -34,6 +36,8 @@ import javafx.stage.Stage;
  */
 public class TaskFullViewController implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger(TaskFullViewController.class);
+    
     private static final String DATE_FORMAT = "dd MMMM yyyy";
     
     private ITaskModel model;
@@ -126,14 +130,22 @@ public class TaskFullViewController implements Initializable {
         Stage stage = (Stage) btnSubmit.getScene().getWindow();
         boolean submit = alertManager.displayConfirmation(stage, "Are you sure you want to submit this task as finished?");
         if(submit)
-        {                   
-            model.submitTask();
-            stcConfirmation.setVisible(true);
-            SequentialTransition transition = AnimationCreator.createTaskSubmittedAnimation(stcDetails, stcConfirmation, pneBackground);
-            transition.play();
-            transition.setOnFinished(e -> {
-            animationPlayer.playSlideAndClose(stage);
-            });
+        {     
+            try
+            {
+                model.submitTask();
+                stcConfirmation.setVisible(true);
+                SequentialTransition transition = AnimationCreator.createTaskSubmittedAnimation(stcDetails, stcConfirmation, pneBackground);
+                transition.play();
+                transition.setOnFinished(e -> {
+                animationPlayer.playSlideAndClose(stage);
+                });
+            }
+            catch(ModelException ex)
+            {
+                LOGGER.error(ex);
+                alertManager.displayError(ex.getMessage());
+            }
         }
     }
     

@@ -8,6 +8,7 @@ package beltracker.gui.model.interfaces;
 import beltracker.be.Department;
 import beltracker.be.Task;
 import beltracker.bll.IBLLFacade.SortingType;
+import beltracker.gui.exception.ModelException;
 import java.util.List;
 import javafx.collections.ObservableList;
 import beltracker.gui.util.taskobserver.TaskSubject;
@@ -20,7 +21,7 @@ public interface IMainModel extends TaskSubject{
     
     void setDepartment(Department department);
     
-    void loadTasks();
+    void loadTasks() throws ModelException;
     
     ObservableList<Task> getTasks();
     

@@ -6,6 +6,7 @@
 package beltracker.gui.model.interfaces;
 
 import beltracker.be.Task;
+import beltracker.gui.exception.ModelException;
 
 /**
  *
@@ -15,7 +16,7 @@ public interface ITaskModel {
     
     void setTask(Task task);
     
-    void submitTask();
+    void submitTask() throws ModelException;
     
     Task getTask();
     

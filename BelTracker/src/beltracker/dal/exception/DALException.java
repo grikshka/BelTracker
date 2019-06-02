@@ -3,20 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beltracker.exception;
+package beltracker.dal.exception;
 
 /**
  *
  * @author Acer
  */
-public class BelTrackerException extends Exception {
+public class DALException extends Exception {
     
-    public BelTrackerException(String message)
-    {
-        super(message);
-    }
-    
-    public BelTrackerException(String message, Throwable cause)
+    public DALException(String message, Throwable cause)
     {
         super(message, cause);
     }

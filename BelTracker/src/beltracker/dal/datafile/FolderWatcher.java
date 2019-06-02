@@ -31,22 +31,13 @@ public class FolderWatcher implements DataSubject{
     private Path folderToWatch;
     private List<DataObserver> observers = new ArrayList<>();
     
-    public FolderWatcher(String folderToWatchPath)
+    public FolderWatcher(String folderToWatchPath) throws IOException
     {
-        try
-        {
-            WatchService watcher = FileSystems.getDefault().newWatchService();
-            folderToWatch = Paths.get(folderToWatchPath);
-            watchKey = folderToWatch.register(watcher, 
-                    StandardWatchEventKinds.ENTRY_CREATE);
-            runFileObserving();
-        }
-        catch(IOException ex)
-        {
-            ex.printStackTrace();
-            //TO DO
-        }
-        
+        WatchService watcher = FileSystems.getDefault().newWatchService();
+        folderToWatch = Paths.get(folderToWatchPath);
+        watchKey = folderToWatch.register(watcher, 
+                StandardWatchEventKinds.ENTRY_CREATE);
+        runFileObserving();       
     }
     
     private void runFileObserving()
@@ -66,32 +57,36 @@ public class FolderWatcher implements DataSubject{
     }
 
     @Override
-    public void notifyObservers(String pathToNewFile, DataObserver.FileType fileType) {
+    public void notifyObservers(String pathToNewFile, String newFileName, DataObserver.FileType fileType) {
         for(DataObserver o : observers)
         {
-            o.update(pathToNewFile, fileType);
+            o.update(pathToNewFile, newFileName, fileType);
         }
     }
     
     public void checkForNewData()
     {
-        String newFilePath = null;
         for(WatchEvent<?> event : watchKey.pollEvents())
         {
             Path newFile = (Path) event.context();
-            newFilePath = folderToWatch.resolve(newFile).toString();
+            String newFileName = newFile.getFileName().toString();
+            String newFilePath = folderToWatch.resolve(newFile).toString();
             String newFileExtension = getFileExtension(newFile.toString());
             if(newFileExtension.equals(DataObserver.FileType.JSON.getExtension()))
             {
-                notifyObservers(newFilePath, DataObserver.FileType.JSON);
+                notifyObservers(newFilePath, newFileName, DataObserver.FileType.JSON);
             }
             else if(newFileExtension.equals(DataObserver.FileType.CSV.getExtension()))
             {
-                notifyObservers(newFilePath, DataObserver.FileType.CSV);                
+                notifyObservers(newFilePath, newFileName, DataObserver.FileType.CSV);                
+            }
+            else if(newFileExtension.equals(DataObserver.FileType.XLSX.getExtension()))
+            {
+                notifyObservers(newFilePath, newFileName, DataObserver.FileType.XLSX);                
             }
             else
             {
-                notifyObservers(newFilePath, DataObserver.FileType.INVALID_FILE_TYPE);
+                notifyObservers(newFilePath, newFileName, DataObserver.FileType.INVALID_FILE_TYPE);
             }
         }
     }

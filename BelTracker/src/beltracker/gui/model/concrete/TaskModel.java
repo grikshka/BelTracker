@@ -7,6 +7,8 @@ package beltracker.gui.model.concrete;
 
 import beltracker.be.Task;
 import beltracker.bll.IBLLFacade;
+import beltracker.bll.exception.BLLException;
+import beltracker.gui.exception.ModelException;
 import beltracker.gui.model.interfaces.ITaskModel;
 
 /**
@@ -30,12 +32,21 @@ public class TaskModel implements ITaskModel{
     }
 
     @Override
-    public Task getTask() {
+    public Task getTask() 
+    {
         return task;
     }
 
     @Override
-    public void submitTask() {
-        bllFacade.submitTask(task);
+    public void submitTask() throws ModelException 
+    {
+        try
+        {
+            bllFacade.submitTask(task);
+        }
+        catch(BLLException ex)
+        {
+            throw new ModelException("Failed to submit the task. Please check your internet connection.", ex);
+        }
     }
 }

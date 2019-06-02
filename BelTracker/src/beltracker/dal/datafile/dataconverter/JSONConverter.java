@@ -25,7 +25,7 @@ public class JSONConverter {
     private final String AVAILABLE_WORKERS_RECORDS = "AvailableWorkers";
     private final String PRODUCTION_ORDERS_RECORDS = "ProductionOrders";
     
-    public DataTransfer convertFileData(String filePath)
+    public DataTransfer convertFileData(String filePath) throws IOException, ParseException
     {
         DataTransfer data = new DataTransfer();
         
@@ -43,16 +43,6 @@ public class JSONConverter {
                 JSONArray productionOrders = (JSONArray) results.get(PRODUCTION_ORDERS_RECORDS);
                 addOrders(data, productionOrders);              
             }
-        }
-        catch(ParseException ex)
-        {
-            ex.printStackTrace();
-            //TO DO
-        }
-        catch(IOException ex)
-        {
-            ex.printStackTrace();
-            //TO DO
         }
         return data;
     }

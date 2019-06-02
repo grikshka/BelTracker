@@ -30,6 +30,6 @@ public interface DataObserver {
         }
     }
     
-    void update(String pathToNewFile, FileType fileType);
+    void update(String pathToNewFile, String newFileName, FileType fileType);
     
 }

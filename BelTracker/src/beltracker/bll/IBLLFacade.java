@@ -7,6 +7,7 @@ package beltracker.bll;
 
 import beltracker.be.Department;
 import beltracker.be.Task;
+import beltracker.bll.exception.BLLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,11 +42,11 @@ public interface IBLLFacade {
         return new ArrayList<>(Arrays.asList(SortingType.values()));
     }
     
-    List<Task> getTasks(Department department);
+    List<Task> getTasks(Department department) throws BLLException;
     
-    void submitTask(Task task);
+    void submitTask(Task task) throws BLLException;
     
-    List<Department> getAllDepartments();
+    List<Department> getAllDepartments() throws BLLException;
     
     List<Task> searchTasks(List<Task> tasks, String key);
     

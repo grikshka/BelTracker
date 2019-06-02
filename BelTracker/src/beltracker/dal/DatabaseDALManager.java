@@ -19,18 +19,27 @@ import beltracker.dal.datafile.FolderWatcher;
 import beltracker.dal.datafile.dataconverter.JSONConverter;
 import beltracker.dal.datafile.dataconverter.XLSXConverter;
 import beltracker.dal.datafile.dataconverter.csvconverter.CSVConverter;
+import beltracker.dal.exception.DALException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author Acer
  */
 public class DatabaseDALManager implements IDALFacade{
+    
+    private static final Logger LOGGER = Logger.getLogger(DatabaseDALManager.class);
     
     private static final String DB_PROPERTIES_FILE_PATH = "src/resources/properties/DatabaseProperties.properties";
     private static final String NEW_DATA_FILES_FOLDER = "data/NewData";
@@ -68,13 +77,12 @@ public class DatabaseDALManager implements IDALFacade{
         }
         catch(IOException ex)
         {
-            ex.printStackTrace();
-            //TO DO
+            LOGGER.error("Cannot initialize the class properly", ex);
         }
     }
 
     @Override
-    public List<Task> getTasks(Department department, LocalDate currentDate) 
+    public List<Task> getTasks(Department department, LocalDate currentDate) throws DALException 
     {
         Connection con = null;
         try
@@ -90,15 +98,11 @@ public class DatabaseDALManager implements IDALFacade{
         } 
         catch(SQLServerException ex) 
         {
-            ex.printStackTrace();
-            return null;
-            //TO DO
+            throw new DALException("Cannot connect to the database", ex);
         }
         catch(SQLException ex)
         {
-            ex.printStackTrace();
-            return null;
-            //TO DO
+            throw new DALException("Cannot retrieve data", ex);
         }
         finally
         {
@@ -110,7 +114,7 @@ public class DatabaseDALManager implements IDALFacade{
     }
 
     @Override
-    public List<Department> getAllDepartments() 
+    public List<Department> getAllDepartments() throws DALException 
     {
         Connection con = null;
         try
@@ -120,15 +124,11 @@ public class DatabaseDALManager implements IDALFacade{
         } 
         catch(SQLServerException ex) 
         {
-            ex.printStackTrace();
-            return null;
-            //TO DO
+            throw new DALException("Cannot connect to the database", ex);
         }
         catch(SQLException ex)
         {
-            ex.printStackTrace();
-            return null;
-            //TO DO
+            throw new DALException("Cannot retrieve data", ex);
         }
         finally
         {
@@ -140,7 +140,7 @@ public class DatabaseDALManager implements IDALFacade{
     }
 
     @Override
-    public void submitTask(Task task, long currentEpochTime) {
+    public void submitTask(Task task, long currentEpochTime) throws DALException {
         Connection con = null;
         try
         {
@@ -150,13 +150,11 @@ public class DatabaseDALManager implements IDALFacade{
         } 
         catch(SQLServerException ex) 
         {
-            ex.printStackTrace();
-            //TO DO
+            throw new DALException("Cannot connect to the database", ex);
         }
         catch(SQLException ex)
         {
-            ex.printStackTrace();
-            //TO DO
+            throw new DALException("Failed to execute the statement for submitting task", ex);
         }
         finally
         {
@@ -168,8 +166,9 @@ public class DatabaseDALManager implements IDALFacade{
     }
 
     @Override
-    public void update(String pathToNewFile, FileType fileType) {
+    public void update(String pathToNewFile, String newFileName, FileType fileType) {
         Connection con = null;
+        Path targetFilePath = null;
         try
         {
             con = connector.getConnection();
@@ -178,32 +177,57 @@ public class DatabaseDALManager implements IDALFacade{
             {
                 case JSON:
                     newData = jsonConverter.convertFileData(pathToNewFile);
+                    dataTransferDao.transferData(con, newData);
+                    targetFilePath = Paths.get(INSERTED_DATA_FILES_FOLDER).resolve(Paths.get(newFileName));
                     break;
 
                 case CSV:
                     newData = csvConverter.convertFileData(pathToNewFile);
+                    dataTransferDao.transferData(con, newData);
+                    targetFilePath = Paths.get(INSERTED_DATA_FILES_FOLDER).resolve(Paths.get(newFileName));
                     break;
 
                 case XLSX:
-                    newData = xlsxConverter.convertFileData(pathToNewFile);
+                    newData = xlsxConverter.convertFileData(pathToNewFile);  
+                    dataTransferDao.transferData(con, newData);
+                    targetFilePath = Paths.get(INSERTED_DATA_FILES_FOLDER).resolve(Paths.get(newFileName));
                     break;
                 
                 case INVALID_FILE_TYPE:
-                    //TO DO
+                    targetFilePath = Paths.get(INVALID_DATA_FILES_FOLDER).resolve(Paths.get(newFileName));
                     break;
             }
-            dataTransferDao.transferData(con, newData);
+            
+        }
+        catch(ParseException ex)
+        {
+            LOGGER.error("Cannot parse the new data file", ex);
+        }
+        catch(IOException ex)
+        {
+            LOGGER.error("Cannot find the new data file", ex);
+        }
+        catch(SQLServerException ex) 
+        {
+            LOGGER.error("Cannot connect to the database", ex);
         }
         catch(SQLException ex)
         {
-            ex.printStackTrace();
-            //TO DO
+            LOGGER.error("Failed to execute the query for inserting new data", ex);
         }
         finally
         {
-            if(con != null)
+            try
             {
-                connector.releaseConnection(con);
+                Files.move(Paths.get(pathToNewFile), targetFilePath, StandardCopyOption.REPLACE_EXISTING);
+                if(con != null)
+                {
+                    connector.releaseConnection(con);
+                }
+            }
+            catch(IOException ex)
+            {
+                LOGGER.error("Cannot move the data file to the target folder", ex);
             }
         }
     }

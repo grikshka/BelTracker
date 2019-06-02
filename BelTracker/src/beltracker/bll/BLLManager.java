@@ -7,6 +7,7 @@ package beltracker.bll;
 
 import beltracker.be.Department;
 import beltracker.be.Task;
+import beltracker.bll.exception.BLLException;
 import beltracker.bll.taskutil.TaskAnalyser;
 import beltracker.bll.taskutil.TaskDetector;
 import beltracker.bll.taskutil.TaskSearcher;
@@ -14,6 +15,7 @@ import beltracker.bll.taskutil.comparator.TaskEndDateComparator;
 import beltracker.bll.taskutil.comparator.TaskEstimatedProgressComparator;
 import beltracker.bll.taskutil.comparator.TaskStartDateComparator;
 import beltracker.dal.IDALFacade;
+import beltracker.dal.exception.DALException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,22 +40,36 @@ public class BLLManager implements IBLLFacade{
     }
 
     @Override
-    public List<Task> getTasks(Department department) {
-        LocalDate currentDate = LocalDate.now();
-        List<Task> tasks = dalFacade.getTasks(department, currentDate);
-        for(Task departmentTask : tasks)
+    public List<Task> getTasks(Department department) throws BLLException {
+        try
         {
-            Task.Status status = taskAnalyser.analyseStatus(departmentTask, department);
-            double estimatedProgress = taskAnalyser.calculateEstimatedProgress(departmentTask);
-            departmentTask.setStatus(status);
-            departmentTask.setEstimatedProgress(estimatedProgress);
+            LocalDate currentDate = LocalDate.now();
+            List<Task> tasks = dalFacade.getTasks(department, currentDate);
+            for(Task departmentTask : tasks)
+            {
+                Task.Status status = taskAnalyser.analyseStatus(departmentTask, department);
+                double estimatedProgress = taskAnalyser.calculateEstimatedProgress(departmentTask);
+                departmentTask.setStatus(status);
+                departmentTask.setEstimatedProgress(estimatedProgress);
+            }
+            return tasks;
         }
-        return tasks;
+        catch(DALException ex)
+        {
+            throw new BLLException("Cannot retrieve tasks", ex);
+        }
     }
 
     @Override
-    public List<Department> getAllDepartments() {
-        return dalFacade.getAllDepartments();
+    public List<Department> getAllDepartments() throws BLLException {
+        try
+        {
+            return dalFacade.getAllDepartments();
+        }
+        catch(DALException ex)
+        {
+            throw new BLLException("Cannot retrieve departments", ex);
+        }        
     }
 
     @Override
@@ -73,7 +89,7 @@ public class BLLManager implements IBLLFacade{
 
     @Override
     public List<Task> searchTasks(List<Task> tasks, String key) {
-        List<Task> tasksToSearch = new ArrayList(tasks);
+        List<Task> tasksToSearch = new ArrayList<>(tasks);
         List<Task> results = new ArrayList<>();
         
         List<Task> orderNumberResults = taskSearcher.searchTasksByOrderNumber(tasksToSearch, key);
@@ -86,9 +102,16 @@ public class BLLManager implements IBLLFacade{
     }
 
     @Override
-    public void submitTask(Task task) {
-        long currentEpochTime = System.currentTimeMillis();
-        dalFacade.submitTask(task, currentEpochTime);
+    public void submitTask(Task task) throws BLLException {
+        try
+        {
+            long currentEpochTime = System.currentTimeMillis();
+            dalFacade.submitTask(task, currentEpochTime);
+        }
+        catch(DALException ex)
+        {
+            throw new BLLException("Failed to submit the task", ex);
+        }       
     }
 
     @Override

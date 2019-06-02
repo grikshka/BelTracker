@@ -7,6 +7,7 @@ package beltracker.gui.controller;
 
 import beltracker.be.Task;
 import beltracker.bll.IBLLFacade.SortingType;
+import beltracker.gui.exception.ModelException;
 import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.model.interfaces.ITaskModel;
@@ -36,6 +37,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.log4j.Logger;
 
 /**
  * FXML Controller class
@@ -43,6 +45,8 @@ import javafx.util.Duration;
  * @author Acer
  */
 public class MainViewController implements Initializable, TaskObserver {
+    
+    private static final Logger LOGGER = Logger.getLogger(MainViewController.class);
 
     private static final String TASK_TILE_VIEW_PATH = "/beltracker/gui/view/TaskTileView.fxml";     
     private static final String TASK_ON_SCHEDULE_TILE_VIEW_STYLE_CLASS = "vboxTileTaskOnSchedule"; 
@@ -79,7 +83,7 @@ public class MainViewController implements Initializable, TaskObserver {
         model.register(this);
     }
     
-    public void initializeView() throws IOException
+    public void initializeView() throws ModelException
     {
         initializeComboBox();
         model.loadTasks();
@@ -121,7 +125,7 @@ public class MainViewController implements Initializable, TaskObserver {
         }
         catch(IOException ex)
         {
-            //TO DO
+            LOGGER.error(ex);
         }
     }    
     
@@ -202,8 +206,7 @@ public class MainViewController implements Initializable, TaskObserver {
         }
         catch(IOException ex)
         {
-            //TO DO
-            ex.printStackTrace();
+            LOGGER.error(ex);
         }
         
     }

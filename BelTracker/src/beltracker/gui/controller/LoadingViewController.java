@@ -6,7 +6,7 @@
 package beltracker.gui.controller;
 
 import beltracker.be.Department;
-import beltracker.exception.BelTrackerException;
+import beltracker.gui.exception.ModelException;
 import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IMainModel;
 import beltracker.gui.util.AlertManager;
@@ -75,39 +75,34 @@ public class LoadingViewController implements Initializable {
                 Parent mainView = initializeMainView(selectedDepartment);
                 Platform.runLater(() -> showMainView(mainView));
             }
-            catch(BelTrackerException ex)
+            catch(ModelException ex)
             {
-                LOGGER.error(ex.getMessage(), ex);
-                Platform.runLater(() -> alertManager.displayError(ex.getMessage(), true));
+                LOGGER.error(ex);
+                alertManager.displayError(ex.getMessage(), true);
             }
             catch(IOException ex)
             {
-                LOGGER.error(ex.getMessage(), ex);
-                Platform.runLater(() -> alertManager.displayError("The application was unable to start correctly", true));
-            }
-            catch(Exception ex)
-            {
-                ex.printStackTrace();
+                LOGGER.error(ex);
             }
             
         });
         executor.shutdown();
     }
     
-    private Parent initializeMainView(Department selectedDepartment) throws IOException, BelTrackerException
+    private Parent initializeMainView(Department selectedDepartment) throws IOException, ModelException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(MAIN_VIEW_PATH));
         Parent root = fxmlLoader.load();
 
-                    
+
         IMainModel mainModel = ModelCreator.getInstance().createMainModel();
         mainModel.setDepartment(selectedDepartment);
-        
+
         MainViewController controller = fxmlLoader.getController();
         controller.injectModel(mainModel);
         controller.initializeView();
-        
-        return root;
+
+        return root;        
     }
     
     private void showMainView(Parent mainView)

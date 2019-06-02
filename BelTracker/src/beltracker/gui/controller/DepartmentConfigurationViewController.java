@@ -6,6 +6,7 @@
 package beltracker.gui.controller;
 
 import beltracker.be.Department;
+import beltracker.gui.exception.ModelException;
 import beltracker.gui.model.ModelCreator;
 import beltracker.gui.model.interfaces.IDepartmentModel;
 import beltracker.gui.util.AlertManager;
@@ -38,6 +39,7 @@ import org.apache.log4j.Logger;
 public class DepartmentConfigurationViewController implements Initializable {
 
     private static final Logger LOGGER = Logger.getLogger(LoadingViewController.class);
+    
     static final String LOADING_VIEW_PATH = "/beltracker/gui/view/LoadingView.fxml";
     private AlertManager alertManager;
     private IDepartmentModel model;
@@ -74,9 +76,17 @@ public class DepartmentConfigurationViewController implements Initializable {
     
     private void showStartConfigurationButton()
     {
-        cmbDepartments.setItems(FXCollections.observableArrayList(model.getAllDepartments()));
-        btnStartConfirm.setVisible(true);
-        lblStartConfirm.setVisible(true);
+        try
+        {
+            cmbDepartments.setItems(FXCollections.observableArrayList(model.getAllDepartments()));
+            btnStartConfirm.setVisible(true);
+            lblStartConfirm.setVisible(true);
+        }
+        catch(ModelException ex)
+        {
+            LOGGER.error(ex);
+            alertManager.displayError(ex.getMessage(), true);
+        }
     }
     
     public void loadDepartmentInformations()
@@ -156,8 +166,7 @@ public class DepartmentConfigurationViewController implements Initializable {
         }
         catch(IOException ex)
         {
-            LOGGER.error(ex.getMessage(), ex);
-            alertManager.displayError("The application was unable to start correctly", true);
+            LOGGER.error(ex);
         }
     }
     

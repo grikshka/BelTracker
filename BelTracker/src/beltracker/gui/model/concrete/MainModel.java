@@ -8,6 +8,8 @@ package beltracker.gui.model.concrete;
 import beltracker.be.Department;
 import beltracker.be.Task;
 import beltracker.bll.IBLLFacade;
+import beltracker.bll.exception.BLLException;
+import beltracker.gui.exception.ModelException;
 import beltracker.gui.model.interfaces.IMainModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import beltracker.gui.util.taskobserver.TaskObserver;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +28,8 @@ import javafx.application.Platform;
  */
 public class MainModel implements IMainModel {
      
+    private static final Logger LOGGER = Logger.getLogger(MainModel.class);
+    
     private IBLLFacade bllFacade;
     private Department selectedDepartment;
     private ObservableList<Task> departmentTasks;
@@ -42,11 +47,18 @@ public class MainModel implements IMainModel {
     }
     
     @Override
-    public void loadTasks()
+    public void loadTasks() throws ModelException
     {
-        List<Task> tasks = bllFacade.getTasks(selectedDepartment);
-        departmentTasks = FXCollections.observableArrayList(tasks);
-        runTasksObserving();
+        try
+        {
+            List<Task> tasks = bllFacade.getTasks(selectedDepartment);
+            departmentTasks = FXCollections.observableArrayList(tasks);
+            runTasksObserving();
+        }
+        catch(BLLException ex)
+        {
+            throw new ModelException("Cannot retrieve data from the server. Please check your internet connection.", ex);
+        }
     }
     
     @Override
@@ -68,17 +80,24 @@ public class MainModel implements IMainModel {
     
     private void updateTasks()
     {
-        List<Task> updatedTasks = bllFacade.getTasks(selectedDepartment);
-        
-        List<Task> modifiedTasks = bllFacade.detectModifiedTasks(departmentTasks, updatedTasks);
-        List<Task> newTasks = bllFacade.detectNewTasks(departmentTasks, updatedTasks);
-        List<Task> removedTasks = bllFacade.detectRemovedTasks(departmentTasks, updatedTasks);
-        
-        departmentTasks.addAll(newTasks);
-        updateModifiedTasks(updatedTasks);  
-        departmentTasks.removeAll(removedTasks);
-        
-        notifyObservers(newTasks, modifiedTasks, removedTasks);
+        try
+        {
+            List<Task> updatedTasks = bllFacade.getTasks(selectedDepartment);
+
+            List<Task> modifiedTasks = bllFacade.detectModifiedTasks(departmentTasks, updatedTasks);
+            List<Task> newTasks = bllFacade.detectNewTasks(departmentTasks, updatedTasks);
+            List<Task> removedTasks = bllFacade.detectRemovedTasks(departmentTasks, updatedTasks);
+
+            departmentTasks.addAll(newTasks);
+            updateModifiedTasks(updatedTasks);  
+            departmentTasks.removeAll(removedTasks);
+
+            notifyObservers(newTasks, modifiedTasks, removedTasks);
+        }
+        catch(BLLException ex)
+        {
+            LOGGER.error("Cannot update tasks - failed to retrieve data from the server", ex);
+        }
     }
     
     private void updateModifiedTasks(List<Task> modifiedTasks)
