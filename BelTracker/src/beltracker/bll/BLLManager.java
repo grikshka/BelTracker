@@ -47,8 +47,8 @@ public class BLLManager implements IBLLFacade{
             List<Task> tasks = dalFacade.getTasks(department, currentDate);
             for(Task departmentTask : tasks)
             {
-                Task.Status status = taskAnalyser.analyseStatus(departmentTask, department);
-                double estimatedProgress = taskAnalyser.calculateEstimatedProgress(departmentTask);
+                Task.Status status = taskAnalyser.analyseStatus(departmentTask, department, currentDate);
+                double estimatedProgress = taskAnalyser.calculateEstimatedProgress(departmentTask, currentDate);
                 departmentTask.setStatus(status);
                 departmentTask.setEstimatedProgress(estimatedProgress);
             }

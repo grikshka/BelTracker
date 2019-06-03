@@ -16,9 +16,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
  */
 public class TaskAnalyser {
      
-    public double calculateEstimatedProgress(Task task)
+    public double calculateEstimatedProgress(Task task, LocalDate currentDate)
     {
-        LocalDate currentDate = LocalDate.now();
         LocalDate startDate = task.getStartDate();
         LocalDate deliveryDate = task.getEndDate();
         if(currentDate.isBefore(startDate))
@@ -37,13 +36,13 @@ public class TaskAnalyser {
         }
     }
     
-    public Task.Status analyseStatus(Task task, Department department)
+    public Task.Status analyseStatus(Task task, Department department, LocalDate currentDate)
     {
         if(!(task.getOrder().getCurrentDepartment().equals(department)))
         {
             return Task.Status.OVERDUE;
         }
-        else if(LocalDate.now().isAfter(task.getEndDate()))
+        else if(currentDate.isAfter(task.getEndDate()))
         {
             return Task.Status.DELAYED;
         }

@@ -58,6 +58,7 @@ public class DepartmentConfigurationViewController implements Initializable {
     public DepartmentConfigurationViewController()
     {
         model = ModelCreator.getInstance().createDepartmentModel();
+        alertManager = new AlertManager();
     }
     
     /**
