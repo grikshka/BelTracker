@@ -78,7 +78,7 @@ public class LoadingViewController implements Initializable {
             catch(ModelException ex)
             {
                 LOGGER.error(ex);
-                alertManager.displayError(ex.getMessage(), true);
+                Platform.runLater(() -> alertManager.displayError(ex.getMessage(), true));
             }
             catch(IOException ex)
             {
