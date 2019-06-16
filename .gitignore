@@ -40,4 +40,7 @@ nbdist/
 DatabaseProperties.properties
 DepartmentProperties.properties
 
+### Data Files ###
+data/
+
 # End of https://www.gitignore.io/api/java,netbeans
