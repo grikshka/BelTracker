@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
 
 public class DepartmentConfigurationViewController implements Initializable {
 
-    private static final Logger LOGGER = Logger.getLogger(LoadingViewController.class);
+    private static final Logger LOGGER = Logger.getLogger(DepartmentConfigurationViewController.class);
     
     static final String LOADING_VIEW_PATH = "/beltracker/gui/view/LoadingView.fxml";
     private AlertManager alertManager;

@@ -172,7 +172,7 @@ public class DatabaseDALManager implements IDALFacade{
         try
         {
             con = connector.getConnection();
-            DataTransfer newData = null;
+            DataTransfer newData;
             switch(fileType)
             {
                 case JSON:
@@ -199,7 +199,7 @@ public class DatabaseDALManager implements IDALFacade{
             }
             
         }
-        catch(ParseException ex)
+        catch(ParseException | java.text.ParseException ex)
         {
             LOGGER.error("Cannot parse the new data file", ex);
         }
