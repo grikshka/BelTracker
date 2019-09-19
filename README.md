@@ -1,8 +1,6 @@
 # Order Tracking Application
 
-Exam project for 2nd semester at Business Academy Southwest in cooperation with Belman A/S.
-
-Time for completion: 5 weeks
+Exam project for 2nd semester at Business Academy Southwest in cooperation with Belman A/S. Repository contains PDF file with full description and documentation of the project.
 
 Problem statement from Belman A/S :
 
