@@ -53,7 +53,7 @@ public class JSONConverter {
             JSONObject employeeObject = (JSONObject) record;
             String initials = (String) employeeObject.get("Initials");
             String name = (String) employeeObject.get("Name");
-            long salaryNumber = (Long) employeeObject.get("SalaryNumber");
+            String salaryNumber = employeeObject.get("SalaryNumber").toString();
             data.addEmployee(initials, name, salaryNumber);
         });
     }

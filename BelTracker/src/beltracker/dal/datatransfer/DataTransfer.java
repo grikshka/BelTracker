@@ -22,12 +22,12 @@ public class DataTransfer {
 
         private final String initials;
         private final String name;
-        private final long salaryNumber;
+        private final Long salaryNumber;
 
-        private Employee(String initials, String name, long salaryNumber) {
+        private Employee(String initials, String name, String salaryNumber) {
             this.initials = initials;
             this.name = name;
-            this.salaryNumber = salaryNumber;
+            this.salaryNumber = Math.round(Double.parseDouble(salaryNumber));
         }
 
         public String getInitials() {
@@ -123,7 +123,7 @@ public class DataTransfer {
         return order;
     }
     
-    public Employee addEmployee(String initials, String name, long salaryNumber) 
+    public Employee addEmployee(String initials, String name, String salaryNumber) 
     {
         Employee employee = new Employee(initials, name, salaryNumber);
         employees.add(employee);

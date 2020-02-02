@@ -31,7 +31,7 @@ public class CSVConverter {
         {
             if (!bean.getInitials().trim().isEmpty() && !bean.getName().trim().isEmpty()) 
             {
-                dataTransfer.addEmployee(bean.getInitials(), bean.getName(), Long.parseLong(bean.getSalary()));
+                dataTransfer.addEmployee(bean.getInitials(), bean.getName(), bean.getSalary());
             }
             if (!bean.getOrderNumber().trim().isEmpty() && !bean.getCustomerName().trim().isEmpty()) 
             {
