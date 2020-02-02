@@ -1,0 +1,101 @@
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+		PREPARATION
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+
+
+
+WHAT DO WE NEED TO PREPARE FOR PRESENTATION: 
+FIRST LAPTOP CONNECTED TO THE HDMI:
+	- Should be placed on the top table
+	- Opened scrumwise
+	- Opened application
+
+SECOND HELPER LAPTOP:
+	- Should be placed on the opposite side of the main laptop
+	- Opened DBMS with prepared queries for deletion/update/insertion
+
+WHAT HAS TO BE DONE TO NOT FAIL:
+	- finish sorting
+	- make sure observer would work (fix problem with killing thread)
+	- make sure that all type of orders are visible in database
+	- Print review plan
+
+RESPONSIBILITIES:
+	- GREG  - presenting first part and taking care of 2nd computer (database statements for observer).
+	- DAVID - presenting second part
+	
+
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+		PRESENTATION
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+
+
+FIRST PART: SCRUM PROCESS
+
+-> open scrumwise on backlog
+	- mention that we have finished user story for previous sprint that havent been done on 1st review.
+	- tell about how many user stories we did during this sprint
+	- tell about what we havent did (but it was not planned, and it is marked as low priority)
+	- * mention how prioritizing user stories saved problem of arranging work process *
+	- briefly explain every user story
+
+-> go to burndownchart
+	- explain burndown chart briefly - this is how our process went during last 2 weeks
+	- it was pretty much balanced through the whole sprint and everything is done
+
+
+
+SECOND PART: APP PRESENTATION
+
+-> open application on one computer (connected to the screen), and dbms on the second one
+	- tell about finishing user story from previous sprint - program is connected to the database
+
+	- presenting observer pattern
+		- person on the 2nd computer would insert new record to database
+		- * change should be reflected on the screen *
+		- showing that it works
+		- person on the 2nd computer would modify the new record
+		- * change should be reflected on the screen *
+		- showing that it works
+		- person on the 2nd computer would delete added record
+		- * change should be reflected on the screen *
+		- showing that it works
+	
+	- presenting full task view
+		- showing task on schedule full view
+		- *briefly explaining about informations - we put there everything they wanted
+		- explaining that same as with task tiles, for delayed orders we have different full views as well
+		- showing task delayed full view & task overdue full view
+
+	- presenting submit task
+		- showing submitting task on the order on schedule view
+		- * telling that task dissapear from the list *
+		- showing submitting task on the delayed order - works the same
+		- telling + showing that submit task on order overdue is blocked, cause order belongs to different department
+
+	- presenting searching tasks
+		QUESTION: Please select the task that you would like to search for
+		- search for selected task by order number
+		- search for selected task by customer name
+		
+	- presenting sorting tasks
+		- showing sorting by different sort types (both ASC and DESC)
+
+THIRD PART: QUESTIONS, REQUESTS AND WHAT NEXT?
+	- do you have any questions about what we showed you? Is something not clear?
+	- would you like to put some small changes or improvements on something we showed you?
+	- next week we will work on imporving efficiency of our app and your requests + below
+	- * mentioning that every functionality have been already tested, but anyways we will spend full time on testing right now*
+
+
+
+
+

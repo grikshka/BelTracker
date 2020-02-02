@@ -1,0 +1,46 @@
+
+
+TO DO BEFORE PRESENTATION:
+- delete DepartmentProperties file
+
+
+
+TO REMEMBER:
+- (David) select Halvfab department
+
+
+
+
+1ST PART: Department Selection - David
+- open application
+- explain department configuration
+	- explain the purpose of this
+	- show the whole configuration with animations
+	- explain that this view would be shown only once
+- select department
+- restart application
+
+
+
+
+2ND PART : Main View - Greg
+- explain the main view
+	- explain tiles
+	- explain labels (yellow and red tile)
+	- show sorting
+	- show searching
+- explain the task full view
+	- explain informations on view
+	- explain submit button
+
+
+
+
+3RD PART : Data mapping - Nedas
+- mention that our program is able to map data files to database
+- explain how it works
+	- we are putting data file inside NewData folder
+	- if file format is acceptable by our app (JSON, CSV or XLSX) we are mapping data to DB and moving file to InsertedData folder
+	- if file format is acceptable, but there were some problems with mapping it file is moved to InvalidData folder
+	- if file format in not acceptable we are moving it do InvalidData folder
+	- because our program is responsible to database, we can instntly see mapped data in the app.

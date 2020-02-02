@@ -1,0 +1,15 @@
+Things we did well:
+- We did good with a sprint plan, but we could do better - we should print the plan on the papers to not go back and look on the monitor multiple times during presentation
+- We prepared images of examples how our application would look like in the future and how we can change some particular stuff - IMAGE EXAMPLES ARE ALWAYS GOOD
+- We had a good schedule and priorities and we should keep it: SHOW SCRUM - SHOW APPLICATION - QUESTIONS AND FEEDBACK - WHAT TO DO NEXT?
+- We improved clothing - you should look formal on sprint review.
+
+Things that went wrong:
+- Our user story was too big and we havent finished it - we should create smaller user stories.
+- We havent finished our work - we should spend more time on estimating tasks and monitor our time better. We should be more precised on scrumwise if it comes to time.
+- We showed unfinished user story - Make sure that on sprint review you are showing only user stories that are 100% done (it applies to creating smaller user stories and estimating time)
+- We showed too much technical stuff - Next time we shouldnt go into technical details - we should focus only on the outcome.
+- Our presentation was slightly unorganized - even though we had a really good plan, due to stress and being overtime presentation went slightly messy. It applies to better estimation of time that will reduce stress and give us more time to prepare particularly for the sprint review.
+- We showed wrong version of the application due to the changes right before the review - We should not do ANY changes in the day of sprint review next time.
+- We havent shown what we would do next - we told it, but next time we should show it on user stories.
+- Forgot to thank at the end - small and important thing.

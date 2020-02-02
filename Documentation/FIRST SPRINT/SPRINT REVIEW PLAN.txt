@@ -1,0 +1,105 @@
+GREG:
+-> OPEN SCRUMWISE, GO TO BACKLOG
+
+1. Show plan of all the user stories we created with small description. Saying what is marked as compulsory what additional
+, mentioning little delay and say that i will explain this later in detail
+
+- > GO TO SPRINTS
+
+2. Telling what user stories we did during 1st sprint. Saying that 70% of compulsory work is done.
+
+3. Telling what we are planning to do during the next sprint - next 3 compulsory user stories (+ testing and debugging)
+and maybe some of the additional user stories.
+
+-> GO TO TASK BOARD 
+
+4. Explaining the small delay that unfortunately bring big causes to the presentation - we cannot show you program that operates on database data
+ saying that whole application you would see is operating right now on mock data, since merging is not finished.
+
+-> GO TO BURNDOWN CHART
+
+5. Showing how unexpected changes and functionality bringed changes to our program and how it affected our real time getting closer to estimated time. Saying that for some reason burndown chart is not showing our remained tasks correctly and saying that we are currently slightly overtime.
+
+6. Closing scrumwise and saying that right now we will jump into showing whole application
+
+GREG:
+
+-> SHOW RUNNING APPLICATION
+7. Saying that this is how first run of application look like - first of all, when application would be delivered to clients
+they will se this view that will help them with setting up the application.
+
+-> CLICKING START BUTTON
+
+8. Saying that whole configuration is based on selecting department that application is running in. Saying that once department would be set, this configuration no longer would be opened while starting the application
+
+9. Saying that right now we will select one of the departments
+
+*QUESTION* - asking which department you want us to select.
+
+-> CLICKING CHOSEN DEPARTMENT IN COMBO BOX AND CLICKING CONFIRM
+
+10. Explaining Loading screen that is displayed while fetching data from database and setting up the main application screen
+
+DAVID:
+
+-> MAIN VIEW IS SHOWN
+
+11. Explaining single tile - structure of the data here, and saying that all of the more detailed informations would be shown on click.
+
+12. Showing hovering and clicking animations and saying that we are already prepared for the next sprint to just do action when clicking on the tile
+
+*QUESTION* - are we prioritized the data correctly on the tile? Would you like to change something?
+
+13. Explaining delayed and overdue order tiles, and saying that we picked yellow and grey color even though colors that you picked were red and yellow. Explaining the decision
+
+*QUESTION* - would you like to anyways have the colors you said before? 
+
+-> SHOWING SCREENSHOT WITH DESIRED COLORS.
+
+14. Explaining that our application is fully scalable - no matter to future changes with screen resolution, our application would scale perfectly
+
+-> GOING FULL SCREEN
+
+15. Explaining side and top bar - why they are empty right now and what functionality we are planning to put there.
+
+-> SHOWING SCENE BUILDER WITH VISIBLE TOP AND SIDE BARS
+
+16. Saying that right now we will jump into more technical stuff for a bit
+
+-> CLOSING EVERYTHING
+
+17. Saying that right now I will talk a bit bout exception handling, and then we will jump into data storage system
+
+18. Showing folder with application and showing log file with all the errors that happens in our program
+
+*QUESTION* More technical - do you have any preferences about storage of log files? Or can we pick the format we decide to pick?
+
+19. Saying that right now we will jump into database specification. Explaining that even though our database system is still not shown in application, we finished implementing it, so thats why we want to present it, cause maybe you would like to say something about it or bring some changes.
+
+NEDAS:
+
+20. Explaining briefly how structure of our data works - all of the files are put to the one folder. Every single second our application is scanning one folder, that all the data should be put in. Once the data has been scanned, all of the informations are put into database, and file is moved to folder for parsed files.
+
+21. Explaining what is happening when file in wrong format or wrong data is put into program - it is moved to the folder with crashed files.
+
+22. Explaining future readers - our scanning data system would look the same, but we are planning to accept more data types - excel files etc. Mentioning that we already started working off time on excel reader.
+
+23. Saying that it is all and you can meet me after class ;)
+
+*QUESTION* 
+- Do you have any more questions, ideas or corrections you would like to put into application we showed you?
+
+24. Noting all the stuff
+
+25. Goodbye faggit.
+
+
+TO DO BEFORE:
+- RESETING APPLICATION
+- ASKING DAVID TO PREPARE SS WITH DIFFERENT COLORS
+
+TO PREPARE:
+- OPENING SCENE BUILDER WITH VIEWS WITH SOWN SIDE AND TOP BAR
+- OPENING THE APPLICATION
+- OPENING THE WEBSITE WITH SCRUMWISE
+

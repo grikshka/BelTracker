@@ -1,0 +1,27 @@
+"What language should be used, should you be able to change? - ONLY ENGLISH
+
+Should there be a log in view? - PROBABLY NOT
+
+Should there be any other view other than the main view? MAYBE
+
+Is it accessed only by employees? - YES
+
+Is it accessed only by a specifc kind of employee? - 1 APPLICATION IS RUNNED PER DEPARTMENT
+
+Should we worry about the other facilities other than the UK and Denmark ones? NO
+
+Will this software be used only in the manufacturing facilities? NO
+
+Will the software be always open? YES
+
+Will the software be updated automatically/dynamically? YES
+
+Can we change the design and try something different than the mock given? YES
+
+How many other departments do we have to show the progress of? 
+
+Will other departments have the same software shared between them? YES
+
+"Most departments work sequentially" Should we worry about that? YES
+
+Should there be any feedback given once the given department has finished their assigments of the order? WE HAVE PROGRESS BAR

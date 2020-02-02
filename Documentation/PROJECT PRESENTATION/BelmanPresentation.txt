@@ -1,0 +1,109 @@
+TO DO BEFORE PRESENTATION:
+- Make sure DepartmentProperties file is deleted
+- Make sure we have 2 prepared queries and that they are working
+- Make sure submitting task is working
+- Remember to show Halvfab department
+- Update database records to show biased tasks for Halvfab department
+
+DATABASE QUERIES:
+INSERT: INSERT INTO DepartmentTask VALUES(23, 358, '2019-03-03', '2019-07-07', 0);
+DELETE: DELETE FROM DepartmentTask WHERE OrderId = 358;
+
+DEVICES:
+
+	1st LAPTOP (connected to the screen):
+		- Application (remember to delete DepartmentProperties file)
+
+	2nd LAPTOP:
+		- Microsoft SQL Server with prepared query deleting and adding task
+
+
+ROLES:
+
+GREG - presenating application
+NEDAS - 2nd laptop (DB)
+DAVID - 1st laptop (Presentation)
+
+PLAN:
+
+- start with showing configuration screen of the app
+
+	* first run of the app after deploying to all the departments - configuration screen
+	* after setting the department this view would be never shown again
+	* lets start configuration
+
+- click start button
+
+	* here we have a drop down bar for selecting department
+	* lets pick one of these (HALVFAB!!!!!!!!!!!!!)
+
+- select Halvfab
+
+	* after clicking confirm we will see the loading screen which will afterwards redirect us 
+		to the main application view
+
+- click confirm
+
+WAIT FOR MAIN VIEW TO SHOW UP
+
+	* here is the main view of the application
+	* the main goal during creation of the app was to implement easy to use, intuitive and user friendly application
+		without any unnecessary functions.
+	* you can see all of the tasks here that should be performed by the department right now
+	* every tile represents the task and it shows most important informations about it:
+		- current department of the order that is assign to task
+		- order customer
+		- task end date
+		- estimated progress
+	* you can also see 3 TYPES OF TASKS that are differenciated by the colors red, yellow and without frame (normal)
+	* lets then click on them to see more informations about the orders marked with warnings
+
+- click delayed task
+
+	* mention warning label as well as estimated progress bar
+	* we can also see submit button for finishing task and moving order to next department
+	* lets click it
+
+- click submit
+
+	* we used confirmation pop up to make sure no task would be submitted by mistake
+
+- click ok
+
+	* as you can see task dissapeared from the list after submission and it was moved to the next department
+	* lets check the yellow on
+
+- click overdue task
+
+	* explain warning
+	* explain why we cant submit it
+
+- close overdue task
+	
+	* it is also worth to mention that this is because program is responsive to the database
+	* ask nedas to insert order to database
+
+- nedas inserts order
+
+	* it appears
+	* ask nedas to delete added order
+
+- nedas deletes order
+
+	* it disappears
+
+	* right now we can quickly present the most important part - how to filter out tasks that are irrelevant at the moment
+	* if we want to prioritize our list we can do this by sorting
+	* lets sort by something
+
+- click sort by something
+
+	* show that sorting works
+	* we can also search for particular task by order number as well as customer
+
+- search some task by order number
+- search some task by customer name
+
+	* thats everything, thank you.
+	
+	
