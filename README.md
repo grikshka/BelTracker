@@ -1,4 +1,4 @@
-# Order Tracking Application
+# BelTracker
 
 Exam project for 2nd semester at Business Academy Southwest in cooperation with Belman A/S. Repository contains PDF file with full description and documentation of the project.
 
